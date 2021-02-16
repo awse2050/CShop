@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.cs.mapper.NoticeMapper">
+  	<sql id="searchSql">
+  		<foreach collection="typeArr" item="type" open="and (" close=")" separator="or">
+  			<if test='type==null || type.equals("")'>
+  				1=1
+  			</if>
+  			<if test='type.equals("t")'>
+  				title like concat('%', #{keyword}, '%')
+  			</if>
+  			<if test='type.equals("c")'>
+  				content like concat('%', #{keyword}, '%')
+  			</if>
+  			<if test='type.equals("w")'>
+  				writer like concat('%', #{keyword}, '%')
+  			</if>
+  		</foreach>
+  	</sql>
+  
+  
+  	<!-- 추가 -->
+ 	<insert id="insert" parameterType="com.cs.domain.NoticeVO">
+ 		insert into tbl_notice ( title, content, writer ) values ( #{title}, #{content} , #{writer} )
+ 	</insert> 
+ 
+ 	<select id="read" resultType="com.cs.domain.NoticeVO">
+ 	 	select * from tbl_notice where nno = #{nno}
+ 	</select>
+ 	
+ 	<select id="getList" resultType="com.cs.domain.NoticeVO">
+ 		select * from tbl_notice 
+ 		where nno > 0 
+ 		<include refid="searchSql" />
+ 		order by nno desc limit #{skip}, #{amount}
+ 	</select>
+ 
+ 	<delete id="delete" parameterType="long">
+ 		delete from tbl_notice where nno = #{nno}
+ 	</delete>
+ 	
+ 	<update id="update" parameterType="com.cs.domain.NoticeVO">
+ 		update tbl_notice set title = #{title},content = #{content} ,moddate = now() where nno = #{nno}
+ 	</update>
+	
+	<select id="getTotal" resultType="int"> 
+		select count(nno) from tbl_notice 
+		where nno > 0 
+		<include refid="searchSql" />
+	</select>
+ 
+  </mapper>
