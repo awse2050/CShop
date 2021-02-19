@@ -16,4 +16,9 @@ public class IndexController {
 		log.info("index page...");
 	}
 	
+	@GetMapping("/loginPage")
+	public void loginPage() {
+		log.info("login page....");
+	}
+	
 }

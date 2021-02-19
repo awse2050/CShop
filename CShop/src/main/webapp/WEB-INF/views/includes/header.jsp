@@ -10,7 +10,7 @@
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title>Aviato | E-commerce template</title>
+  <title>CShop | E-commerce template</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->
@@ -83,73 +83,11 @@
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
-								class="tf-ion-android-cart"></i>Cart</a>
-						<div class="dropdown-menu cart-dropdown">
-							<!-- Cart Item -->
-							<div class="media">
-								<a class="pull-left" href="#!">
-									<img class="media-object" src="/resources/images/shop/cart/cart-1.jpg" alt="image" />
-								</a>
-								<div class="media-body">
-									<h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-									<div class="cart-price">
-										<span>1 x</span>
-										<span>1250.00</span>
-									</div>
-									<h5><strong>$1200</strong></h5>
-								</div>
-								<a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-							</div><!-- / Cart Item -->
-							<!-- Cart Item -->
-							<div class="media">
-								<a class="pull-left" href="#!">
-									<img class="media-object" src="/resources/images/shop/cart/cart-2.jpg" alt="image" />
-								</a>
-								<div class="media-body">
-									<h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-									<div class="cart-price">
-										<span>1 x</span>
-										<span>1250.00</span>
-									</div>
-									<h5><strong>$1200</strong></h5>
-								</div>
-								<a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-							</div><!-- / Cart Item -->
-
-							<div class="cart-summary">
-								<span>Total</span>
-								<span class="total-price">$1799.00</span>
-							</div>
-							<ul class="text-center cart-buttons">
-								<li><a href="/resources/cart.html" class="btn btn-small">View Cart</a></li>
-								<li><a href="/resources/checkout.html" class="btn btn-small btn-solid-border">Checkout</a></li>
-							</ul>
-						</div>
-
-					</li><!-- / Cart -->
-
-					<!-- Search -->
-					<li class="dropdown search dropdown-slide">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
-								class="tf-ion-ios-search-strong"></i> Search</a>
-						<ul class="dropdown-menu search-dropdown">
-							<li>
-								<form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
-							</li>
-						</ul>
-					</li><!-- / Search -->
-
-					<!-- Languages -->
-					<li class="commonSelect">
-						<select class="form-control">
-							<option>EN</option>
-							<option>DE</option>
-							<option>FR</option>
-							<option>ES</option>
-						</select>
-					</li><!-- / Languages -->
+					<li>
+					<a class="loginBtn" href="">
+					로그인
+					</a>
+					</li>					
 
 				</ul><!-- / .nav .navbar-nav .navbar-right -->
 			</div>
@@ -158,5 +96,49 @@
 	</div>
 </section><!-- End Top Header Bar -->
 
+<div id="loginModal" class="modal" tabindex="-1" role="dialog" style="text-align: center;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">로그인</h3>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+        	<input class="form-control" style="height: 50px; padding: 6px 25px" placeholder="아이디">
+        </div>
+        <div class="form-group">
+        	<input class="form-control" style="height: 50px; padding: 6px 25px" placeholder="비밀번호">
+        </div>
+      </div>
+      <div class="modal-footer" style="height: 75px; padding: 15px 100px;">
+        <button type="button" class="btn btn-primary" style="width: 100%; height: 100%; margin:0px auto; padding-left: 55px; padding-right: 55px">로그인</button>
+      </div>
+      <div class="modal-footer">
+		<h4> 회원가입 | 아이디/비밀번호 찾기</h4>      
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Main Menu Section -->
+<script>
+
+	$(document).ready(function() {
+		
+		var loginModal = $("#loginModal");
+		var loginBtn = $(".loginBtn");
+		
+		loginBtn.on("click", function(e) {
+			e.preventDefault();
+			
+			console.log("click");
+			
+			loginModal.modal("show");
+		
+		})
+		
+		
+	})
+	
+
+</script>
