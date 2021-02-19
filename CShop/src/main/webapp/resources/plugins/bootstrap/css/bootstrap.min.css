@@ -6444,9 +6444,7 @@ button.close {
 
 .modal {
 	position: fixed;
-	top: 0;
 	right: 0;
-	bottom: 0;
 	left: 0;
 	z-index: 1050;
 	display: none;
@@ -6493,7 +6491,10 @@ button.close {
 	border-radius: 6px;
 	outline: 0;
 	-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
-	box-shadow: 0 3px 9px rgba(0, 0, 0, .5)
+	box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+	width: 600px;
+	height: 400px;
+
 }
 
 .modal-backdrop {
@@ -6517,8 +6518,7 @@ button.close {
 }
 
 .modal-header {
-	padding: 15px;
-	border-bottom: 1px solid #e5e5e5
+	padding: 35px;
 }
 
 .modal-header .close {
@@ -6527,18 +6527,19 @@ button.close {
 
 .modal-title {
 	margin: 0;
-	line-height: 1.42857143
+	line-height: 1.42857143;
+	vertical-align: middle;
+	font-size: 16px;
 }
 
 .modal-body {
 	position: relative;
-	padding: 15px
+	padding: 15px 55px;
 }
 
 .modal-footer {
 	padding: 15px;
-	text-align: right;
-	border-top: 1px solid #e5e5e5
+	text-align: center;
 }
 
 .modal-footer .btn+.btn {
