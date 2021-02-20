@@ -42,4 +42,11 @@ public class NoticeMapperTests {
 		log.info(191*1.0 / 10);
 		log.info(2 * 0.1);
 	}
+	
+	@Test
+	public void viewCntTest() {
+		
+		mapper.updateViewCnt(22L, -1);
+		log.info(mapper.read(22L));
+	}
 }

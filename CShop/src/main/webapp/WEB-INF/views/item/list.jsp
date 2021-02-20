@@ -3,6 +3,11 @@
 
 <%@ include file="../includes/header.jsp"%>
 
+<div class="container" style="border-bottom: 1px solid #dedede">
+	<div>
+	!@#@!#
+	</div>
+</div>
 
 
 <section class="section">
@@ -26,11 +31,11 @@
 							</ul>
 						</nav>
 				</aside>
-				<div> <!-- 본문 틀 -->
-					<div>
-						<h3 style="text-align: right; font-size: 8px">HOME > 중고</h3> <!-- 현재위치 -->
+				<div class="listBody"> <!-- 본문 틀 -->
+					<div class="locationDiv">
+						<h3>HOME > 중고</h3> <!-- 현재위치 -->
 					</div>
-					<div style="text-align: right; margin-bottom: 10px;"> <!-- 분류, 갯수선택 select  -->
+					<div class="filterDiv"> <!-- 분류, 갯수선택 select  -->
 						<select name="type" style="margin-right: 3px">
 							<option value="t">제목</option>
 							<option value="c">내용</option>

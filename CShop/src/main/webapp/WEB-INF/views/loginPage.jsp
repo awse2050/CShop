@@ -5,25 +5,28 @@
  <section class="section">
  	<div class="container text-center" style="width: 300px;">
  		<div class="row" >
- 			<div class="form-group" >
- 				<div>
- 				<label>ID</label>
+ 			<div class="form-group idForm" >
+ 				<div class="">
+ 					<span>ID</span>
  				</div>
-				<input type="form-control" >
+				<input type="text" class="form-control loginInput" >
  			</div>
- 			<div class="form-group" >
-				<div>
-	 				<label>PASSWORD</label>
+ 			<div class="form-group passwordForm" >
+				<div class="">
+	 				<span>PASSWORD</span>
 				</div> 		
-				<input type="form-control" >
+				<input type="password" class="form-control loginInput"  >
  			</div>
- 			<div class="form-group">
- 				<input type="checkbox">기억하기
- 				<span>forget</span>
+ 			<div class="form-group add-ons">
+ 				<span>Forgot ID ?</span>
+ 				<span>Forgot Password ?</span>
+ 				<span>
+	 				<input type="checkbox">아이디 저장</input>
+ 				</span>
  			</div>
-			<div class="form-group">
-				<button class="btn btn-secondary" >LOGIN</button>
-				<button class="btn btn-default">Join Us</button>
+			<div class="form-group loginButton">
+				<button class="btn btn-dark login" >LOGIN</button>
+				<button class="btn btn-default joinUs">Join Us</button>
 			</div>
  		 </div>
  	

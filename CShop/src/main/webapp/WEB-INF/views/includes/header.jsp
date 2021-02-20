@@ -45,7 +45,7 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/resources/css/style.css?ver=2">
   <!-- CShop  Stylesheet -->
-  <link rel="stylesheet" href="/resources/css/cshop.css?ver=2">
+  <link rel="stylesheet" href="/resources/css/cshop.css?ver=1">
 
 </head>
 
@@ -58,7 +58,7 @@
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<div class="contact-number">
 					<i class="tf-ion-ios-telephone"></i>
-					<span>0129- 12323-123123</span>
+					<span>010.3194.3287</span>
 				</div>
 			</div>
 			<div class="col-md-4 col-xs-12 col-sm-4">
@@ -72,7 +72,7 @@
 								font-family="AustinBold, Austin" font-weight="bold">
 								<g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
 									<text id="AVIATO">
-										<tspan x="108.94" y="325">AVIATO</tspan>
+										<tspan x="108.94" y="325">CSHOP</tspan>
 									</text>
 								</g>
 							</g>
@@ -84,7 +84,12 @@
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
 					<li>
-					<a class="loginBtn" href="">
+					<a href="/notice/list">
+					공지사항
+					</a>
+					</li>
+					<li>
+					<a class="loginBtn" href="/loginPage">
 					로그인
 					</a>
 					</li>					
@@ -96,30 +101,6 @@
 	</div>
 </section><!-- End Top Header Bar -->
 
-<div id="loginModal" class="modal" tabindex="-1" role="dialog" style="text-align: center;">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">로그인</h3>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-        	<input class="form-control" style="height: 50px; padding: 6px 25px" placeholder="아이디">
-        </div>
-        <div class="form-group">
-        	<input class="form-control" style="height: 50px; padding: 6px 25px" placeholder="비밀번호">
-        </div>
-      </div>
-      <div class="modal-footer" style="height: 75px; padding: 15px 100px;">
-        <button type="button" class="btn btn-primary" style="width: 100%; height: 100%; margin:0px auto; padding-left: 55px; padding-right: 55px">로그인</button>
-      </div>
-      <div class="modal-footer">
-		<h4> 회원가입 | 아이디/비밀번호 찾기</h4>      
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Main Menu Section -->
 <script>
 
@@ -129,11 +110,9 @@
 		var loginBtn = $(".loginBtn");
 		
 		loginBtn.on("click", function(e) {
-			e.preventDefault();
 			
 			console.log("click");
 			
-			loginModal.modal("show");
 		
 		})
 		

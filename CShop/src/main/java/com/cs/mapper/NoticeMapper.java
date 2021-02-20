@@ -2,6 +2,8 @@ package com.cs.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.cs.domain.Criteria;
 import com.cs.domain.NoticeVO;
 
@@ -19,5 +21,6 @@ public interface NoticeMapper {
 	public int update(NoticeVO vo);
 	// 갯수
 	public int getTotal(Criteria cri);
-	
+	// 조회수
+	public void updateViewCnt(@Param("nno")Long nno, @Param("count")int count);
 }

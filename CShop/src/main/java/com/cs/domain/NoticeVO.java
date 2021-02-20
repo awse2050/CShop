@@ -11,4 +11,5 @@ public class NoticeVO {
 	private String title, content, writer;
 	
 	private Date regdate, moddate;
+	private int viewCnt;
 }

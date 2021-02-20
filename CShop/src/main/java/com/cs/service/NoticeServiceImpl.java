@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cs.domain.Criteria;
 import com.cs.domain.NoticeVO;
@@ -28,10 +29,16 @@ public class NoticeServiceImpl implements NoticeService{
 		return mapper.insert(vo);
 	}
 
+	@Transactional
 	@Override
 	public NoticeVO get(Long nno) {
 		// TODO Auto-generated method stub
 		log.info("Notice number : " + nno);
+		// 조회수 추가
+		if(mapper.read(nno) != null || mapper.read(nno).equals("")) {
+			mapper.updateViewCnt(nno, 1);
+		}
+		
 		return mapper.read(nno);
 	}
 
@@ -61,5 +68,4 @@ public class NoticeServiceImpl implements NoticeService{
 	public int getTotal(Criteria cri) {
 		return mapper.getTotal(cri);
 	}
-	
 }

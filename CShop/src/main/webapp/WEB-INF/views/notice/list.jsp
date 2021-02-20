@@ -18,15 +18,17 @@
 						<th scope="col">번호</th>
 						<th scope="col">제목</th>
 						<th scope="col">작성자</th>
+						<th scope="col">조회수</th>
 						<th scope="col">등록일</th>
 					</tr>
 				</thead>
 				<tbody class="listTablebody">
 					<c:forEach items="${list }" var="list">
 						<tr class="listRow">
-							<th id="nno" scope="row">${list.nno }</th>
+							<td id="nno" scope="row">${list.nno }</td>
 							<td id="title"><a class="getBtn" href="${list.nno }">${list.title }</a></td>
 							<td id="writer">${list.writer }</td>
+							<td id="viewCnt">${list.viewCnt }</td>
 							<td id="moddate"><fmt:formatDate pattern="yyyy-MM-dd"
 									value="${list.moddate }" /></td>
 						</tr>
@@ -42,8 +44,7 @@
 						<option value="w">작성자</option>
 						<input type='text' name='keyword' style="height: 25px">
 						<button class="searchBtn">검색하기</button>
-						<input type='hidden' name='pageNum'
-						value="${pageMaker.cri.pageNum }">
+						<input type='hidden' name='pageNum'value="${pageMaker.cri.pageNum }">
 						<input type='hidden' name='amount' value="${pageMaker.cri.amount }">
 					</select>
 				</form>
@@ -77,51 +78,44 @@
 </form>
 
 <script>
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
 
-						var getBtn = $(".getBtn");
-						var moveForm = $(".moveForm");
-						var pageBtn = $(".pageBtn");
-						var searchForm = $(".searchForm");
-						var searchBtn = $(".searchBtn");
+		var getBtn = $(".getBtn");
+		var moveForm = $(".moveForm");
+		var pageBtn = $(".pageBtn");
+		var searchForm = $(".searchForm");
+		var searchBtn = $(".searchBtn");
 
-						getBtn
-								.on(
-										"click",
-										function(e) {
-											e.preventDefault();
+		getBtn.on("click", function(e) {
+			e.preventDefault();
 
-											var nno = $(this).attr("href");
+			var nno = $(this).attr("href");
 
-											moveForm
-													.append("<input type='hidden' name='nno' value='"+nno+"'>");
-											moveForm.attr("action",
-													"/notice/get");
-											moveForm.submit();
-										})
+			moveForm.append("<input type='hidden' name='nno' value='"+nno+"'>");
+			moveForm.attr("action","/notice/get");
+			moveForm.submit();
+		})
 
-						pageBtn.on("click", function(e) {
-							e.preventDefault();
+		pageBtn.on("click", function(e) {
+			e.preventDefault();
 
-							var page = $(this).attr("href");
-							console.log(page);
+			var page = $(this).attr("href");
+			console.log(page);
 
-							moveForm.find("input[name='pageNum']").val(page);
-							moveForm.attr("action", "/notice/list");
-							moveForm.submit();
-						});
+			moveForm.find("input[name='pageNum']").val(page);
+			moveForm.attr("action", "/notice/list");
+			moveForm.submit();
+		});
 
-						searchBtn.on("click", function(e) {
-							e.preventDefault();
-							// 검색시 1페이지로 변경 후 전송
-							searchForm.find("input[name='pageNum']").val(1);
-							searchForm.submit();
+		searchBtn.on("click", function(e) {
+			e.preventDefault();
+			// 검색시 1페이지로 변경 후 전송
+			searchForm.find("input[name='pageNum']").val(1);
+			searchForm.submit();
 
-						});
+		});
 
-					});
+	});
 </script>
 
 <%@ include file="../includes/footer.jsp"%>

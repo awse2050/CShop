@@ -51,5 +51,11 @@
 		where nno > 0 
 		<include refid="searchSql" />
 	</select>
+	<!-- 조회수  설정 -->	
+	<update id="updateViewCnt">
+		update tbl_notice
+		set viewcnt = viewcnt + #{count}
+		where nno = #{nno}
+	</update>
  
   </mapper>

@@ -36,7 +36,7 @@
 	display: block;
 	width: 60px;
 	height: 1px;
-	background: black;
+	background: blue;
 	margin: 10px auto;
 }
 
@@ -57,12 +57,8 @@
 	color: inherit;
 }
 
-.listRow>#nno, #writer, #moddate {
+.listRow>#nno, #writer, #moddate, #viewCnt {
 	text-align: center;
-}
-
-.listRow>#nno {
-	width: 60px;
 }
 
 .listTh {
@@ -110,10 +106,59 @@
 	margin-bottom: 10px;
 }
 
+.loginInput {
+	height: 30px; 
+	padding: 6px 25px;
+}
+
+.add-ons, .idForm, .passwordForm > div {
+	text-align: left;
+}
+
+.add-ons {
+	padding-left: 10px;
+}
+
+.add-ons > span {
+	margin-right: 15px;
+	font-size: 11px;
+	vertical-align: middle;
+}
+
+.loginButton {
+	text-align: left;
+	display: flex;
+	flex: 1;
+}
+
+.login {
+	width: 75%;
+	margin-right: 3px;
+}
+
+.joinUs {
+	width: 25%;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.locationDiv > h3 {
+	text-align: right;
+	font-size: 8px;
+}
+
+.filterDiv {
+	text-align: right;
+	margin-bottom: 10px;
+}
+
 .of-wrap {
 	overflow-wrap: anywhere;
 }
 
 .text-center {
 	text-align: center;
+}
+.text-left {
+	text-align: left;
 }
