@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.cs.mapper.AuthMapper">
+  
+  	<insert id="insert" parameterType="com.cs.domain.AuthVO">
+  		insert into tbl_member_auth ( userid , auth ) values ( #{userid} , #{auth} )
+  	</insert>
+  
+  	<select id="read" resultType="com.cs.domain.AuthVO">
+  		select * from tbl_member_auth where userid = #{userid}
+  	</select>
+  
+  </mapper>

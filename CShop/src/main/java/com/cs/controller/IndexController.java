@@ -1,6 +1,7 @@
 package com.cs.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,8 +18,14 @@ public class IndexController {
 	}
 	
 	@GetMapping("/loginPage")
-	public void loginPage() {
-		log.info("login page....");
+	public void loginPage(String error, String logout, Model model) {
+		
+		log.info("login page...");
+		if(error != null) {
+			log.info("login error ... : " + error);
+		} else if ( logout != null) {
+			log.info("logout.... : "  + logout);
+		}
 	}
 	
 }
