@@ -31,6 +31,13 @@ public class NoticeController {
 		model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
 	}
 	
+	@GetMapping("/register") 
+	public void register() {
+		log.info("register page...");
+	}
+		
+	
+	
 	@GetMapping({"/get","/modify"})
 	public void getPage(Model model,Criteria cri, Long nno) { 
 		

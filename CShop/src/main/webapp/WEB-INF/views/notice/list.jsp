@@ -35,6 +35,9 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div>
+				<button class="registerBtn" style="float: right;">글쓰기</button>
+			</div>
 	
 			<div class="searchDiv">
 				<form class="searchForm" action="/notice/list">
@@ -85,7 +88,16 @@
 		var pageBtn = $(".pageBtn");
 		var searchForm = $(".searchForm");
 		var searchBtn = $(".searchBtn");
-
+		var registerBtn = $('.registerBtn');
+		
+		registerBtn.on("click", function(e) {
+			e.preventDefault();
+			
+			console.log("register btn ...");	
+			
+			location.href = "/notice/register";
+		});
+		
 		getBtn.on("click", function(e) {
 			e.preventDefault();
 

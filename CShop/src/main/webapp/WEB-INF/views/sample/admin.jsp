@@ -7,7 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2> register page..</h2>
 
+	<h2> admin jsp..</h2>
+	<form action="/logout" method="post">
+		<button>로그아웃</button>
+		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+	</form>
 </body>
 </html>
