@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cs.domain.Criteria;
+import com.cs.domain.NoticeAttachVO;
 import com.cs.domain.NoticeVO;
+import com.cs.mapper.NoticeAttachMapper;
 import com.cs.mapper.NoticeMapper;
 
 import lombok.Setter;
@@ -20,13 +22,28 @@ public class NoticeServiceImpl implements NoticeService{
 	@Setter(onMethod_ =@Autowired)
 	private NoticeMapper mapper;
 	
+	@Setter(onMethod_ = @Autowired)
+	private NoticeAttachMapper attachMapper;
 	
+	@Transactional
 	@Override
 	public int register(NoticeVO vo) {
 		// TODO Auto-generated method stub
 		log.info("register vo ... : " + vo);
 		
-		return mapper.insert(vo);
+		if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
+			return 0;
+		}
+		
+		int result = mapper.insert(vo);
+		
+		vo.getAttachList().forEach(attach -> {
+		
+			attach.setNno(mapper.getLastNno());
+			attachMapper.insert(attach);
+		});
+
+		return result;
 	}
 
 	@Transactional
@@ -49,23 +66,49 @@ public class NoticeServiceImpl implements NoticeService{
 		return mapper.getList(cri);
 	}
 
+	@Transactional
 	@Override
 	public boolean remove(Long nno) {
 		// TODO Auto-generated method stub
 		log.info("remove Notice number : " + nno);
+		attachMapper.deleteAll(nno);
+		
 		return mapper.delete(nno) == 1;
 	}
 
+	@Transactional
 	@Override
 	public boolean modify(NoticeVO vo) {
 		// TODO Auto-generated method stub
 		log.info("modify Notice .... : " + vo);
+		attachMapper.deleteAll(vo.getNno());
 		
-		return mapper.update(vo) == 1;
+		boolean result = mapper.update(vo) == 1;
+		
+		if(result && vo.getAttachList() != null && vo.getAttachList().size() > 0) {
+			vo.getAttachList().forEach(attach -> {
+				attach.setNno(vo.getNno());
+				attachMapper.insert(attach);
+			});
+		}
+		
+		return result;
 	}
 
 	@Override
 	public int getTotal(Criteria cri) {
 		return mapper.getTotal(cri);
+	}
+	
+	@Override
+	public Long getLastNno() {
+		return mapper.getLastNno();
+	}
+	
+	@Override
+	public List<NoticeAttachVO> getAttachList(Long nno) {
+		log.info("get attach number : " + nno);
+		
+		return attachMapper.findByNno(nno);
 	}
 }

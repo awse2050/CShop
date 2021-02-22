@@ -30,6 +30,8 @@
 				<c:out value="${notice.content }" />
 			</div>
 			<div class="getFooter">
+				<div style="border-bottom: 1px solid #dedede; height: 25px;"></div>
+			
 				<div class="footerBtn">
 					<button class="subBtn customBtn" data-oper="modify" >수정</button>
 					<button class="subBtn customBtn" data-oper="list" >목록</button>
@@ -46,12 +48,32 @@
 	<input type="hidden" name="type" value="${cri.type }">
 	<input type="hidden" name="keyword" value="${cri.keyword }">
 </form>		
-
-		
 		
 <script>
 
 	$(document).ready(function() {
+		
+		(function() {
+			var nno = "${notice.nno}";
+			
+			$.getJSON("/notice/getAttachList", {nno: nno}, function(result) {
+				console.log(result);
+				
+				var str = "";
+				
+				$(result).each(function(i, obj) {
+					if(obj.fileType) {
+						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+						
+						str += "<div><img src='/display?fileName="+fileCallPath+"'></div>";
+					}
+				});
+				console.log(str);
+				$(".getContent").append(str);
+				
+			})
+		})();
+		
 		var subForm = $(".subForm");
 		var subBtn = $('.subBtn');
 		
@@ -70,15 +92,8 @@
 				subForm.attr("action", "/notice/list");
 				subForm.submit();
 			}
-			
 		})
-		
-		
-		
-		
 	})
-	
-
 
 </script>
 
