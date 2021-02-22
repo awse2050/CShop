@@ -152,6 +152,67 @@
 	margin-bottom: 10px;
 }
 
+.getTitle {
+	text-align: left;
+	font-size: 30px;
+}
+
+.getHeader {
+	border-bottom: 1px solid #dedede;
+	border-top: 1px solid #dedede;
+	font-size: 12px;
+	padding: 15px 20px;
+	display: flex;
+	flex: 1;
+	flex-direction: row;
+}
+
+.getHeader > div {
+	width: 60%;
+}
+
+.getHeader > ul {
+	width: 40%;
+	text-align: right;
+	padding-left: 0px;
+}
+.getHeader > ul > li{
+	display: inline-block;	
+}
+
+.getHeader > ul > li:before {
+
+}
+
+.getContent {
+	padding: 15px 15px;
+	font-size: 12px;
+}
+
+.footerBtn {
+	padding-top: 25px;
+	float: right;
+}
+
+.getFooter {
+	border-top: 1px solid #dedede;
+}
+
+.customBtn {
+	display: inline-block;
+	min-width: 100px;
+	text-align: center;
+	background: #888;
+	color: #fff;
+	font-weight: 700;
+	font-size: 13px;
+	padding: 0 15px;
+	vertical-align: middle;
+	border: 0;	
+	height: 25px;
+}
+	
+
 .of-wrap {
 	overflow-wrap: anywhere;
 }

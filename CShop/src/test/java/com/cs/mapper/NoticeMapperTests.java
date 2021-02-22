@@ -49,4 +49,23 @@ public class NoticeMapperTests {
 		mapper.updateViewCnt(22L, -1);
 		log.info(mapper.read(22L));
 	}
+	
+	@Test
+	public void testee() {
+		log.info(mapper.getLastNno());
+	}
+	
+	
+	@Test
+	public void insert1() {
+		NoticeVO vo = new NoticeVO();
+			
+		vo.setTitle("공지사항"+68);
+		vo.setContent("공지사항입니다."+68);
+		vo.setWriter("관리자"+68);
+		
+		log.info(mapper.insert(vo));
+		log.info(mapper.getLastNno());
+	}
+	
 }

@@ -35,8 +35,8 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<div>
-				<button class="registerBtn" style="float: right;">글쓰기</button>
+			<div style="min-height: 25px">
+				<button class="registerBtn customBtn" style="float: right;">글쓰기</button>
 			</div>
 	
 			<div class="searchDiv">
@@ -46,7 +46,7 @@
 						<option value="c">내용</option>
 						<option value="w">작성자</option>
 						<input type='text' name='keyword' style="height: 25px">
-						<button class="searchBtn">검색하기</button>
+						<button class="searchBtn customBtn">검색하기</button>
 						<input type='hidden' name='pageNum'value="${pageMaker.cri.pageNum }">
 						<input type='hidden' name='amount' value="${pageMaker.cri.amount }">
 					</select>
@@ -77,6 +77,8 @@
 <form class="moveForm">
 	<input type='hidden' name='pageNum' value="${pageMaker.cri.pageNum }">
 	<input type='hidden' name='amount' value="${pageMaker.cri.amount }">
+	<input type='hidden' name='type' value="${pageMaker.cri.type }">
+	<input type='hidden' name='keyword' value="${pageMaker.cri.keyword }">
 
 </form>
 

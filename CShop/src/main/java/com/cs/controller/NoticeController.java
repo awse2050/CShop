@@ -36,7 +36,20 @@ public class NoticeController {
 		log.info("register page...");
 	}
 		
-	
+	@PostMapping("/register")
+	public String postRegsiter(NoticeVO vo, RedirectAttributes rttr) {
+		log.info("regist VO : " + vo);
+		log.info("post register....");
+
+		int result = service.register(vo);
+		
+		if(result == 1) { 
+			// 등록한 번호로 이동하게 변경할 것.
+			// service.getLastNno
+		}
+		return "redirect:/notice/list";
+		
+	}
 	
 	@GetMapping({"/get","/modify"})
 	public void getPage(Model model,Criteria cri, Long nno) { 

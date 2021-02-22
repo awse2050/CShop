@@ -23,4 +23,6 @@ public interface NoticeMapper {
 	public int getTotal(Criteria cri);
 	// 조회수
 	public void updateViewCnt(@Param("nno")Long nno, @Param("count")int count);
+	
+	public Long getLastNno();
 }

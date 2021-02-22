@@ -45,7 +45,7 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/resources/css/style.css?ver=2">
   <!-- CShop  Stylesheet -->
-  <link rel="stylesheet" href="/resources/css/cshop.css?ver=1">
+  <link rel="stylesheet" href="/resources/css/cshop.css?ver=3">
 
 </head>
 

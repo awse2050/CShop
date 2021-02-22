@@ -36,13 +36,7 @@
 						<h3>HOME > 중고</h3> <!-- 현재위치 -->
 					</div>
 					<div class="filterDiv"> <!-- 분류, 갯수선택 select  -->
-						<select name="type" style="margin-right: 3px">
-							<option value="t">제목</option>
-							<option value="c">내용</option>
-							<option value="w">작성자</option>
-							<input type='text' name='keyword' style="height: 25px">
-							<button class="searchBtn">검색하기</button>
-						</select>
+						
 					</div>
 					<div class="itemsDiv"> <!-- 게시글 목록 큰틀 -->
 						<div class="pickItem"> <!-- 작은틀 하나하나 -->
