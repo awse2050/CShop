@@ -79,13 +79,9 @@
 				
 				console.log(str);
 			})
-		// subForm.append(str).submit();		
-			
-		 //	subForm.submit();
+			subForm.append(str).submit();		
 		})
 		
-		// 가상form 태그
-		// 해당 property
 		var cloneObj = uploadDiv.clone();
 		
 		$("input[name='uploadFile']").on("change", function(e) {

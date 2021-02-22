@@ -6,8 +6,8 @@ import lombok.Data;
 public class NoticeAttachVO {
 	// uuid , uploadPath, fileName, fileType, nno
 
-	private String uuid, uploadPath, fileName , fileType;
-	
+	private String uuid, uploadPath, fileName;
+	private boolean fileType;
 	private Long nno;
 	
 }

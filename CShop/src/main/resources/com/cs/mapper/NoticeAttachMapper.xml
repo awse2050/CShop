@@ -7,8 +7,8 @@
  <mapper namespace="com.cs.mapper.NoticeAttachMapper" > 
  
  	<insert id="insert" parameterType="com.cs.domain.NoticeAttachVO">
- 		insert into tbl_attach ( uuid, uploadpath, filename, nno ) 
- 		values ( #{uuid}, #{uploadPath} , #{fileName} , #{nno})
+ 		insert into tbl_attach ( uuid, uploadpath, filename, filetype, nno ) 
+ 		values ( #{uuid}, #{uploadPath} , #{fileName}, #{fileType}, #{nno})
  	</insert>
  
  	<delete id="delete">
@@ -18,5 +18,9 @@
  	<select id="findByNno" resultType="com.cs.domain.NoticeAttachVO">
  		select * from tbl_attach where nno = #{nno}
  	</select>
+ 
+	<delete id="deleteAll">
+		delete from tbl_attach where nno = #{nno}
+	</delete>
  
  </mapper>

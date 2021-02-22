@@ -12,6 +12,7 @@ public interface NoticeAttachMapper {
 	public void delete(String uuid);
 	// 게시물의 첨부파일 찾기
 	public List<NoticeAttachVO> findByNno(Long nno);
-
+	// 게시물삭제시 전체삭제
+	public void deleteAll(Long nno);
 		
 }

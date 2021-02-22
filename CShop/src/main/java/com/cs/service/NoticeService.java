@@ -3,6 +3,7 @@ package com.cs.service;
 import java.util.List;
 
 import com.cs.domain.Criteria;
+import com.cs.domain.NoticeAttachVO;
 import com.cs.domain.NoticeVO;
 
 public interface NoticeService {
@@ -17,4 +18,8 @@ public interface NoticeService {
 	public boolean modify(NoticeVO vo);
 	
 	public int getTotal(Criteria cri);
+	
+	public List<NoticeAttachVO> getAttachList(Long nno);
+	
+	public Long getLastNno();
 }
