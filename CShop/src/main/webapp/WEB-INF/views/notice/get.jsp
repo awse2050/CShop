@@ -2,37 +2,43 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script>
+
+<%@ include file="../includes/header.jsp"%>
 
 
-<h2> get .jsp..</h2>
-		
-		<div>
-			<input type='text' name='nno' value="${notice.nno }"  readonly="readonly">
+<section class="product-category section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="title getTitle">
+					<div>공지사항</div>
+				</div>
+			</div>
+			<div class="">
+				<div class="getHeader">
+					<div>
+						<c:out value="${notice.title }" />
+					</div>
+					<ul>
+						<li>이름 : <c:out value="${notice.writer }" /> </li>
+						<li>등록일 : <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${notice.regdate }"/> </li>
+						<li>조회수 : <c:out value="${notice.viewCnt }" /> </li>
+					</ul>
+				</div>
+			</div>
+			<div class="getContent">
+				<c:out value="${notice.content }" />
+			</div>
+			<div class="getFooter">
+				<div class="footerBtn">
+					<button class="subBtn customBtn" data-oper="modify" >수정</button>
+					<button class="subBtn customBtn" data-oper="list" >목록</button>
+				</div>
+			</div>
 		</div>
-		<div>
-			<input type='text' name='title' value="${notice.title }"  readonly="readonly">
-		</div>
-		<div>
-			<input type='text' name='content' value="${notice.content }"  readonly="readonly">
-		</div>
-		<div>
-			<input type='text' name='writer' value="${notice.writer }" readonly="readonly">
-		</div>
-		
-		<button class="subBtn" data-oper="modify" >수정</button>
-		<button class="subBtn"  data-oper="list" >목록</button>
-		
+	</div>
+</section>	
+				
 		
 <form class="subForm">
 	<input type="hidden" name="pageNum" value="${cri.pageNum }">
@@ -40,6 +46,8 @@
 	<input type="hidden" name="type" value="${cri.type }">
 	<input type="hidden" name="keyword" value="${cri.keyword }">
 </form>		
+
+		
 		
 <script>
 
@@ -74,5 +82,4 @@
 
 </script>
 
-</body>
-</html>
+<%@ include file="../includes/footer.jsp"%>

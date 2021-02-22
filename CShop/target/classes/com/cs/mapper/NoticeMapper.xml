@@ -57,5 +57,9 @@
 		set viewcnt = viewcnt + #{count}
 		where nno = #{nno}
 	</update>
+	
+	<select id="getLastNno" resultType="Long">
+	 select max(nno) from tbl_notice
+	</select>
  
   </mapper>

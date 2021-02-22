@@ -29,6 +29,7 @@
 		<div>
 			<input type='text' name='writer' value="${notice.writer }" readonly="readonly">
 		</div>
+		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 	</form>
 	
 		<button class="subBtn" data-oper="modify" >변경</button>
