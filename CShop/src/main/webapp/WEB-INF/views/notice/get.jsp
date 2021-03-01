@@ -5,7 +5,6 @@
 
 <%@ include file="../includes/header.jsp"%>
 
-
 <section class="product-category section">
 	<div class="container">
 		<div class="row">

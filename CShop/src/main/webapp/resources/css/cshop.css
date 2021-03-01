@@ -27,8 +27,8 @@
 }
 
 .index-category-child-div div {
-	 overflow-wrap: anywhere;
-	 padding: 3px 20px;
+	overflow-wrap: anywhere;
+	padding: 3px 20px;
 }
 
 .index-category-child-div div::before {
@@ -83,7 +83,7 @@
 	text-align: center;
 }
 
-.pickItem > div {
+.pickItem>div {
 	overflow-wrap: anywhere;
 	padding: 3px 20px;
 }
@@ -99,19 +99,18 @@
 	height: 1px;
 	background: black;
 	margin: 10px auto;
-	
 }
 
-.aside-header > nav > ul > li {
+.aside-header>nav>ul>li {
 	margin-bottom: 10px;
 }
 
 .loginInput {
-	height: 30px; 
+	height: 30px;
 	padding: 6px 25px;
 }
 
-.add-ons, .idForm, .passwordForm > div {
+.add-ons, .idForm, .passwordForm>div {
 	text-align: left;
 }
 
@@ -119,7 +118,7 @@
 	padding-left: 10px;
 }
 
-.add-ons > span {
+.add-ons>span {
 	margin-right: 15px;
 	font-size: 11px;
 	vertical-align: middle;
@@ -142,7 +141,7 @@
 	padding-right: 0px;
 }
 
-.locationDiv > h3 {
+.locationDiv>h3 {
 	text-align: right;
 	font-size: 8px;
 }
@@ -150,6 +149,24 @@
 .filterDiv {
 	text-align: right;
 	margin-bottom: 10px;
+}
+
+.notice-header-title {
+	font-size: 35px;
+}
+
+.notice-header-subTitle {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.notice-header-subTitle > div {
+	text-align: center;
+	font-weight: 700;
+}
+.notice-header-subTitle > div > p {
+	color: black;	
 }
 
 .getTitle {
@@ -167,21 +184,22 @@
 	flex-direction: row;
 }
 
-.getHeader > div {
+.getHeader>div {
 	width: 60%;
 }
 
-.getHeader > ul {
+.getHeader>ul {
 	width: 40%;
 	text-align: right;
 	padding-left: 0px;
 }
-.getHeader > ul > li{
-	display: inline-block;	
+
+.getHeader>ul>li {
+	display: inline-block;
 }
 
-.getHeader > ul > li:before {
-
+.getHeader>ul>li:before {
+	
 }
 
 .getContent {
@@ -208,10 +226,9 @@
 	font-size: 13px;
 	padding: 0 15px;
 	vertical-align: middle;
-	border: 0;	
+	border: 0;
 	height: 25px;
 }
-	
 
 .of-wrap {
 	overflow-wrap: anywhere;
@@ -220,6 +237,7 @@
 .text-center {
 	text-align: center;
 }
+
 .text-left {
 	text-align: left;
 }

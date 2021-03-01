@@ -19,7 +19,6 @@ public class SampleController {
 	
 	@GetMapping("/admin")
 	public void admin()	{
-		
 		log.info("admin...");
 	}
 }

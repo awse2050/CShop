@@ -9,7 +9,6 @@
 	</div>
 </div>
 
-
 <section class="section">
 	<div class="container">
 		<div class="row">
@@ -99,22 +98,11 @@
 								<strong>2700원</strong>
 							</div>
 						</div>
-						
-						
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-
-
-
-
-
-
-
-
-
 
 <%@ include file="../includes/footer.jsp"%>

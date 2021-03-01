@@ -40,7 +40,7 @@ public class UploadController {
 	
 	@PostMapping(value = "/uploadAjax" , produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<AttachFileDTO>> uploadAjaxd(MultipartFile[] uploadFile) {
+	public ResponseEntity<List<AttachFileDTO>> ajaxPost(MultipartFile[] uploadFile) {
 
 		//객체를 담을 List
 		List<AttachFileDTO> list = new ArrayList<AttachFileDTO>();
@@ -140,9 +140,7 @@ public class UploadController {
 			File file = new File("c:\\upload\\"+URLDecoder.decode(fileName, "UTF-8"));
 
 			file.delete();
-			// 이미지라면 썸네일 파일도 삭제하기.
-			// 들어온 파일의 경로가 "s_" 를 포함하고 있음.
-			// replace로 바꿔주고 다시 삭제.
+
 			if(type.equals("image")) {
 				log.info("this file is image...");
 				 file = new File(file.getAbsolutePath().replace("s_", ""));
@@ -157,7 +155,6 @@ public class UploadController {
 		return new ResponseEntity<String>("Delete...", HttpStatus.OK);
 	}
 	
-
 	// 날짜폴더 생성
 	private String getFolder() {
 		
@@ -186,6 +183,4 @@ public class UploadController {
 		
 		return contentType.startsWith("image");
 	}
-	
-	
 }

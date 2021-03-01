@@ -38,7 +38,6 @@
 					
 				</ul>
 			</div>
-			
 			<div class="footerBtn">
 				<button class="customBtn" >등록</button>
 			</div>
@@ -185,11 +184,6 @@
 			return true;
 		}
 	});	
-
 </script>
-
-
-
-
 
 <%@ include file="../includes/footer.jsp"%>

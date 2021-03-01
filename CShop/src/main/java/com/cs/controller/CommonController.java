@@ -21,6 +21,5 @@ public class CommonController {
 		log.info("error page ..");
 		
 		log.info("auth ... : " + auth);
-		
 	}
 }

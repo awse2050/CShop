@@ -55,7 +55,6 @@ public class NoticeMapperTests {
 		log.info(mapper.getLastNno());
 	}
 	
-	
 	@Test
 	public void insert1() {
 		NoticeVO vo = new NoticeVO();
@@ -67,5 +66,4 @@ public class NoticeMapperTests {
 		log.info(mapper.insert(vo));
 		log.info(mapper.getLastNno());
 	}
-	
 }

@@ -43,7 +43,7 @@
 	
 		<button class="subBtn" data-oper="modify" >변경</button>
 		<button class="subBtn" data-oper="remove" >삭제</button>
-		<button class="subBtn"  data-oper="list" >목록</button>
+		<button class="subBtn" data-oper="list" >목록</button>
 </div>
 		
 <form class="objForm">

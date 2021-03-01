@@ -27,5 +27,4 @@ public class IndexController {
 			log.info("logout.... : "  + logout);
 		}
 	}
-	
 }

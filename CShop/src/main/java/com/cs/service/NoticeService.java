@@ -7,6 +7,7 @@ import com.cs.domain.NoticeAttachVO;
 import com.cs.domain.NoticeVO;
 
 public interface NoticeService {
+	
 	public int register(NoticeVO vo);
 	
 	public NoticeVO get(Long nno);

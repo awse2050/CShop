@@ -3,13 +3,32 @@
 
 <%@ include file="../includes/header.jsp"%>
 
+<div class="container" style="border-bottom: 1px solid #dedede; padding-top:20px; padding-bottom: 20px;">
+	<div class="notice-header-title">
+	 	<div>CS Service</div>
+	</div>
+	<div class="notice-header-subTitle">
+		<div> 
+			<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
+			<p>공지사항</p>
+		</div>
+		<div>
+			<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
+			<p>FAQ</p>
+		</div>
+		<div>
+			<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
+			<p>1:1문의</p>
+		</div>
+	</div>
+</div>
 
-<section class="product-category section">
+<section class="product-category section" style="padding-top: 50px;">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="title text-center">
-					<h2>공지사항</h2>
+				<div class="title">
+					<h2  style="text-align: left; font-size: 30px">공지사항</h2>
 				</div>
 			</div>
 			<table class="table table-secondary">
