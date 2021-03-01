@@ -46,13 +46,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			response.sendRedirect("/sample/member");
 			return;
 		}
-		
 		// 아무것도 아니라면 그 페이지 그대로 이동한다.
 		response.sendRedirect("/");
-		
-		
 	}
-
-	
-	
 }

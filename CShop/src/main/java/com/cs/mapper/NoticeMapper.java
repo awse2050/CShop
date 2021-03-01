@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Param;
 import com.cs.domain.Criteria;
 import com.cs.domain.NoticeVO;
 
-
 public interface NoticeMapper {
 	// 추가
 	public int insert(NoticeVO vo);
@@ -23,6 +22,6 @@ public interface NoticeMapper {
 	public int getTotal(Criteria cri);
 	// 조회수
 	public void updateViewCnt(@Param("nno")Long nno, @Param("count")int count);
-	
+	// 마지막번호
 	public Long getLastNno();
 }

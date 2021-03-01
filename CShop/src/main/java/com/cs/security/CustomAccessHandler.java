@@ -22,9 +22,5 @@ public class CustomAccessHandler implements AccessDeniedHandler {
 		log.info("accessDeniedException : " + accessDeniedException);
 		
 		response.sendRedirect("/accessError");
-		
 	}
-
-	
-	
 }

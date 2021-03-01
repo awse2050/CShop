@@ -55,7 +55,6 @@ public class NoticeServiceImpl implements NoticeService{
 		if(mapper.read(nno) != null || mapper.read(nno).equals("")) {
 			mapper.updateViewCnt(nno, 1);
 		}
-		
 		return mapper.read(nno);
 	}
 
@@ -91,7 +90,6 @@ public class NoticeServiceImpl implements NoticeService{
 				attachMapper.insert(attach);
 			});
 		}
-		
 		return result;
 	}
 

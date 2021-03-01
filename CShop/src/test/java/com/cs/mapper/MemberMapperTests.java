@@ -53,6 +53,4 @@ public class MemberMapperTests {
 	public void readTest() {
 		log.info(mapper.read("admin44"));
 	}
-	
-
 }

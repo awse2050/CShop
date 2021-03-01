@@ -10,12 +10,9 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequestMapping("/item/*")
 public class ItemController {
-
 	
 	@GetMapping("/list")
 	public void list() {
 		log.info("item list jsp.. ");
 	}
-	
-
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import com.cs.domain.NoticeAttachVO;
 
 public interface NoticeAttachMapper {
-
 	// 추가..
 	public void insert(NoticeAttachVO vo);
 	// 삭제...

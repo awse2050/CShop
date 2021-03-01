@@ -21,7 +21,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		
 		log.warn("load user By Username : " + username);
 		
 		MemberVO vo = mapper.read(username);
@@ -29,8 +28,4 @@ public class CustomUserDetailsService implements UserDetailsService {
 		log.warn("vo.. : " + vo);
 		return vo == null ? null : new CustomUser(vo);
 	}
-
-	
-	
-	
 }
