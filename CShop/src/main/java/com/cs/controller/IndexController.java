@@ -1,5 +1,8 @@
 package com.cs.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +21,22 @@ public class IndexController {
 	}
 	
 	@GetMapping("/loginPage")
-	public void loginPage(String error, String logout, Model model) {
+	public void loginPage(String error, String logout, HttpServletRequest request, Model model) {
+
+		String saveUri = null;
 		
 		log.info("login page...");
-		if(error != null) {
+		
+		if(error != null || logout != null) {
 			log.info("login error ... : " + error);
-		} else if ( logout != null) {
 			log.info("logout.... : "  + logout);
+			saveUri = "http://localhost:8080/index";
+		} else {
+			saveUri = request.getHeader("referer");
 		}
+		
+		log.info("save Uri : " + saveUri);
+		
+		model.addAttribute("referer", saveUri );
 	}
 }

@@ -21,8 +21,12 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			Authentication authentication) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		
-		// 로그인 체크
-		// 로그인했을때 authentication에 로그인을 시도한 사람의 정보가 들어간다.
+		log.warn(request.getParameter("referer"));
+		String host = "localhost:8080";
+		
+		StringBuffer uri = new StringBuffer(request.getParameter("referer"));
+		uri.delete(0, host.length() + uri.indexOf(host));
+		log.warn(uri);
 		
 		// 권한을 담을 List
 		List<String> roleNames = new ArrayList<String>();
@@ -32,21 +36,22 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			roleNames.add(auth.getAuthority())
 		);
 		
-		log.info("로그인 대상자가 가진 권한 : " + roleNames);
+		log.warn("로그인 대상자가 가진 권한 : " + roleNames);
 		
-		// 관리자권한을 가졌을 경우를 먼저 처리한다.
-		if(roleNames.contains("ROLE_ADMIN")) {
-			
-			log.info("has ROLE_ADMIN...");
-			response.sendRedirect("/sample/admin");
-			return;
-		} else if(roleNames.contains("ROLE_MEMBER")) {
-			log.info("has ROLE_MEMBER...");
-			
-			response.sendRedirect("/sample/member");
-			return;
-		}
+//		// 관리자권한을 가졌을 경우를 먼저 처리한다.
+//		if(roleNames.contains("ROLE_ADMIN")) {
+//			
+//			log.info("has ROLE_ADMIN...");
+//			response.sendRedirect("/sample/admin");
+//			return;
+//		} else if(roleNames.contains("ROLE_MEMBER")) {
+//			log.info("has ROLE_MEMBER...");
+//			
+//			response.sendRedirect("/sample/member");
+//			return;
+//		}
+		log.warn("to move page : " + uri.toString());
 		// 아무것도 아니라면 그 페이지 그대로 이동한다.
-		response.sendRedirect("/");
+		response.sendRedirect(uri.toString());
 	}
 }

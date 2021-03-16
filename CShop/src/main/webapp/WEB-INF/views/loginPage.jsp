@@ -22,7 +22,7 @@
 	 				<span>Forgot ID ?</span>
 	 				<span>Forgot Password ?</span>
 	 				<span>
-		 				<input type="checkbox">아이디 저장</input>
+		 				<input type="checkbox" name="remember">아이디 저장</input>
 	 				</span>
 	 			</div>
 				<div class="form-group loginButton">
@@ -30,6 +30,7 @@
 					<button class="btn btn-default joinUs">Join Us</button>
 				</div>
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
+				<input type="hidden" name="referer" value="${referer }">
 	 		</form>
  		 </div>
  	

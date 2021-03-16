@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+  <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
   
 <!DOCTYPE html>
 <html lang="en">
@@ -84,16 +85,28 @@
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
 					<li>
-					<a href="/notice/list">
-					공지사항
-					</a>
+						<a href="/notice/list">
+						공지사항
+						</a>
 					</li>
 					<li>
-					<a class="loginBtn" href="/loginPage">
-					로그인
-					</a>
-					</li>					
-
+						<sec:authorize access="isAnonymous()">
+						<a class="loginBtn" href="/loginPage">
+						로그인
+						</a>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal.vo.username"/>님 환영합니다.
+						</sec:authorize>
+					</li>				
+					<sec:authorize access="isAuthenticated()">
+					<li>
+						<form class="logoutForm" action='/logout' method='post'>
+							<a class="logoutBtn" href="/logout">로그아웃</a>
+							<input type='hidden' name='${_csrf.parameterName }' value='${_csrf.token }'>
+						</form>
+					</li>
+					</sec:authorize>	
 				</ul><!-- / .nav .navbar-nav .navbar-right -->
 			</div>
 		</div>
@@ -108,6 +121,15 @@
 		
 		var loginModal = $("#loginModal");
 		var loginBtn = $(".loginBtn");
+		var logoutBtn = $(".logoutBtn");
+		
+		logoutBtn.on("click", function(e) {
+			e.preventDefault();
+			
+			$(".logoutForm").submit();
+			
+		})
+		
 		
 		loginBtn.on("click", function(e) {
 			

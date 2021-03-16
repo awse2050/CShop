@@ -16,12 +16,13 @@
 		<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')" />
 		<!-- 접근제한은 추후 다른 jsp로 처리하도록 변경 -->
 		<security:access-denied-handler ref="customAccessHandler" />
-		<security:form-login login-page="/loginPage" authentication-success-handler-ref="customLoginSuccessHandler" />
+		<security:form-login login-page="/loginPage"  authentication-success-handler-ref="customLoginSuccessHandler" />
 		<!-- logout-url => form태그에서 사용하는 action위치 설정 
 			logout-success-url -> 로그아웃 성공시 돌아갈 페이지
 		-->
-		<security:logout logout-url="/logout" logout-success-url="/index" invalidate-session="true" />
-		
+		<security:logout logout-url="/logout" logout-success-url="/index" invalidate-session="true" delete-cookies="remember,JSESSION_ID" />
+		<security:remember-me token-validity-seconds="604800" data-source-ref="dataSource"
+							remember-me-parameter="remember" remember-me-cookie="remember" />
 	
 	</security:http>
 	
