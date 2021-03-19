@@ -4,35 +4,49 @@
 <%@ include file="../includes/header.jsp"%>
 
 <div class="container" style="border-bottom: 1px solid #dedede">
-	<div>
-	!@#@!#
+	<div class="index-category">
+		<div class="index-category-div">
+			<div class="index-category-child-div">
+				<a href="/clothes/list">
+					<div>
+						<h3  style="font-weight: 700; font-size: 15px; color: #555;">패션</h3>
+					</div>
+				</a>	
+			</div>
+			<div class="index-category-child-div">
+				<a href="/mobile/list"> 
+					<div >
+						<h3 style="font-weight: 700; font-size: 15px; color: #555;">휴대폰/통신</h3>
+					</div>
+				</a>	
+			</div>
+			<div class="index-category-child-div">
+				<a href="/office/list">
+					<div>
+						<h3  style="font-weight: 700; font-size: 15px; color: #555;">사무용품</h3>
+					</div>
+				</a>	
+			</div>
+		</div>
 	</div>
 </div>
 
 <section class="section">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
-				<div class="title text-center "> <!--  카테고리 나열 -->
-				</div>
-			</div>
 			<div>
 				<aside class="" style="float: left; width: 10%; text-align: center">
-					<aside-header class="aside-header">ㅎㅎ</aside-header>
+					<aside-header class="aside-header">의류</aside-header>
 						<nav>
 							<ul>
-								<li>123123</li>
-								<li>123123</li>
-								<li>123123</li>
-								<li>123123</li>
-								<li>123123</li>
-								<li>123123</li>
+								<li>팝니다</li>
+								<li>삽니다</li>
 							</ul>
 						</nav>
 				</aside>
 				<div class="listBody"> <!-- 본문 틀 -->
 					<div class="locationDiv">
-						<h3>HOME > 중고</h3> <!-- 현재위치 -->
+						<h3>HOME > 팝니다</h3> <!-- 현재위치 -->
 					</div>
 					<div class="filterDiv"> <!-- 분류, 갯수선택 select  -->
 						

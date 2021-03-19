@@ -14,26 +14,26 @@
 			<div class="index-category">
 				<div class="index-category-div">
 					<div class="index-category-child-div">
-						<a href="/item/list">
+						<a href="/clothes/list">
 							<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
 							<div>
-								<h3>하나</h3>
+								<h3>패션</h3>
 							</div>
 						</a>	
 					</div>
 					<div class="index-category-child-div">
-						<a href="/item/list">
+						<a href="/mobile/list">
 							<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
 							<div>
-								<h3>하나</h3>
+								<h3>휴대폰/통신</h3>
 							</div>
 						</a>	
 					</div>
 					<div class="index-category-child-div">
-						<a href="/item/list">
+						<a href="/office/list">
 							<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
 							<div>
-								<h3>하나</h3>
+								<h3>사무용품</h3>
 							</div>
 						</a>	
 					</div>

@@ -9,8 +9,8 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/item/*")
-public class ItemController {
+@RequestMapping("/clothes/*")
+public class ClothesController {
 	
 	@GetMapping("/list")
 	public void list() {

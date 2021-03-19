@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cs.mapper.ClothesMapper">
+	<sql id="searchSql">
+		<foreach collection="typeArr" item="type" open="and ("
+			close=")" separator="or">
+			<if test='type==null || type.equals("")'>
+				1=1
+			</if>
+			<if test='type.equals("t")'>
+				productName like concat('%', #{keyword}, '%')
+			</if>
+			<if test='type.equals("c")'>
+				description like concat('%', #{keyword}, '%')
+			</if>
+			<if test='type.equals("w")'>
+				writer like concat('%', #{keyword}, '%')
+			</if>
+		</foreach>
+	</sql>
+
+
+
+	<!-- 추후 이미지도 같이 추가 -->
+	<insert id="insert"
+		parameterType="com.cs.domain.category.ClothesVO">
+		insert into tbl_clothes ( productName, description, writer, price, count )
+		values ( #{productName}, #{description}, #{writer}, #{price} ,#{count} )
+	</insert>
+
+	<!-- 추후 이미지 테이블 -->
+	<select id="read" resultType="com.cs.domain.category.ClothesVO">
+		select * from tbl_clothes where cno = #{cno}
+	</select>
+
+	<select id="getList"
+		resultType="com.cs.domain.category.ClothesVO">
+		select * from tbl_clothes
+		where cno > 0
+		<include refid="searchSql" />
+		order by cno desc limit #{skip}, #{amount}
+	</select>
+
+	<delete id="delete" parameterType="Long">
+		delete from tbl_clothes where cno = #{cno}
+	</delete>
+
+	<update id="update"
+		parameterType="com.cs.domain.category.ClothesVO">
+		update tbl_clothes
+		set productName=#{productName}, description = #{description}, writer = #{writer},
+		price = #{price}, category = #{category}, moddate = now()
+		where cno = #{cno}
+	</update>
+
+	<update id="updateViewCnt">
+		update tbl_clothes
+		set viewCnt = viewCnt + #{count}
+		where cno = #{cno}
+	</update>
+
+	<select id="getTotal" resultType="int">
+		select count(cno) from tbl_clothes
+		where cno > 0
+		<include refid="searchSql" />
+	</select>
+
+
+</mapper>
