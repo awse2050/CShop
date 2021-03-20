@@ -2,6 +2,7 @@ package com.cs.service;
 
 import java.util.List;
 
+import com.cs.domain.ClothesAttachVO;
 import com.cs.domain.Criteria;
 import com.cs.domain.category.ClothesVO;
 
@@ -18,5 +19,7 @@ public interface ClothesService {
 	public boolean modify(ClothesVO vo);
 
 	public int getTotal(Criteria cri);
+	
+	public List<ClothesAttachVO> getAttachList(Long cno);
 
 }

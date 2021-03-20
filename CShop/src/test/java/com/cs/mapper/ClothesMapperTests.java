@@ -76,4 +76,8 @@ public class ClothesMapperTests {
 		log.info(mapper.delete(1L));
 	}
 	
+	@Test
+	public void test2() {
+		mapper.updateViewCnt(150L, 1);
+	}
 }

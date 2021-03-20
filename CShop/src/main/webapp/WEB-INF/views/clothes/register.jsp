@@ -203,7 +203,7 @@
 			
 			actionForm.append(str);
 			console.log(actionForm);
-			// actionForm.submit();
+			actionForm.submit();
 		})
 		
 		listBtn.on("click", function(e) {
