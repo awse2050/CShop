@@ -3,7 +3,7 @@ package com.cs.domain.category;
 import java.util.Date;
 import java.util.List;
 
-import com.cs.domain.NoticeAttachVO;
+import com.cs.domain.ClothesAttachVO;
 
 import lombok.Data;
 
@@ -23,7 +23,7 @@ public class ClothesVO {
 	
 	private int price, count, viewCnt;
 
-	private List<NoticeAttachVO> attachList;
+	private List<ClothesAttachVO> attachList;
 	
 	private Date regdate, moddate;
 

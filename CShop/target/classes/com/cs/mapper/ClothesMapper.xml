@@ -22,8 +22,6 @@
 		</foreach>
 	</sql>
 
-
-
 	<!-- 추후 이미지도 같이 추가 -->
 	<insert id="insert"
 		parameterType="com.cs.domain.category.ClothesVO">
@@ -66,6 +64,10 @@
 		select count(cno) from tbl_clothes
 		where cno > 0
 		<include refid="searchSql" />
+	</select>
+	
+	<select id="getLastCno" resultType="Long">
+	 select max(cno) from tbl_clothes
 	</select>
 
 

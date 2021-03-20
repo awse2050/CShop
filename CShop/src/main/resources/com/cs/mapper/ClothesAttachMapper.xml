@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.cs.mapper.ClothesAttachMapper" > 
+ 
+ 	<insert id="insert" parameterType="com.cs.domain.ClothesAttachVO">
+ 		insert into tbl_clothesattach ( uuid, uploadpath, filename, filetype, cno ) 
+ 		values ( #{uuid}, #{uploadPath} , #{fileName}, #{fileType}, #{cno})
+ 	</insert>
+ 
+ 	<delete id="delete">
+ 		delete from tbl_clothesattach where uuid = #{uuid}
+ 	</delete>
+ 
+ 	<select id="findByCno" resultType="com.cs.domain.ClothesAttachVO">
+ 		select * from tbl_clothesattach where cno = #{cno}
+ 	</select>
+ 
+	<delete id="deleteAll">
+		delete from tbl_clothesattach where cno = #{cno}
+	</delete>
+ 
+ </mapper>

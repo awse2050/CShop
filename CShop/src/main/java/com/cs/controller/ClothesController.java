@@ -35,14 +35,18 @@ public class ClothesController {
 	public String postRegister(ClothesVO vo, RedirectAttributes rttr) {
 		
 		log.info("In Controller Regist VO : " + vo);
+				
+		if(vo.getAttachList() != null) {
+			vo.getAttachList().forEach( attach -> log.info(attach));
+		}
+
+		Long result = service.register(vo);
 		
-		service.register(vo);
-	
+		log.info("register result : " + result);
+		
 		return "redirect:/clothes/list";
 		
 	}
-	
-
 	// 목록, 수정, 삭제는 등록설정이 다 된 이후 추가 할것.
 
 }
