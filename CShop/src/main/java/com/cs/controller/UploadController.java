@@ -38,7 +38,7 @@ public class UploadController {
 		log.info("upload ajax... ");
 	}
 	
-	@PostMapping(value = "/uploadAjax" , produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/uploadAjaxAction" , produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<AttachFileDTO>> ajaxPost(MultipartFile[] uploadFile) {
 

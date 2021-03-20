@@ -9,21 +9,21 @@
 			<div class="index-category-child-div">
 				<a href="/clothes/list">
 					<div>
-						<h3  style="font-weight: 700; font-size: 15px; color: #555;">패션</h3>
+						<h3 class="category-header-font">패션</h3>
 					</div>
 				</a>	
 			</div>
 			<div class="index-category-child-div">
 				<a href="/mobile/list"> 
 					<div >
-						<h3 style="font-weight: 700; font-size: 15px; color: #555;">휴대폰/통신</h3>
+						<h3 class="category-header-font">휴대폰/통신</h3>
 					</div>
 				</a>	
 			</div>
 			<div class="index-category-child-div">
 				<a href="/office/list">
 					<div>
-						<h3  style="font-weight: 700; font-size: 15px; color: #555;">사무용품</h3>
+						<h3 class="category-header-font">사무용품</h3>
 					</div>
 				</a>	
 			</div>
