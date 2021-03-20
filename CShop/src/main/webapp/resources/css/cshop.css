@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+
+
 .index-category {
 	position: relative;
 	min-height: 1px;
@@ -38,6 +40,12 @@
 	height: 1px;
 	background: blue;
 	margin: 10px auto;
+}
+
+.category-header-font {
+	font-weight: 700;
+	font-size: 15px;
+	color: #555;
 }
 
 .searchDiv, .pagingDiv {
@@ -161,12 +169,13 @@
 	justify-content: space-around;
 }
 
-.notice-header-subTitle > div {
+.notice-header-subTitle>div {
 	text-align: center;
 	font-weight: 700;
 }
-.notice-header-subTitle > div > p {
-	color: black;	
+
+.notice-header-subTitle>div>p {
+	color: black;
 }
 
 .getTitle {
@@ -229,6 +238,40 @@
 	border: 0;
 	height: 25px;
 }
+
+.tabTitle {
+	display: table;
+	width: 100%;
+	border-bottom: 2px solid #999;
+	table-layout: fixed;
+	
+}
+
+.tabTitle > li {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	height: 100%;
+}
+
+
+.tabTitle > li > p {
+	margin: 10px 0px;
+	font-size: 12px;
+	font-weight: 700;
+	color: #999;
+/* 	color: #f3f3f3;
+	background-color: #333; */
+}
+
+.tabTitle > li.active {
+	background-color: #333;
+}
+
+.tabTitle > li.acitve > p {
+	color: #f3f3f3;
+}
+
 
 .of-wrap {
 	overflow-wrap: anywhere;
