@@ -32,6 +32,7 @@ public class ClothesServiceImpl implements ClothesService {
 		log.info("regist vo : " + vo);
 		
 		if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
+			log.info("No Attach List");
 			return 0L;
 		}
 		

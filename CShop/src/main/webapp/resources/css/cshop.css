@@ -51,6 +51,12 @@
 	padding-top: 20px;
 }
 
+.categoryDiv {
+	text-align: left; 
+	padding-left: 10px;
+	padding-top: 20px;
+}
+
 .clothesSearch {
 	text-align: center;
 	padding-bottom: 45px;
@@ -151,10 +157,20 @@
 	padding-right: 0px;
 }
 
-.locationDiv>h3 {
+.locationDiv > h3{
 	text-align: right;
-	font-size: 8px;
+	font-size: 11px;
 }
+
+.lastUpdate {
+	text-align: right;
+}
+
+.lastUpdate > span {
+	font-size: 12px;
+	color: #999;
+}
+
 
 .filterDiv {
 	text-align: right;
@@ -291,6 +307,25 @@
 .pageRow>a.active {
 	background-color: #eee;
 	color: #000;
+}
+
+.sellerRow {
+	display: flex;
+	flex: 1;
+	flex-direction: row;
+	margin-top: 10px;
+}
+.sellerRow > .sellerBox {
+	border: 1px solid #ddd;
+	font-size: 12px;
+	padding:0 8px;
+	padding-top: 1px;
+	color: #999;
+	margin-right: 10px;
+}
+
+.infoBox {
+	padding: 15px;
 }
 
 .of-wrap {

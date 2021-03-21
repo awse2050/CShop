@@ -25,8 +25,8 @@
 	<!-- 추후 이미지도 같이 추가 -->
 	<insert id="insert"
 		parameterType="com.cs.domain.category.ClothesVO">
-		insert into tbl_clothes ( productName, description, writer, price, count )
-		values ( #{productName}, #{description}, #{writer}, #{price} ,#{count} )
+		insert into tbl_clothes ( productName, description, category, writer, price, count )
+		values ( #{productName}, #{description}, #{category}, #{writer}, #{price} ,#{count} )
 	</insert>
 
 	<!-- 추후 이미지 테이블 -->
