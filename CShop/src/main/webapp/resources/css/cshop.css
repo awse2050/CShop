@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-
-
 .index-category {
 	position: relative;
 	min-height: 1px;
@@ -50,8 +48,13 @@
 
 .searchDiv, .pagingDiv {
 	text-align: center;
-	padding-bottom: 10px;
-	padding-top: 10px;
+	padding-top: 20px;
+}
+
+.clothesSearch {
+	text-align: center;
+	padding-bottom: 45px;
+	padding-top: 45px;
 }
 
 .listTablebody {
@@ -83,7 +86,6 @@
 	flex: 1px;
 	flex-direction: row;
 	flex-wrap: wrap;
-	padding-top: 20px;
 }
 
 .pickItem {
@@ -157,6 +159,13 @@
 .filterDiv {
 	text-align: right;
 	margin-bottom: 10px;
+}
+
+.filterSelect {
+	min-width: 70px;
+	padding: 5px 5px;
+	font-size: 12px;
+	font-weight: 700
 }
 
 .notice-header-title {
@@ -244,34 +253,45 @@
 	width: 100%;
 	border-bottom: 2px solid #999;
 	table-layout: fixed;
-	
 }
 
-.tabTitle > li {
+.tabTitle>li {
 	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
 	height: 100%;
 }
 
-
-.tabTitle > li > p {
+.tabTitle>li>p {
 	margin: 10px 0px;
 	font-size: 12px;
 	font-weight: 700;
 	color: #999;
-/* 	color: #f3f3f3;
+	/* 	color: #f3f3f3;
 	background-color: #333; */
 }
 
-.tabTitle > li.active {
+.tabTitle>li.active {
 	background-color: #333;
 }
 
-.tabTitle > li.acitve > p {
+.tabTitle>li.acitve>p {
 	color: #f3f3f3;
 }
 
+.pageRow>a {
+	display: inline-block;
+	padding: 0 10px;
+	border: 1px solid #D3D6DF;
+	line-height: 30px;
+	overflow: hidden;
+	font-size: 13px;
+}
+
+.pageRow>a.active {
+	background-color: #eee;
+	color: #000;
+}
 
 .of-wrap {
 	overflow-wrap: anywhere;
