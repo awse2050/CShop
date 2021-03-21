@@ -1,5 +1,7 @@
 package com.cs.controller;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +76,30 @@ public class ClothesController {
 		
 	}
 	
+	@PostMapping("/remove")
+	public String remove(Long cno, Criteria cri, RedirectAttributes rttr) {
+		
+		log.info("In Controller Remove Cno : " + cno);
+		
+		List<ClothesAttachVO> attachList = service.getAttachList(cno);
+		log.info("Cno have AttachList : " + attachList);
+		
+		boolean result = service.remove(cno);
+		
+		if(result) {
+			
+			deleteFile(attachList);
+			
+			rttr.addAttribute("pageNum", cri.getPageNum());
+			rttr.addAttribute("amount", cri.getAmount());
+			rttr.addAttribute("type", cri.getType());
+			rttr.addAttribute("keyword", cri.getKeyword());
+		}
+		
+		return "redirect:/clothes/list";
+	}
+
+	
 	
 	// 첨부파일 불러오기
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -84,4 +110,33 @@ public class ClothesController {
 		return new ResponseEntity<>(service.getAttachList(cno), HttpStatus.OK);
 	}
 	
+	//첨부파일 삭제
+	private void deleteFile(List<ClothesAttachVO> attachList) {
+		
+		log.info("Deleting File In deleteFile Method ....");
+		
+		if(attachList == null || attachList.size() == 0) {
+			log.info("Attach List is Null");
+			return;
+		}
+		
+		log.info("delete attach file List. ... ");
+		log.info(attachList);
+
+		attachList.forEach(attach -> {
+			try { 
+				File file = new File("c:\\upload\\"+attach.getUploadPath()+"\\"+attach.getUuid()+"_"+attach.getFileName());
+				// 파일이 있으면 지운다.
+				Files.deleteIfExists(file.toPath());
+				
+				if(Files.probeContentType(file.toPath()).startsWith("image")) {
+					file = new File("c:\\upload\\"+attach.getUploadPath()+"\\s_"+attach.getUuid()+"_"+attach.getFileName());
+				
+					Files.delete(file.toPath());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
 }

@@ -111,8 +111,10 @@
 					</sec:authorize>	
 				</ul><!-- / .nav .navbar-nav .navbar-right -->
 			</div>
+		</div> <!-- /.row  -->
+		<div style="text-align: center; padding-top: 30px;">
+			<button class="regBtn"><i class="fas fa-plus-circle" style="padding-right:3px"></i> 물품등록</button>
 		</div>
-
 	</div>
 </section><!-- End Top Header Bar -->
 
@@ -124,6 +126,7 @@
 		var loginModal = $("#loginModal");
 		var loginBtn = $(".loginBtn");
 		var logoutBtn = $(".logoutBtn");
+		var regBtn = $(".regBtn");
 		
 		logoutBtn.on("click", function(e) {
 			e.preventDefault();
@@ -132,13 +135,17 @@
 			
 		})
 		
-		
 		loginBtn.on("click", function(e) {
-			
 			console.log("click");
-			
 		
 		})
+		regBtn.on("click", function(e) {
+			e.preventDefault();
+		
+			self.location="/clothes/register";
+			
+		});
+		
 		
 		
 	})
