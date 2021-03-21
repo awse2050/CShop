@@ -1,13 +1,23 @@
 package com.cs.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cs.domain.ClothesAttachVO;
+import com.cs.domain.Criteria;
+import com.cs.domain.PageDTO;
 import com.cs.domain.category.ClothesVO;
 import com.cs.service.ClothesService;
 
@@ -22,8 +32,13 @@ public class ClothesController {
 	private ClothesService service;
 	
 	@GetMapping("/list")
-	public void list() {
+	public void list(Criteria cri, Model model) {
 		log.info("item list jsp.. ");
+		
+		log.info("In Controller Cri : " + cri);
+		model.addAttribute("list", service.getList(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
+		
 	}
 	
 	@GetMapping("/register")
@@ -47,6 +62,17 @@ public class ClothesController {
 		return "redirect:/clothes/list";
 		
 	}
+	
+	// 첨부파일 불러오기
+	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ClothesAttachVO>> getAttachList(Long cno) {
+		
+		log.info("get Attach List Cno : " + cno );
+		return new ResponseEntity<>(service.getAttachList(cno), HttpStatus.OK);
+	}
+	
+	
 	// 목록, 수정, 삭제는 등록설정이 다 된 이후 추가 할것.
 
 }

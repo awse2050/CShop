@@ -49,74 +49,161 @@
 						<h3>HOME > 팝니다</h3> <!-- 현재위치 -->
 					</div>
 					<div class="filterDiv"> <!-- 분류, 갯수선택 select  -->
-						
+						<select class="filterSelect" name="amount">
+							<option value="10"
+							${pageMaker.cri.amount eq 10 ? "selected" : "" }>10개</option>
+							<option value="20"
+							${pageMaker.cri.amount eq 20 ? "selected" : "" }>20개</option>
+							<option value="40"
+							${pageMaker.cri.amount eq 40 ? "selected" : "" }>40개</option>
+							<option value="60"
+							${pageMaker.cri.amount eq 60 ? "selected" : "" }>60개</option>
+							<option value="80"
+							${pageMaker.cri.amount eq 80 ? "selected" : "" }>80개</option>
+						</select>
 					</div>
 					<div class="itemsDiv"> <!-- 게시글 목록 큰틀 -->
-						<div class="pickItem"> <!-- 작은틀 하나하나 -->
-							<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-							<div>
-								<b>하나1212212321412345325325</b>
+						<c:forEach items="${list }" var="list">
+							<div class="pickItem"> <!-- 작은틀 하나하나 -->
+								<a href='<c:out value="${list.cno }" />'>
+									<!-- background-image : url(경로) -->
+									<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
+									<div>
+										<b>${list.productName }</b>
+									</div>
+									<div>
+										<div>운포</div>
+										<strong>${list.price }원</strong>
+									</div>
+								</a>
 							</div>
-							<div>
-								<span>운포</span>
-								<strong>2700원</strong>
-							</div>
-						</div>
-						<div class="pickItem"> <!-- 작은틀 하나하나 -->
-							<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-							<div>
-								<b>하나1212212321412345325325</b>
-							</div>
-							<div>
-								<span>운포</span>
-								<strong>2700원</strong>
-							</div>
-						</div>
-						<div class="pickItem"> <!-- 작은틀 하나하나 -->
-							<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-							<div>
-								<b>하나1212212321412345325325</b>
-							</div>
-							<div>
-								<span>운포</span>
-								<strong>2700원</strong>
-							</div>
-						</div>
-						<div class="pickItem"> <!-- 작은틀 하나하나 -->
-							<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-							<div>
-								<b>하나1212212321412345325325</b>
-							</div>
-							<div>
-								<span>운포</span>
-								<strong>2700원</strong>
-							</div>
-						</div>
-						<div class="pickItem"> <!-- 작은틀 하나하나 -->
-							<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-							<div>
-								<b>하나1212212321412345325325</b>
-							</div>
-							<div>
-								<span>운포</span>
-								<strong>2700원</strong>
-							</div>
-						</div>
-						<div class="pickItem"> <!-- 작은틀 하나하나 -->
-							<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-							<div>
-								<b>하나1212212321412345325325</b>
-							</div>
-							<div>
-								<span>운포</span>
-								<strong>2700원</strong>
-							</div>
-						</div>
+						</c:forEach>
+						
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- /.row -->
+		
+		<div class="clothesSearch"> <!-- searchDiv -->
+			<form class="searchForm" action="/clothes/list">
+				<select name="type">
+					<option value="">--</option>
+					<option value="p"
+					${pageMaker.cri.type eq p ? "selected" : "" }>상품명</option>
+				</select>
+				<input type="text" name="keyword" placeholder="검색어를 입력하세요">
+				<input type="hidden" name="pageNum" value=${pageMaker.cri.pageNum }>
+				<input type="hidden" name="amount" value=${pageMaker.cri.amount }>
+				<button class="searchBtn"><i class="fas fa-search"></i></button> 
+			</form>
+		</div>
+		
+		<div class="text-center">
+			<ul class="pageRow">
+				<c:if test="${pageMaker.prev }">
+					<a class="pageBtn" href="${pageMaker.startPage - 1 }">
+						<li class="prevBtn">prev</li>
+					</a>
+				</c:if>
+				<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="num">
+					<a class="pageBtn ${pageMaker.cri.pageNum == num  ? "active" : ""}" href='<c:out value="${num }"/>'>
+						<li>
+							${num }
+						</li>
+					</a>
+				</c:forEach>
+				<c:if test="${pageMaker.next }">
+					<a class="pageBtn" href="${pageMaker.endPage + 1 }">
+						<li class="nextBtn">
+							Next
+						</li>
+					</a>
+				</c:if>
+			</ul>
+        </div>
+		
 	</div>
 </section>
+<form class="objForm">
+	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+	<input type="hidden" name="type" value="${pageMaker.cri.type }">
+	<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+</form>
+
+<script>
+
+	$(document).ready(function() {
+		
+		var objForm = $(".objForm");
+		var pageBtn = $(".pageBtn"); // 페이지 이동 버튼
+		
+		var searchBtn = $(".searchBtn");
+		var searchForm = $(".searchForm");
+		
+		var filterSelect = $(".filterSelect");
+		// 페이지 이동시
+		pageBtn.on("click", function(e) {
+			e.preventDefault();
+			
+			var pageNum = $(this).attr("href");
+
+			objForm.find("input[name='pageNum']").val(pageNum);
+			
+			objForm.attr("action", "/clothes/list").submit();
+		});
+		
+		// 검색 버튼 클릭시
+		searchBtn.on("click", function(e) {
+			e.preventDefault();
+			var type = searchForm.find("select[name='type']").val();
+			var keyword = searchForm.find("input[name='keyword']").val();
+			
+			if(type == "") {
+				alert("검색종류를 선택하세요.");
+				return false;
+			} 
+			if(keyword == "") {
+				alert("검색할 내용을 입력하세요.");
+				return false;
+			} 
+			
+			searchForm.find("input[name='pageNum']").val(1);
+			
+			searchForm.submit();
+		});
+		
+		
+		$.getJSON("/clothes/getAttachList", {cno: 245}, function(result) {
+			console.log(result);
+		})
+		
+		// option을 클릭한다.
+		// 홈페이지로 이동한다.
+
+		
+		filterSelect.on("change", function(e) {
+			e.preventDefault();
+			// options 대신 children을 써도 같은 데이터를 가지고 있는 property로 상관없다.
+			// 근데 어떤걸 쓰는게 더 좋은건지에 대한 확실한 이유를 모르고 있음.
+			var amount = this.options[this.selectedIndex].value;
+			objForm.find("input[name='amount']").val(amount);
+			
+			objForm.attr("action","/clothes/list").submit();
+			
+		})
+
+
+		
+		
+		
+		
+	}); // end document
+
+
+</script>
+
+
 
 <%@ include file="../includes/footer.jsp"%>
