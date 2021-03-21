@@ -63,6 +63,18 @@ public class ClothesController {
 		
 	}
 	
+	// 목록, 수정, 삭제는 등록설정이 다 된 이후 추가 할것.
+	@GetMapping("/get")
+	public void get(Long cno, Criteria cri, Model model) {
+		log.info("In Controller Get Page Cno : " + cno);
+		log.info("Criteria : " + cri);
+		
+		model.addAttribute("clothes", service.get(cno));
+		model.addAttribute("cri", cri);
+		
+	}
+	
+	
 	// 첨부파일 불러오기
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -72,7 +84,4 @@ public class ClothesController {
 		return new ResponseEntity<>(service.getAttachList(cno), HttpStatus.OK);
 	}
 	
-	
-	// 목록, 수정, 삭제는 등록설정이 다 된 이후 추가 할것.
-
 }

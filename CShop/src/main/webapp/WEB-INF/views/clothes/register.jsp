@@ -53,14 +53,14 @@
 						<p>상품상세설명</p>
 					</li>
 				</ul>
-			<!-- 	<div class="searchDiv" style="text-align: left; padding-left: 10px">
-					<select name="category" style="font-weight: 700; font-size: 12px">
+				<div class="categoryDiv">
+					<select class="filterSelect" name="category">
 						<option value="">선택</option>
 						<option value="clothes">패션</option>
 						<option value="mobile">휴대폰/통신</option>
 						<option value="office">사무용품</option>
 					</select>
-				</div> -->
+				</div>
 				</fieldset>
 				<fieldset style="margin-top: 50px">
 				<ul class="tabTitle" >
@@ -174,6 +174,11 @@
 			beforeSend: function(xhr) {
 					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 				},
+
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				});	
+				
 		*/
 		
 		var csrfHeaderName = "${_csrf.headerName}";
@@ -188,9 +193,19 @@
 		var listBtn = $(".listBtn");
 		var actionForm = $(".actionForm");
 		
+		var filterSelect = $(".filterSelect");
+		
+		var categoryValue = "";
+		console.log("category : " +categoryValue);
+	
 		regBtn.on("click", function(e) {
 			e.preventDefault();
 	
+			if(categoryValue === "" || categoryValue === null) {
+				alert("카테고리를 지정해주세요.");
+				return false;
+			}
+			
 			var str = "";
 			// 첨부파일 이미지 정보
 			$(".uploadResult ul li").each(function(i,obj) {
@@ -211,6 +226,16 @@
 		
 			self.location="/clothes/list";
 		
+		})
+		
+		filterSelect.on("change", function(e) {
+			e.preventDefault();
+			// options 대신 children을 써도 같은 데이터를 가지고 있는 property로 상관없다.
+			// 근데 어떤걸 쓰는게 더 좋은건지에 대한 확실한 이유를 모르고 있음.
+			var amount = this.options[this.selectedIndex].value;
+			
+			categoryValue = amount;
+			
 		})
 		
 		// 이미지 추가시 동작
@@ -300,6 +325,7 @@
 					
 				}
 			});
+			console.log(str);
 			uploadUL.append(str);
 		}
 		
@@ -329,8 +355,6 @@
 				}
 			})
 		});
-		
-		
 	})
 
 </script>

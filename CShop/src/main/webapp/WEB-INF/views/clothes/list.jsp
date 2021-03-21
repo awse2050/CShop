@@ -65,7 +65,7 @@
 					<div class="itemsDiv"> <!-- 게시글 목록 큰틀 -->
 						<c:forEach items="${list }" var="list">
 							<div class="pickItem"> <!-- 작은틀 하나하나 -->
-								<a href='<c:out value="${list.cno }" />'>
+								<a class="getBtn" href='<c:out value="${list.cno }" />'>
 									<!-- background-image : url(경로) -->
 									<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
 									<div>
@@ -137,6 +137,7 @@
 	$(document).ready(function() {
 		
 		var objForm = $(".objForm");
+		var getBtn = $(".getBtn"); // 상품클릭 ( 상세페이지로 이동 )
 		var pageBtn = $(".pageBtn"); // 페이지 이동 버튼
 		
 		var searchBtn = $(".searchBtn");
@@ -167,21 +168,16 @@
 			if(keyword == "") {
 				alert("검색할 내용을 입력하세요.");
 				return false;
-			} 
+			}   
 			
 			searchForm.find("input[name='pageNum']").val(1);
 			
 			searchForm.submit();
 		});
-		
-		
+	/* 	
 		$.getJSON("/clothes/getAttachList", {cno: 245}, function(result) {
 			console.log(result);
-		})
-		
-		// option을 클릭한다.
-		// 홈페이지로 이동한다.
-
+		}) */
 		
 		filterSelect.on("change", function(e) {
 			e.preventDefault();
@@ -193,11 +189,16 @@
 			objForm.attr("action","/clothes/list").submit();
 			
 		})
-
-
 		
-		
-		
+		getBtn.on("click", function(e) {
+			e.preventDefault();
+			var cno = $(this).attr("href");
+			
+			objForm.append("<input type='hidden' name='cno' value='"+cno+"'>");
+			objForm.attr("action", "/clothes/get").submit();
+			
+			
+		})
 		
 	}); // end document
 

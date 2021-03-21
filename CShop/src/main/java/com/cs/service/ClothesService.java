@@ -10,11 +10,11 @@ public interface ClothesService {
 
 	public Long register(ClothesVO vo);
 
-	public ClothesVO get(Long nno);
+	public ClothesVO get(Long cno);
 
 	public List<ClothesVO> getList(Criteria cri);
 
-	public boolean remove(Long nno);
+	public boolean remove(Long cno);
 
 	public boolean modify(ClothesVO vo);
 
