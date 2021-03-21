@@ -51,24 +51,37 @@
 					<div style="padding-top: 15px;">
 						<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>						
 					</div>
-				</div>
-				<div class="infoBox" style="width:50%; min-height: 600px;">
-					<div class="pName">
-						${clothes.productName }					
+				</div> <!-- /. imgBox -->
+				<div class="infoBox" style="width:50%; min-height: 600px; border: 1px solid #999;">
+					<div class="infoBoxHead">
+						<div class="detailsRow" style="text-align: right; font-size: 14px;">
+							조회수: ${clothes.viewCnt }
+						</div>
+						<div class="pName">
+							${clothes.productName }					
+						</div>
+						<div class="isTrade">
+							 교환가능 여부 : 불가
+						</div>
+						<div class="priceRow">
+							<span>가격</span>
+							<span>${clothes.price }</span>
+						</div>
+						<div class="countRow">
+							<span>수량</span>
+							<span>${clothes.count }</span>
+						</div>
 					</div>
-					<div class="isTrade">
-						 교환가능 여부 : 불가
+					<!-- 로그인한 사용자랑 일치할 경우 보여주게 처리함. -->
+					<div class="infoBoxFoot">
+					<!-- 	<button id="modify">수정하기</button> -->
+						<button id="remove">삭제하기</button>
 					</div>
-					<div class="priceRow">
-						<span>가격</span>
-						<span>${clothes.price }</span>
+					<div class="infoBoxFoot">
+						<button>판매자에게 메세지 발송</button>
+						<button>찜</button>
 					</div>
-					<div class="countRow">
-						<span>수량</span>
-						<span>${clothes.count }</span>
-					</div>
-					
-				</div>	
+				</div>	<!-- /. infoBox -->
 			</div>
 		</div>
 	</div>
@@ -87,9 +100,22 @@
 	</div>
 </section>
 
+<form class="objForm">
+	<input type="hidden" name="pageNum" value="${cri.pageNum }">
+	<input type="hidden" name="amount" value="${cri.amount }">
+	<input type="hidden" name="type" value="${cri.type }">
+	<input type="hidden" name="keyword" value="${cri.keyword }">
+	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+	
+</form>
+
 <script>
 
 	$(document).ready(function() {
+		
+		var objForm = $(".objForm");
+		var removeBtn = $("#remove");
+		
 		
 		(function() {
 			var cno = '<c:out value="${clothes.cno}"/>';
@@ -116,6 +142,19 @@
 				$(".uploadResult ul").html(str);
 			});
 		})();
+		
+		
+		removeBtn.on("click", function(e){
+			e.preventDefault();
+			
+			console.log("remove click");
+			
+			objForm.append('<input type="hidden" name="cno" value="${clothes.cno}">');
+			objForm.attr("action", "/clothes/remove").attr("method", "post");
+			objForm.submit();
+			
+		});
+	
 		
 	});
 

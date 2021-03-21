@@ -63,10 +63,15 @@ public class ClothesServiceImpl implements ClothesService {
 		return mapper.getList(cri);
 	}
 
+	@Transactional
 	@Override
 	public boolean remove(Long cno) {
 		// TODO Auto-generated method stub
-		log.info("remove cno : " + cno);
+		log.warn("remove cno : " + cno);
+		
+		attachMapper.deleteAll(cno);
+		log.warn("delete Attach File in DataBase");
+		
 		return mapper.delete(cno);
 	}
 
