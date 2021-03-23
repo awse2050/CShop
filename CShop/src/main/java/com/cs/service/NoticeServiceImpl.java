@@ -12,18 +12,18 @@ import com.cs.domain.NoticeVO;
 import com.cs.mapper.NoticeAttachMapper;
 import com.cs.mapper.NoticeMapper;
 
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
+@RequiredArgsConstructor
 public class NoticeServiceImpl implements NoticeService{
 	
-	@Setter(onMethod_ =@Autowired)
-	private NoticeMapper mapper;
+	private final NoticeMapper mapper;
 	
-	@Setter(onMethod_ = @Autowired)
-	private NoticeAttachMapper attachMapper;
+	private final NoticeAttachMapper attachMapper;
 	
 	@Transactional
 	@Override
