@@ -167,13 +167,14 @@
 <script>
 	
 	$(document).ready(function() {
+		
+		var csrfHeaderName = "${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}";
+		
 		// Security 적용시 ajax 통신에 추가설정필요
 		$(document).ajaxSend(function(e, xhr, options) {
 			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 		});	
-		
-		var csrfHeaderName = "${_csrf.headerName}";
-		var csrfTokenValue = "${_csrf.token}";
 		
 		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 		var maxSize = 5242880;

@@ -1,9 +1,18 @@
 package com.cs.controller;
 
+import java.net.URLEncoder;
+import java.util.Objects;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cs.domain.MemberVO;
@@ -38,7 +47,20 @@ public class CommonController {
 		
 		int result = memberService.register(vo);
 		log.info("result : " + result);
-		return null;
+		
+		return "redirect:/index";
+	}
+	
+	@GetMapping(value = "/signUp/{userid}", produces = MediaType.TEXT_PLAIN_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> isExistUserId(@PathVariable("userid")String userid) {
+		log.info("is Exist User Id : "+ userid);
+		
+		boolean checkResult = Objects.nonNull(memberService.getByUserId(userid));
+		log.info("checkResult : "+ checkResult);
+		
+		return checkResult ? new ResponseEntity<String>("exist", HttpStatus.OK) 
+				: new ResponseEntity<String>("not exist", HttpStatus.OK);
 	}
 	
 }

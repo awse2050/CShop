@@ -1,5 +1,9 @@
 package com.cs.service;
 
+import java.util.Objects;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +24,20 @@ public class MemberServiceImpl implements MemberService {
 	
 	private final AuthMapper authMapper;
 
+	private final PasswordEncoder encoder;
+	
 	@Transactional
 	@Override
 	public int register(MemberVO vo) {
 		
 		log.info("Register MemberVO : " + vo);
+//		
+//		MemberVO member = memberMapper.read(vo.getUserid());
+//		if(Objects.nonNull(member)) {
+//			return 2;
+//		}
+//		
+		vo.setPassword(encoder.encode(vo.getPassword()));
 		// 추가로 권한을 넣어줘야한다... 트랜잭션 추가
 		int addResult = memberMapper.insert(vo);
 		
