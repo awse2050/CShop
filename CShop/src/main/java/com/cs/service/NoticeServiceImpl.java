@@ -49,7 +49,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Transactional
 	@Override
 	public NoticeVO get(Long nno) {
-		// TODO Auto-generated method stub
+		
 		log.info("Notice number : " + nno);
 		// 조회수 추가
 		if(mapper.read(nno) != null || mapper.read(nno).equals("")) {
@@ -60,7 +60,7 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public List<NoticeVO> getList(Criteria cri) {
-		// TODO Auto-generated method stub
+		
 		log.info("cri... : " + cri);
 		return mapper.getList(cri);
 	}
@@ -68,7 +68,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Transactional
 	@Override
 	public boolean remove(Long nno) {
-		// TODO Auto-generated method stub
+		
 		log.info("remove Notice number : " + nno);
 		attachMapper.deleteAll(nno);
 		
@@ -78,7 +78,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Transactional
 	@Override
 	public boolean modify(NoticeVO vo) {
-		// TODO Auto-generated method stub
+		
 		log.info("modify Notice .... : " + vo);
 		attachMapper.deleteAll(vo.getNno());
 		
@@ -105,6 +105,7 @@ public class NoticeServiceImpl implements NoticeService{
 	
 	@Override
 	public List<NoticeAttachVO> getAttachList(Long nno) {
+		
 		log.info("get attach number : " + nno);
 		
 		return attachMapper.findByNno(nno);

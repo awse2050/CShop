@@ -14,7 +14,7 @@
  		<result property="regdate" column="regdate"/>
  		<result property="moddate" column="moddate"/>
  		<result property="enabled" column="enabled"/>
- 		<collection property="authList" resultMap="authMap" />
+ 		<collection property="authList" resultMap="authMap"/>
  	</resultMap>
 
 	<resultMap type="com.cs.domain.AuthVO" id="authMap">
@@ -24,7 +24,8 @@
  
  	<!-- 추가 -->
  	<insert id="insert" parameterType="com.cs.domain.MemberVO">
- 		insert into tbl_member ( userid , password, username ) values ( #{userid} , #{password}, #{username} )
+ 		insert into tbl_member ( userid , password, username ) 
+ 		values ( #{userid} , #{password}, #{username} )
  	</insert>
 
 	<!-- 읽기 -->

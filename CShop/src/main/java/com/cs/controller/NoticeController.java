@@ -34,8 +34,10 @@ public class NoticeController {
 	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
+		
 		log.info("notice list..");
 		log.info("cri : " + cri);
+		
 		model.addAttribute("list", service.getList(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
 	}
@@ -47,6 +49,7 @@ public class NoticeController {
 		
 	@PostMapping("/register")
 	public String postRegsiter(NoticeVO vo, RedirectAttributes rttr) {
+		
 		log.info("post register....");
 		log.info("regist VO : " + vo);
 		
@@ -59,6 +62,7 @@ public class NoticeController {
 		if(result == 1) { 
 			rttr.addAttribute("nno", service.getLastNno());
 		}
+		
 		return "redirect:/notice/get";
 		
 	}
@@ -68,12 +72,14 @@ public class NoticeController {
 		
 		log.info("notice number : " + nno);
 		log.info("cri... : " + cri);
+		
 		model.addAttribute("notice", service.get(nno));
 		model.addAttribute("cri", cri);
 	}
 	
 	@PostMapping("/modify")
 	public String modify(NoticeVO vo, Criteria cri, RedirectAttributes rttr) {
+		
 		log.info("modify vo ... " + vo);
 		
 		boolean result = service.modify(vo);

@@ -40,7 +40,7 @@
 	margin: 10px auto;
 }
 
-.category-header-font {
+.category>h3 {
 	font-weight: 700;
 	font-size: 15px;
 	color: #555;
@@ -102,6 +102,12 @@
 .pickItem>div {
 	overflow-wrap: anywhere;
 	padding: 3px 20px;
+}
+
+.listAside {
+	float: left;
+	width: 10%;
+	text-align: center;
 }
 
 .aside-header {
@@ -330,6 +336,9 @@
 
 .infoBox {
 	padding: 0 15px 15px 15px;
+	width: 50%;
+	min-height: 600px;
+	border: 1px solid #999;
 }
 
 .infoBoxFoot {
@@ -337,7 +346,12 @@
 	text-align: center;
 }
 
-.regBtn {
+.goods-add-btn {
+	text-align: center;
+	padding-top: 30px;
+}
+
+.goods-add-btn>button {
 	background-color: #3737ee;
 	color: #fff;
 	display: inline-block;
@@ -347,6 +361,24 @@
 	font-weight: 700;
 	border: 1px solid #3737ee;
 	padding: 0px 40px;
+}
+
+.uploadRow {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+}
+
+.getBody {
+	display: flex;
+	flex: 1;
+	flex-direction: row;
+}
+
+.imgBox {
+	width: 50%;
+	min-height: 600px;
+	text-align: center;
 }
 
 .of-wrap {

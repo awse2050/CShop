@@ -8,22 +8,22 @@
 		<div class="index-category-div">
 			<div class="index-category-child-div">
 				<a href="/clothes/list">
-					<div>
-						<h3 class="category-header-font">패션</h3>
+					<div class="category">
+						<h3>패션</h3>
 					</div>
 				</a>	
 			</div>
 			<div class="index-category-child-div">
 				<a href="/mobile/list"> 
-					<div >
-						<h3 class="category-header-font">휴대폰/통신</h3>
+					<div class="category">
+						<h3>휴대폰/통신</h3>
 					</div>
 				</a>	
 			</div>
 			<div class="index-category-child-div">
 				<a href="/office/list">
-					<div>
-						<h3 class="category-header-font">사무용품</h3>
+					<div class="category">
+						<h3>사무용품</h3>
 					</div>
 				</a>	
 			</div>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<div class="row">
 			<div>
-				<aside class="" style="float: left; width: 10%; text-align: center">
+				<aside class="listAside">
 					<aside-header class="aside-header">의류</aside-header>
 						<nav>
 							<ul>
@@ -78,7 +78,6 @@
 								</a>
 							</div>
 						</c:forEach>
-						
 					</div>
 				</div>
 			</div>
@@ -122,7 +121,6 @@
 				</c:if>
 			</ul>
         </div>
-		
 	</div>
 </section>
 <form class="objForm">
@@ -151,13 +149,13 @@
 			var pageNum = $(this).attr("href");
 
 			objForm.find("input[name='pageNum']").val(pageNum);
-			
 			objForm.attr("action", "/clothes/list").submit();
 		});
 		
 		// 검색 버튼 클릭시
 		searchBtn.on("click", function(e) {
 			e.preventDefault();
+			
 			var type = searchForm.find("select[name='type']").val();
 			var keyword = searchForm.find("input[name='keyword']").val();
 			
@@ -171,7 +169,6 @@
 			}   
 			
 			searchForm.find("input[name='pageNum']").val(1);
-			
 			searchForm.submit();
 		});
 	/* 	
@@ -181,27 +178,25 @@
 		
 		filterSelect.on("change", function(e) {
 			e.preventDefault();
-			// options 대신 children을 써도 같은 데이터를 가지고 있는 property로 상관없다.
-			// 근데 어떤걸 쓰는게 더 좋은건지에 대한 확실한 이유를 모르고 있음.
+		
 			var amount = this.options[this.selectedIndex].value;
-			objForm.find("input[name='amount']").val(amount);
 			
-			objForm.attr("action","/clothes/list").submit();
+			objForm.find("input[name='amount']").val(amount);
+			objForm.attr("action","/clothes/list").submit(); 
 			
 		})
 		
 		getBtn.on("click", function(e) {
 			e.preventDefault();
+			
 			var cno = $(this).attr("href");
 			
 			objForm.append("<input type='hidden' name='cno' value='"+cno+"'>");
 			objForm.attr("action", "/clothes/get").submit();
 			
-			
 		})
 		
 	}); // end document
-
 
 </script>
 

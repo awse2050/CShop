@@ -8,22 +8,22 @@
 		<div class="index-category-div">
 			<div class="index-category-child-div">
 				<a href="/clothes/list">
-					<div>
-						<h3 class="category-header-font">패션</h3>
+					<div class="category">
+						<h3>패션</h3>
 					</div>
 				</a>	
 			</div>
 			<div class="index-category-child-div">
 				<a href="/mobile/list"> 
-					<div >
-						<h3 class="category-header-font">휴대폰/통신</h3>
+					<div class="category">
+						<h3>휴대폰/통신</h3>
 					</div>
 				</a>	
 			</div>
 			<div class="index-category-child-div">
 				<a href="/office/list">
-					<div>
-						<h3 class="category-header-font">사무용품</h3>
+					<div class="category">
+						<h3>사무용품</h3>
 					</div>
 				</a>	
 			</div>
@@ -77,7 +77,7 @@
 						<p>상품상세설명</p>
 					</li>
 				</ul>
-				<div style="padding-top:10px; padding-bottom: 10px; padding-left: 10px ">
+				<div class="uploadRow">
 					<div class="uploadDiv">
 						<input type='file' name='uploadFile' multiple>
 					</div>
@@ -286,6 +286,7 @@
 			}
 			return true;
 		}
+		
 		// 이미지 추가시 이미지를 보여주는 기능
 		function showUploadedFile(uploadResultArr) {
 			// 프로젝트 적용시 추가된 부분.

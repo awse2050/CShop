@@ -16,7 +16,7 @@ import lombok.extern.log4j.Log4j;
 public class MappingTests {
 
 	@Test
-	public void test1() {
+	public void urlTest() {
 		StringBuffer url = new StringBuffer("http://localhost:8080/index");
 		url.delete(0,"localhost:8080".length() + url.indexOf("localhost:8080"));
 		log.info(url);

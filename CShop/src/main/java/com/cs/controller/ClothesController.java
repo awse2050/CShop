@@ -99,8 +99,6 @@ public class ClothesController {
 		return "redirect:/clothes/list";
 	}
 
-	
-	
 	// 첨부파일 불러오기
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody

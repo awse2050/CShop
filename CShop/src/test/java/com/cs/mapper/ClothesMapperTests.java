@@ -24,6 +24,7 @@ public class ClothesMapperTests {
 	
 	@Test
 	public void insertTest() {
+		
 		for(int i = 0; i < 120; i++) {
 		ClothesVO vo = new ClothesVO();
 		
@@ -50,6 +51,7 @@ public class ClothesMapperTests {
 	
 	@Test
 	public void searchTest() {
+		
 		Criteria cri = new Criteria();
 		cri.setType("t");
 		cri.setKeyword("5");
@@ -59,6 +61,7 @@ public class ClothesMapperTests {
 	
 	@Test
 	public void updateTest() {
+		
 		ClothesVO vo = new ClothesVO();
 		vo.setCno(243L);
 		vo.setCategory("의류");

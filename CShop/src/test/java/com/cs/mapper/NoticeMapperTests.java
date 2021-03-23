@@ -21,7 +21,7 @@ public class NoticeMapperTests {
 	private NoticeMapper mapper;
 	
 	@Test
-	public void insert() {
+	public void insertTest() {
 		NoticeVO vo = new NoticeVO();
 		for(int i=0; i< 20; i++) {
 			
@@ -33,7 +33,7 @@ public class NoticeMapperTests {
 		}
 	}
 	@Test
-	public void get() {
+	public void getTest() {
 		Criteria cri = new Criteria();
 		
 		PageDTO pageDTO = new PageDTO(cri, 1);
@@ -51,12 +51,12 @@ public class NoticeMapperTests {
 	}
 	
 	@Test
-	public void testee() {
+	public void getNnoTest() {
 		log.info(mapper.getLastNno());
 	}
 	
 	@Test
-	public void insert1() {
+	public void insertWithGetNnoTest() {
 		NoticeVO vo = new NoticeVO();
 			
 		vo.setTitle("공지사항"+68);

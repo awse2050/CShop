@@ -20,7 +20,9 @@
 		<!-- logout-url => form태그에서 사용하는 action위치 설정 
 			logout-success-url -> 로그아웃 성공시 돌아갈 페이지
 		-->
-		<security:logout logout-url="/logout" logout-success-url="/index" invalidate-session="true" delete-cookies="remember,JSESSION_ID" />
+		<security:logout logout-url="/logout" logout-success-url="/index" 
+			invalidate-session="true" delete-cookies="remember,JSESSION_ID" />
+			
 		<security:remember-me token-validity-seconds="604800" data-source-ref="dataSource"
 							remember-me-parameter="remember" remember-me-cookie="remember" />
 	

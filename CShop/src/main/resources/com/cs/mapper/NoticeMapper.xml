@@ -24,7 +24,8 @@
   
   	<!-- 추가 -->
  	<insert id="insert" parameterType="com.cs.domain.NoticeVO">
- 		insert into tbl_notice ( title, content, writer ) values ( #{title}, #{content} , #{writer} )
+ 		insert into tbl_notice ( title, content, writer ) 
+ 		values ( #{title}, #{content} , #{writer} )
  	</insert> 
  
  	<select id="read" resultType="com.cs.domain.NoticeVO">
@@ -43,7 +44,9 @@
  	</delete>
  	
  	<update id="update" parameterType="com.cs.domain.NoticeVO">
- 		update tbl_notice set title = #{title},content = #{content} ,moddate = now() where nno = #{nno}
+ 		update tbl_notice 
+ 		set title = #{title}, content = #{content}, moddate = now() 
+ 		where nno = #{nno}
  	</update>
 	
 	<select id="getTotal" resultType="int"> 

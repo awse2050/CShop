@@ -6,7 +6,8 @@
   <mapper namespace="com.cs.mapper.AuthMapper">
   
   	<insert id="insert" parameterType="com.cs.domain.AuthVO">
-  		insert into tbl_member_auth ( userid , auth ) values ( #{userid} , #{auth} )
+  		insert into tbl_member_auth ( userid , auth ) 
+  		values ( #{userid} , #{auth} )
   	</insert>
   
   	<select id="read" resultType="com.cs.domain.AuthVO">

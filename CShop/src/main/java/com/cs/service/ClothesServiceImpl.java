@@ -1,6 +1,7 @@
 package com.cs.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +29,7 @@ public class ClothesServiceImpl implements ClothesService {
 	@Transactional 
 	@Override
 	public Long register(ClothesVO vo) {
-		// TODO Auto-generated method stub
+		
 		log.info("regist vo : " + vo);
 		
 		if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
@@ -49,7 +50,7 @@ public class ClothesServiceImpl implements ClothesService {
 
 	@Override
 	public ClothesVO get(Long cno) {
-		// TODO Auto-generated method stub
+		
 		log.info("cno : " + cno);
 		
 		mapper.updateViewCnt(cno, +1);
@@ -60,13 +61,22 @@ public class ClothesServiceImpl implements ClothesService {
 	@Override
 	public List<ClothesVO> getList(Criteria cri) {
 		// TODO Auto-generated method stub
+		 
+//		List<ClothesVO> clothesList = mapper.getList(cri);
+//		if(Objects.nonNull(clothesList)) {
+//			clothesList.forEach(list -> {
+//				list.setAttachList(attachMapper.findByCno(list.getCno()));
+//			});
+//		}
+		
+		// return clothesList;
 		return mapper.getList(cri);
 	}
 
 	@Transactional
 	@Override
 	public boolean remove(Long cno) {
-		// TODO Auto-generated method stub
+		
 		log.warn("remove cno : " + cno);
 		
 		attachMapper.deleteAll(cno);
@@ -77,23 +87,25 @@ public class ClothesServiceImpl implements ClothesService {
 
 	@Override
 	public boolean modify(ClothesVO vo) {
-		// TODO Auto-generated method stub
+		
 		log.info("modify vo : " + vo);
+		
 		return mapper.update(vo);
 	}
 
 	@Override
 	public int getTotal(Criteria cri) {
-		// TODO Auto-generated method stub
+		
 		log.info("cri : " + cri);
+		
 		return mapper.getTotal(cri);
 	}
 	
 	@Override
 	public List<ClothesAttachVO> getAttachList(Long cno) {
+		
 		log.info("get attach number : " + cno);
 		
 		return attachMapper.findByCno(cno);
 	}
-	
 }
