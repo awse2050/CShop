@@ -19,4 +19,6 @@ public class MemberVO {
 	// 권한 리스트
 	private List<AuthVO> authList;
 
+	// 회원가입시 데이터 추가
+	private String nickname, email, phone, address;
 }

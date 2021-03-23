@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.cs.domain.AuthVO;
 import com.cs.domain.MemberVO;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,9 @@ public class MemberMapperTests {
 	
 	@Autowired
 	private MemberMapper mapper;
+	
+	@Autowired
+	private AuthMapper authMapper;
 	
 	@Autowired
 	private PasswordEncoder encoder;
@@ -51,6 +56,31 @@ public class MemberMapperTests {
 	
 	@Test
 	public void readTest() {
-		log.info(mapper.read("admin44"));
+		log.info(mapper.read("awse2050"));
+	}
+	
+	@Transactional
+	@Test
+	public void customMemberInsertTest() {
+		MemberVO vo = new MemberVO();
+		
+		vo.setUserid("awse205011");
+		vo.setPassword(encoder.encode("pw22"));
+		vo.setUsername("윤환");
+		vo.setNickname("wesaq");
+		vo.setPhone("010-3194-3287");
+		vo.setAddress("시흥시 은계남로 11");
+		vo.setEmail("kyh3964@naver.com");
+
+		
+		AuthVO auth = new AuthVO();
+		auth.setUserid(vo.getUserid());
+		auth.setAuth("ROLE_MEMBER");
+		
+		log.info(vo);
+		log.info(auth);
+		log.info(mapper.insert(vo));
+	
+		log.info(authMapper.insert(auth));
 	}
 }
