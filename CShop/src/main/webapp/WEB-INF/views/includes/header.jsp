@@ -146,6 +146,6 @@
 			self.location="/clothes/register";
 			
 		});
-	});'
+	});
 
 </script>

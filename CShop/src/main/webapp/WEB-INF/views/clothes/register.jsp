@@ -103,29 +103,29 @@
 							<p>상품상세설명</p>
 						</li>
 					</ul>
-					<table style="margin-top: 10px">
-						<tr>
+					<table style="margin-top: 10px; width: 100%">
+						<tr style="height: 35px;">
 							<th>상품명</th>
 							<td>
-								<input type="text" name="productName">
+								<input type="text" name="productName" style="height: 25px; width: 100%;">
 							</td>
 						</tr>
-						<tr>
+						<tr style="height: 35px;">
 							<th>수량</th>
 							<td>
-								<input type="text" name="count">
+								<input type="text" name="count" style="height: 25px; ">
 							</td>
 						</tr>
-						<tr>
+						<tr style="height: 35px;">
 							<th>판매가</th>
 							<td>
-								<input type="text" name="price">
+								<input type="text" name="price" style="height: 25px; ">
 							</td>
 						</tr>
-						<tr>
+						<tr style="height: 35px;">
 							<th>작성자</th>
 							<td>
-								<input type="text" name="writer">
+								<input type="text" name="writer" style="height: 25px; ">
 							</td>
 						</tr>
 					</table>
@@ -151,7 +151,7 @@
 					</div>
 				</fieldset>
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-				<div style="margin-top: 50px">
+				<div class="register-buttonRow">
 					<button class="regBtn"> 상품등록 </button>
 					<button class="listBtn"> 목록으로 </button>
 				</div>
@@ -167,19 +167,10 @@
 <script>
 	
 	$(document).ready(function() {
-		
-		/* 
-			ajax 통신시 security 적용되었으면 넣어줘야함 
-			근데 이거를 안넣고 하나의 코드로 모두 적용시켜주는게 있었음.
-			beforeSend: function(xhr) {
-					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-				},
-
-				$(document).ajaxSend(function(e, xhr, options) {
-					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-				});	
-				
-		*/
+		// Security 적용시 ajax 통신에 추가설정필요
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		});	
 		
 		var csrfHeaderName = "${_csrf.headerName}";
 		var csrfTokenValue = "${_csrf.token}";

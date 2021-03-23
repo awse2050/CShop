@@ -107,72 +107,47 @@
 </form>
 
 <script>
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
 
-						var objForm = $(".objForm");
-						var removeBtn = $("#remove");
+		var objForm = $(".objForm");
+		var removeBtn = $("#remove");
 
-						(function() {
-							var cno = '<c:out value="${clothes.cno}"/>';
+		(function() {
+			var cno = '<c:out value="${clothes.cno}"/>';
+			
+			$.getJSON("/clothes/getAttachList", {cno : cno},function(arr) {
+				console.log(arr);
+				var str = "";
 
-							$
-									.getJSON(
-											"/clothes/getAttachList",
-											{
-												cno : cno
-											},
-											function(arr) {
-												console.log(arr);
-												var str = "";
+				$.each(arr,function(i, obj) {
+					if (obj.fileType) {
+						var fileCallPath = encodeURIComponent(obj.uploadPath+ "/"+ obj.uuid+ "_"+ obj.fileName);
 
-												$
-														.each(
-																arr,
-																function(i, obj) {
-																	if (obj.fileType) {
-																		var fileCallPath = encodeURIComponent(obj.uploadPath
-																				+ "/"
-																				+ obj.uuid
-																				+ "_"
-																				+ obj.fileName);
+						str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>"
+						str += "<div><img src='/display?fileName="+ fileCallPath+ "' style='width: 90%; min-height: 400px' ></div></li>";
 
-																		str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>"
-																		str += "<div><img src='/display?fileName="
-																				+ fileCallPath
-																				+ "' style='width: 90%; min-height: 400px' ></div></li>";
+					} else {
 
-																	} else {
+						str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>"
+						str += "<div><span>"+ obj.fileName+ "</span><br/>";
+						str += "<img src='/resources/data/X.svg.png'></div></li>";
+					}
+				});
+				$(".uploadResult ul").html(str);
+			});
+		})();
 
-																		str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>"
-																		str += "<div><span>"
-																				+ obj.fileName
-																				+ "</span><br/>";
-																		str += "<img src='/resources/data/X.svg.png'></div></li>";
-																	}
-																});
-												$(".uploadResult ul").html(str);
-											});
-						})();
+		removeBtn.on("click", function(e) {
+			e.preventDefault();
 
-						removeBtn
-								.on(
-										"click",
-										function(e) {
-											e.preventDefault();
+			console.log("remove click");
 
-											console.log("remove click");
+			objForm.append('<input type="hidden" name="cno" value="${clothes.cno}">');
+			objForm.attr("action","/clothes/remove").attr("method", "post");
+			objForm.submit();
 
-											objForm
-													.append('<input type="hidden" name="cno" value="${clothes.cno}">');
-											objForm.attr("action",
-													"/clothes/remove").attr(
-													"method", "post");
-											objForm.submit();
-
-										});
-					});
+		});
+	});
 </script>
 
 

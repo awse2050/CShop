@@ -363,6 +363,33 @@
 	padding: 0px 40px;
 }
 
+.register-buttonRow {
+	margin-top: 50px;
+	text-align: center;
+}
+
+.register-buttonRow > .regBtn {
+	border: 1px solid #000;
+	background: #000;
+	min-width: 100px;
+	min-height: 25px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 13px;
+	padding: 0 15px;
+}
+
+.register-buttonRow > .listBtn {
+	border: 1px solid #888;
+	background: #888;
+	min-width: 100px;
+	min-height: 25px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 13px;
+	padding: 0 15px;
+}
+
 .uploadRow {
 	padding-top: 10px;
 	padding-bottom: 10px;

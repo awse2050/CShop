@@ -67,7 +67,12 @@
 							<div class="pickItem"> <!-- 작은틀 하나하나 -->
 								<a class="getBtn" href='<c:out value="${list.cno }" />'>
 									<!-- background-image : url(경로) -->
-									<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
+									<c:if test="${!empty list.thumbnailUrl }">
+										<img src="/display?fileName=${list.thumbnailUrl}">
+									</c:if>
+									<c:if test="${empty list.thumbnailUrl }">
+										<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
+									</c:if>
 									<div>
 										<b>${list.productName }</b>
 									</div>
@@ -123,6 +128,7 @@
         </div>
 	</div>
 </section>
+
 <form class="objForm">
 	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
@@ -134,6 +140,8 @@
 
 	$(document).ready(function() {
 		
+		console.log('<c:out value="${list }"/>');
+		console.log(typeof '<c:out value="${list }"/>');
 		var objForm = $(".objForm");
 		var getBtn = $(".getBtn"); // 상품클릭 ( 상세페이지로 이동 )
 		var pageBtn = $(".pageBtn"); // 페이지 이동 버튼
@@ -199,7 +207,5 @@
 	}); // end document
 
 </script>
-
-
 
 <%@ include file="../includes/footer.jsp"%>

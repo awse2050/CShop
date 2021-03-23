@@ -1,5 +1,8 @@
 package com.cs.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -60,17 +63,36 @@ public class ClothesServiceImpl implements ClothesService {
 
 	@Override
 	public List<ClothesVO> getList(Criteria cri) {
-		// TODO Auto-generated method stub
 		 
-//		List<ClothesVO> clothesList = mapper.getList(cri);
-//		if(Objects.nonNull(clothesList)) {
-//			clothesList.forEach(list -> {
-//				list.setAttachList(attachMapper.findByCno(list.getCno()));
-//			});
-//		}
+		List<ClothesVO> clothesList = mapper.getList(cri);
 		
-		// return clothesList;
-		return mapper.getList(cri);
+		if(Objects.nonNull(clothesList)) {
+			log.info("Not Null ClothesList");
+			
+			clothesList.forEach(list -> {
+				list.setAttachList(attachMapper.findByCno(list.getCno()));
+				
+				if(list.getAttachList() == null || list.getAttachList().size() == 0) {
+					log.info(list.getCno() + " haven't AttachList..");
+					return;
+				}
+				
+				ClothesAttachVO attachVO;
+				
+				attachVO = list.getAttachList().get(0);
+				log.info("attachVO : " + attachVO);
+				
+				try  {
+					list.setThumbnailUrl(URLEncoder.encode(attachVO.getUploadPath() + "/s_" + attachVO.getUuid() + "_" + attachVO.getFileName(),"UTF-8"));
+					
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+			});
+		}
+		
+		return clothesList;
+//		return mapper.getList(cri);
 	}
 
 	@Transactional

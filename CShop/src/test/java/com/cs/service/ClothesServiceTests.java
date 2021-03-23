@@ -1,5 +1,7 @@
 package com.cs.service;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,10 @@ public class ClothesServiceTests {
 	@Test
 	public void getListTest() {
 		log.info(service.getList(new Criteria()));
+		
+		List<ClothesVO> list = service.getList(new Criteria());
+		
+		list.forEach( i -> System.out.println(i.getAttachList()));
 	}
 
 	@Test

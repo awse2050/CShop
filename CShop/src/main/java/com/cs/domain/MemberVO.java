@@ -19,5 +19,4 @@ public class MemberVO {
 	// 권한 리스트
 	private List<AuthVO> authList;
 
-
 }

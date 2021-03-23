@@ -26,5 +26,7 @@ public class ClothesVO {
 	private List<ClothesAttachVO> attachList;
 	
 	private Date regdate, moddate;
+	// 목록에서 보여줄 대표이미지 URL
+	private String thumbnailUrl; 
 
 }
