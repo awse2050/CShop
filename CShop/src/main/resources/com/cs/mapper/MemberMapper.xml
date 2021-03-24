@@ -38,5 +38,11 @@
  		from tbl_member m left outer join tbl_member_auth auth on m.userid = auth.userid 
  		where m.userid = #{userid}
  	</select>
- 
+ 	
+ 	<select id="readByEmail" resultMap="memberMap" resultType="com.cs.domain.MemberVO">
+ 		select *
+ 		from tbl_member m left outer join tbl_member_auth auth on m.userid = auth.userid
+ 		where m.email = #{email}
+ 	</select>
+
  </mapper>

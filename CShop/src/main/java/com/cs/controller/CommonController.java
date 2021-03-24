@@ -1,7 +1,10 @@
 package com.cs.controller;
 
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -51,9 +54,9 @@ public class CommonController {
 		return "redirect:/index";
 	}
 	
-	@GetMapping(value = "/signUp/{userid}", produces = MediaType.TEXT_PLAIN_VALUE)
+	@GetMapping(value = "/signUp/userid/{userid}", produces = MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
-	public ResponseEntity<String> isExistUserId(@PathVariable("userid")String userid) {
+	public ResponseEntity<String> isExistUserId(@PathVariable("userid") String userid) {
 		log.info("is Exist User Id : "+ userid);
 		
 		boolean checkResult = Objects.nonNull(memberService.getByUserId(userid));
@@ -63,4 +66,29 @@ public class CommonController {
 				: new ResponseEntity<String>("not exist", HttpStatus.OK);
 	}
 	
+//	@GetMapping(value = "/signUp/email/{email}",  produces = MediaType.TEXT_PLAIN_VALUE)
+//	@ResponseBody
+//	public ResponseEntity<String> isExistEmail(@PathVariable("email") String email) {
+//		log.info("is Exist Email : "+ email);
+//		
+//		String reg = "/[@.]/g";
+//		
+//		boolean checkResult = Objects.nonNull(memberService.getByEmail(email));
+//		log.info("checkResult : "+ checkResult);
+//		
+//		return checkResult ? new ResponseEntity<>("exist", HttpStatus.OK)
+//				: new ResponseEntity<String>("not exist", HttpStatus.OK);
+//	}
+	
+	@PostMapping(value = "/signUp/email",  produces = MediaType.TEXT_PLAIN_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> isExistEmail(String email) {
+		log.info("is Exist Email : "+ email);
+		
+		boolean checkResult = Objects.nonNull(memberService.getByEmail(email));
+		log.info("checkResult : "+ checkResult);
+		
+		return checkResult ? new ResponseEntity<>("exist", HttpStatus.OK)
+				: new ResponseEntity<String>("not exist", HttpStatus.OK);
+	}
 }

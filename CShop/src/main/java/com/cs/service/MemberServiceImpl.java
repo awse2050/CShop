@@ -1,5 +1,6 @@
 package com.cs.service;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,5 +59,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.read(userid);
 	}
 	
+	@Override
+	public MemberVO getByEmail(String email) {
+		
+		log.info("get By Email : " + email);
+
+		return memberMapper.readByEmail(email);
+	}
 	
 }

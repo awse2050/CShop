@@ -83,4 +83,11 @@ public class MemberMapperTests {
 	
 		log.info(authMapper.insert(auth));
 	}
+	
+	@Test
+	public void readByEmailTest() {
+		
+		log.info(mapper.readByEmail("tntn@naver.com"));
+		
+	}
 }

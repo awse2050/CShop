@@ -27,15 +27,32 @@
 	 			</div>
 				<div class="form-group loginButton">
 					<button class="btn btn-dark login" >LOGIN</button>
-					<button class="btn btn-default joinUs">Join Us</button>
+					<button class="btn btn-default" id="joinUs">Join Us</button>
 				</div>
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
 				<input type="hidden" name="referer" value="${referer }">
 	 		</form>
  		 </div>
- 	
  	</div>
  </section>
+    
+<script>
+	
+	$(document).ready(function() {
+	
+		var signUpBtn = $("#joinUs");
+		
+		signUpBtn.on("click", function(e) {
+			e.preventDefault();
+		
+			self.location = "/signUp";
+		})
+		
+		
+	})
+	
+	
+</script>
     
     
     <%@ include file="./includes/footer.jsp" %>
