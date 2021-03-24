@@ -103,6 +103,7 @@
 							<p>상품상세설명</p>
 						</li>
 					</ul>
+					<!-- class= " input-table" -->
 					<table style="margin-top: 10px; width: 100%">
 						<tr style="height: 35px;">
 							<th>상품명</th>

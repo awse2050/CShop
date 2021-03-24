@@ -34,52 +34,96 @@
 
 <section class="section" style="padding: 0 0;">
 	<div class="container">
-		<div class="row">
-			<h2>회원가입 정보입력</h2>
-			<div>
-				홈 > 회원가입 정보입력
-			</div>	
-			<form class="signUpForm" action="/signUp" method="post">
-				<div>
-					<span>아이디</span>
-					<input type="text" name="userid">
-				<div>
-				<button class="isExistBtn">중복확인</button>
-				<div>
-					<span>닉네임</span>
-					<input type="text" name="nickname">
-				</div>
-				<div>
-					<span>이름</span>
-					<input type="text" name="username">
-				</div>
-					<span>패스워드</span>
-					<input type="password" name="password">
-				</div>
-				<div>
-					<span>패스워드 확인</span>
-					<input type="password" name="confirmPassword">
-				</div>
-				<div>
-					<span>휴대폰 번호</span>
-					<input type="text" name="phone">
-				</div>
-				<div>
-					<span>이메일</span>
-					<input type="text" name="email">
-				</div>				
-				<!-- 특정 라이브러리 요구? -->
-				<div>
-					<span>주소</span>
-					<input type="text" name="address">
-				</div>
- 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
-				<button class="signUpBtn">회원가입</button>
+		<div class="row" style="padding-top: 30px;">
+			<div class="signUp-header">
+				<div class="header-title">회원가입 정보입력</div>
+			</div>
+			<form class="signUpForm">
+				<table class="input-table">
+					<tbody>
+					<tr>
+						<th class="required">이름</th>
+						<td>
+						<input type="text" name="username" placeholder="이름을 입력해 주세요.">
+						</td>
+					</tr>
+					<tr>
+						<th class="required">닉네임</th>
+						<td>
+						<input type="text" name="nickname" placeholder="닉네임을 입력해주세요.">
+						</td>
+					</tr>
+					<tr>
+						<th class="required">아이디</th>
+						<td>
+							<input type="text" name="userid" placeholder="아이디를 입력해주세요.">
+						 	<button class="existcheck-btn" id="isExistUserIdBtn">중복확인</button>
+						<ul class="guide">
+							<li>영어 소문자, 숫자만 4자 이상 가능</li>
+						</ul>
+						</td>
+					</tr>
+					<tr>
+						<th class="required">패스워드</th>
+						<td>
+						<input type="password" name="password" placeholder="비밀번호를 입력해주세요.">
+						<ul class="guide">
+							<li>8자 이상, 16자 이하로 영문과 숫자를 포함하여 입력하여주세요.</li>
+						</ul>
+						</td>
+					</tr>
+					<tr>
+						<th class="required">패스워드 확인</th>
+						<td>
+						<input type="password" name="confirmPassword" placeholder="비밀번호를 한번 더 입력해주세요.">
+						<ul class="guide">
+							<li>비밀번호 확인을 위해 한번 더 입력하여 주세요.</li>
+						</ul>
+						</td>
+					</div>
+					</tr>
+					<tr>
+						<th class="required">휴대폰 번호</th>
+						<td>
+						<input type="text" name="phone" placeholder="휴대폰 번호를 입력해주세요.">
+						</td>
+					</tr>
+					<tr>
+						<th class="required">이메일</th>
+						<td>
+						<input type="text" name="email" placeholder="이메일을 입력해주세요.">
+						<button class="existcheck-btn" id="isExistEmailBtn">중복확인</button>
+						</td>
+					</tr>
+					<tr>
+					<!-- 특정 라이브러리 요구? -->
+						<th class="required">주소</th>
+						<td>
+							<input type="text" id="postCode" style="width:85px;" readonly="readonly">
+							<button class="existcheck-btn" id="searchAddressBtn">우편번호 찾기</button>
+							<div class="addressDiv">
+								<input type="text" id="roadAddress"  placeholder="도로명 주소" readonly="readonly">
+								<input type="text" id="extraRoadAddress"  placeholder="참고항목" readonly="readonly">
+							</div>
+							<div class="addressDiv">
+								<input type="text" id="detailsAddress" placeholder="상세주소를 입력하세요.">
+							</div>
+						</td>
+					</tr>
+	 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
+					</tbody>
+				</table>
+			<div class="signup-buttonRow">
+				<button class="signUp-btn">회원가입</button>
+			</div>
 			</form>
+			<button id="btn2">테스트</button>
 		</div>
 	</div>
 </section>	
 		
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>		
+	
 <script>
 	
 	$(document).ready(function() {
@@ -93,22 +137,58 @@
 		});	
 		
 		var signUpForm = $(".signUpForm");
-		var signUpBtn = $(".signUpBtn");
-		var isExistBtn = $(".isExistBtn");
+		var signUpBtn = $(".signUp-btn");
+		var isExistUserIdBtn = $("#isExistUserIdBtn");
+		var isExistEmailBtn = $("#isExistEmailBtn");
 		var memberObj = {};
 		var errorMsg;
 		var checkUserId;
+		var checkEmail;
 		
-		isExistBtn.on("click", function(e) {
+		var searchAddressBtn = $("#searchAddressBtn");
+		var roadAddress = $("#roadAddress");
+		var detailsAddress = $("#detailsAddress");
+		var extraRoadAddress = $("#extraRoadAddress");
+		var postCode = $("#postCode");
+		
+		$("input[name='email']").on("change", function(e) {
+			checkEmail = false;
+		})
+		
+		$(".input[name='userid']").on("change", function(e) {
+			checkUserId = false;
+		})
+		
+		searchAddressBtn.on("click", function(e) {
 			e.preventDefault();
-			console.log("isExistBtn click");
+			
+			openAddressSearchWindow();
+			
+		});
+		
+		
+		isExistUserIdBtn.on("click", function(e) {
+			e.preventDefault();
+			console.log("isExistUserIdBtn click");
 			
 			checkUserid = false;
 			
+			var regExp = /^[A-Za-z0-9]{4,12}$/ 
+			 
 			var userid = signUpForm.find("input[name='userid']").val();
 			console.log("userid : " + userid);
 			
-			$.get("/signUp/"+userid, function(checkResult) {
+			if(!userid) {
+				alert("아이디를 입력하세요.");
+				return false;
+			}
+			
+			if(!regExp.test(userid)) {
+				alert("영문, 숫자, 영문+숫자 조합으로 입력해주세요.");
+				return false;
+			}
+			
+			$.get("/signUp/userid/"+userid, function(checkResult) {
 				console.log(checkResult);
 				if(checkResult == "exist") {
 					console.log("exist Result is 'exist'" );
@@ -120,93 +200,246 @@
 			}); // ajax
 		});
 		
+		// 테스트버튼
+		$("#btn2").on("click", function(e) {
+			e.preventDefault();
+			
+			setMemberObj(); 
+			
+			console.log(memberObj);
+			
+			if(!isName(memberObj.username)) {
+				alert(errorMsg);
+				return false;
+			}
+			if(!isNickname(memberObj.nickname)) {
+				alert(errorMsg);
+				return false;
+			}
+			if(!isUserid(memberObj.userid)) {
+				alert(errorMsg);
+				return false;
+			}
+
+			if(!isPassword(memberObj.password, memberObj.confirmPassword)) {
+				alert(errorMsg);
+				return false;	
+			}
+			
+			if(!isPhone(memberObj.phone)) {
+				alert(errorMsg);
+				return false;
+			}
+			
+			if(!isEmail(memberObj.email)) {
+				alert(errorMsg);
+				return false;
+			}
+			
+			if(!isAddress(detailsAddress.val())) {
+				alert(errorMsg);
+				return false;
+			}
+			
+			if(!clickExistButton()) {
+				alert(errorMsg);
+				return false;
+			}
+			
+		})
+		
+		isExistEmailBtn.on("click", function(e) {
+			e.preventDefault();
+			
+			checkEmail = false;
+			
+			var email = signUpForm.find("input[name='email']").val();
+			
+			if(!isEmail(email)) {
+				alert(errorMsg);
+				return false;
+			}
+			
+			$.ajax({
+				type: 'post',
+				url: '/signUp/email',
+				data: {email: email},
+				dataType: 'text',
+				success: function(result) {
+					if(result == "exist") {
+						alert("존재하는 이메일입니다.");
+						return false;
+					} else {
+						alert("사용 가능한 이메일입니다.");
+						checkEmail = true;
+					}
+				}
+			})
+		})
+
 		signUpBtn.on("click", function(e) {
 			e.preventDefault();
 			console.log("sign Up Btn Click");
 			
 			errorMsg = "";
-			/* 
-				1. 클릭을 한다
-				2. 우선 input의 데이터를 추합한다.
-				3. 추합해서 하나의 input이 비어있거나 null이면 false
-				4. 이후 패스워드 일치 여부를 체크
-				5. 통과 시 회원가입 완료 ( alert 발송 )
-			*/
 			// 우선 value를 모아서 memberObj에 저장한다.
 			setMemberObj(); 
-			// value를 체크한다.
-			if(isEmptyInputValue()) {
-				// alert or append to tag
+			
+			console.log(memberObj);
+			
+			if(!isName(memberObj.name)) {
 				alert(errorMsg);
 				return false;
 			}
-			// 패스워드가 일치하는 지 체크한다.
-			if(!isEqualsPassword()) {
-				// alert or append to tag
+			if(!isNickname(memberObj.nickname)) {
+				alert(errorMsg);
+				return false;
+			}
+			if(!isUserid(memberObj.userid)) {
+				alert(errorMsg);
+				return false;
+			}
+
+			if(!isPassword(memberObj.password, memberObj.confirmPassword)) {
 				alert(errorMsg);
 				return false;	
 			}
 			
-			if(!isClickExistButton()) {
+			if(!isPhone(memberObj.phone)) {
 				alert(errorMsg);
 				return false;
 			}
 			
-			console.log("complete Sign Up");
-			alert("가입이 완료되었습니다.");
-			signUpForm.submit();
-		});
-		
-	 	function isEmptyInputValue() {
-			console.log("isEmptyInputValue()");
-			
-			if(!memberObj.userid) {
-				errorMsg = "아이디를 입력하세요";
-				console.log("Empty UserId");
-				return true;
-			} else if(!memberObj.password) {
-				errorMsg = "비밀번호를 입력하세요";
-				console.log("Empty Password");
-				return true;
-			} else if(!memberObj.username) {
-				errorMsg = "이름을 입력하세요";
-				console.log("Empty Username");
-				return true;
-			} else if(!memberObj.nickname) {
-				errorMsg = "닉네임을 입력하세요";
-				console.log("Empty Nickname");
-				return true;
-			} else if(!memberObj.phone) {
-				errorMsg = "휴대폰 번호를 입력하세요";
-				console.log("Empty PhoneNumber");
-				return true;
-			} else if(!memberObj.email) {
-				errorMsg = "이메일을 입력하세요";
-				console.log("Empty Email");
-				return true;
-			} else if(!memberObj.address) {
-				errorMsg = "주소를 입력하세요";
-				console.log("Empty Address");
-				return true;
+			if(!isEmail(memberObj.email)) {
+				alert(errorMsg);
+				return false;
 			}
 			
-			return false;
-		}  
+			if(!isAddress(detailsAddress.val())) {
+				alert(errorMsg);
+				return false;
+			}
+			
+			if(!clickExistButton()) {
+				alert(errorMsg);
+				return false;
+			}
+
+		});
+	 	
+		function clickExistButton() {
+			
+			console.log("is Click Exist Button ? ");
+			
+			if(!checkUserId) { 
+				errorMsg = "아이디 중복확인을 해주세요.";
+				return false;
+			} else if (!checkEmail) {
+				errorMsg = "이메일 중복확인을 해주세요.";
+				return false;
+			}
+			return true;
+		}
 		
-		function isEqualsPassword() {
-			console.log("isEqualsPassword()");
+		function isAddress(address) {
+			if(!address) {
+				errorMsg = "상세주소를 입력하세요.";
+				return false;
+			}
+			console.log("address complete");
+			return true;
+		}
+		
+		function isEmail(email) {
+			// 이메일 형식
+			var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 			
-			var password = signUpForm.find("input[name='password']").val();
-			var confirmPassword = signUpForm.find("input[name='confirmPassword']").val();
-			
-			console.log("password: ", password);
-			console.log("confirmPassword: ", confirmPassword);
-			
-			if(password === confirmPassword) {
+			if(regExp.test(email)) {
 				return true;
 			} else {
-				console.log("Not Equals Password");
+				errorMsg = "이메일 형식으로 입력해주세요.";
+				return false;
+			}
+		}
+		
+		function isNickname(nickname) {
+			if(!nickname) {
+				errorMsg = "닉네임을 입력하세요";
+				return false;
+			}
+			return true;
+		}
+		
+		function isName(username) {
+			if(!username) {
+				errorMsg = "이름을 입력하세요";
+				return false;
+			}
+			return true;
+		}
+		
+		function isUserid(userid) {
+			if(!userid) {
+				errorMsg = "아이디을 입력하세요";
+				return false;
+			}
+			return true;
+		}
+		
+		function isPhone(phone) {
+			// 숫자만 + 11자리이상.
+			var regExp = /^[0-9]{10,}$/;
+			
+			if(regExp.test(phone)) {
+				return true;
+			} else {
+				errorMsg = "휴대폰번호를 정확하게 입력하세요.";
+				return false;
+			}
+		}
+	 	
+	 	function isPassword(password, confirmPassword) {
+	 		
+	 		// -- 비밀번호,아이디체크 영문,숫자만허용, 4~10자리
+	 		var regExp = /^[A-Za-z0-9]{8,16}$/ 
+	 		
+	 		console.log("password: ", password);
+			console.log("confirmPassword: ", confirmPassword);
+			
+	 		if(!isEqualsPassword(password, confirmPassword)) {
 				errorMsg = "패스워드를 일치시켜주세요";
+	 			return false;
+	 		} else if(!checkPasswordLength(password)) {
+	 			errorMsg = "비밀번호를 8~12자리 이상 입력해주세요.";
+	 			return false;
+	 		} else if(!regExp.test(password)) {
+	 			errorMsg = "영문+숫자 조합의 비밀번호를 입력하세요.";
+	 			return false;
+	 		}
+	 		return true;
+	 	}
+	 	
+	 	function checkPasswordLength(password) {
+	 		
+	 		console.log(password.length);
+	 		
+	 		var equalsResult = password.length >= 8;
+	 		console.log("length result : " + equalsResult);
+	 		
+	 		if(!equalsResult) {
+	 			return false;
+	 		}
+			return true;	 	
+	 	}
+		
+		function isEqualsPassword(password, confirmPassword) {
+			
+			console.log("isEqualsPassword()");
+			
+			if(password === confirmPassword) {
+				return true;                                    
+			} else {
+				console.log("Not Equals Password");
 				return false;
 			}
 		}
@@ -215,30 +448,69 @@
 			
 			console.log("set Member Obj");
 			
+			var address = getAddress();
+			
 			memberObj = { 
 					userid: signUpForm.find("input[name='userid']").val(),
 					username: signUpForm.find("input[name='username']").val(),
 					password: signUpForm.find("input[name='password']").val(),
+					confirmPassword: signUpForm.find("input[name='confirmPassword']").val(),
 					nickname: signUpForm.find("input[name='nickname']").val(),
 					phone: signUpForm.find("input[name='phone']").val(),
 					email: signUpForm.find("input[name='email']").val(),
-					address: signUpForm.find("input[name='address']").val()
+					address: address
 				}
 		}
 		
-		function isClickExistButton() {
-			console.log("is Click Exist Button ? ");
-			console.log(checkUserId);			
-			if(checkUserId) { 
-				console.log("checkUserId is true");
-				return true;
+		function getAddress() {
+			console.log("Making Address...");
+			if(!detailsAddress.val()) {
+				return "";
 			}
-			errorMsg = "중복확인을 해주세요.";
-			return false;
+			return roadAddress.val() + detailsAddress.val() + extraRoadAddress.val();
 		}
 		
+		function openAddressSearchWindow() {
+			new daum.Postcode({
+				oncomplete: function(data) {
+					console.log(data);
+					
+					var roadAddr = data.roadAddress; // 도로명 주소 변수
+		            var extraRoadAddr = ''; // 참고 항목 변수
+	                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                    extraRoadAddr += data.bname;
+	                }
+	                // 건물명이 있고, 공동주택일 경우 추가한다.
+	                if(data.buildingName !== '' && data.apartment === 'Y'){
+	                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                }
+	                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                if(extraRoadAddr !== ''){
+	                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+	                }
+					
+	                // 우편 주소와 해당 필드 넣기
+	                postCode.val(data.zonecode);
+	                roadAddress.val(roadAddr+" ");
+	                
+	                if(roadAddr !== ''){
+	                	extraRoadAddress.val(extraRoadAddr);
+	                } else {
+	                	extraRoadAddress.val("");
+	                }
+	                
+	                // 혹시모르는 필수 주소 표시항목
+	                console.log(data.bname);
+	                console.log(data.bcode);
+	                console.log(data.sido);
+	                console.log(data.sigungu);
+				}
+			}).open();
+		}
 	});
-
+	
 </script>
 
 

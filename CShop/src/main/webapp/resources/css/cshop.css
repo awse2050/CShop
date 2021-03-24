@@ -168,6 +168,68 @@
 	font-size: 11px;
 }
 
+.signUp-header>.header-title, .header-location {
+	display: inline-block;
+}
+
+.signUp-header>.header-title {
+	font-size: 19px;
+}
+
+.signUp-header>.header-location {
+	text-align: right;
+	font-size: 11px;
+}
+
+.signUpForm {
+	padding: 50px 25px 100px;
+}
+
+.input-table {
+	margin-top: 10px;
+	width: 100%;
+	table-layout: fixed;
+	border-top: 5px solid #e8e8e8;
+}
+
+.input-table>tbody>tr {
+	height: 35px;
+	border-bottom: 1px solid #e8e8e8;
+}
+
+.input-table>tbody>tr>th {
+	padding: 8px 10px 8px 20px;
+	background-color: #f8f8f8;
+	width: 20%;
+}
+
+.input-table>tbody>tr>td {
+	padding: 8px 10px;
+}
+
+.input-table>tbody>tr>td>input {
+	height: 25px;
+	width: 200px;
+	padding-left: 8px;
+}
+
+.addressDiv {
+	margin-top: 5px;
+}
+
+.addressDiv>input {
+	width: 250px;
+	height: 25px;
+	padding-left: 8px;
+}
+
+.required::after {
+	content: "*";
+	color: #e00;
+	margin-left: 5px;
+	display: inline-block;
+}
+
 .lastUpdate {
 	text-align: right;
 }
@@ -368,7 +430,7 @@
 	text-align: center;
 }
 
-.register-buttonRow > .regBtn {
+.register-buttonRow>.regBtn {
 	border: 1px solid #000;
 	background: #000;
 	min-width: 100px;
@@ -379,7 +441,7 @@
 	padding: 0 15px;
 }
 
-.register-buttonRow > .listBtn {
+.register-buttonRow>.listBtn {
 	border: 1px solid #888;
 	background: #888;
 	min-width: 100px;
@@ -388,6 +450,38 @@
 	font-weight: 700;
 	font-size: 13px;
 	padding: 0 15px;
+}
+
+.signup-buttonRow {
+	margin-top: 50px;
+	text-align: center;
+}
+
+.signUp-btn {
+	border: 1px solid #000;
+	background: #000;
+	min-width: 200px;
+	min-height: 45px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 18px;
+	padding: 0 15px;
+}
+
+.existcheck-btn {
+	border: 1px solid #888;
+	background: #888;
+	min-width: 100px;
+	min-height: 25px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 13px;
+	padding: 0 15px;
+}
+
+.guide {
+	font-size: 12px;
+	color: #888;
 }
 
 .uploadRow {

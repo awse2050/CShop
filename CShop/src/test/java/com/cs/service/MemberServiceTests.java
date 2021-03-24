@@ -1,5 +1,8 @@
 package com.cs.service;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +46,9 @@ public class MemberServiceTests {
 	public void getByUserIdTest() {
 		log.info(service.getByUserId("awse2050"));
 	}
-
+	
+	@Test
+	public void getByEmailTest() {
+		log.info(service.getByEmail("tntn@naver.com"));
+	}
 }
