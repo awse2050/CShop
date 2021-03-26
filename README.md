@@ -51,6 +51,8 @@
  + 회원가입
    + 약관 (2)
    + 가입 상세 페이지 (O)
-   + 가입 페이지 CSS
+   + 가입 페이지 CSS (90%)
+   + 주소 API 적용 (O)
    
+
 > DB 테이블 칼럼 변경 (id, name, nickname, password, email, phone, address) (O)
