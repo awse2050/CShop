@@ -11,6 +11,8 @@ public interface ClothesService {
 	public Long register(ClothesVO vo);
 
 	public ClothesVO get(Long cno);
+	
+	public ClothesVO modify(Long cno);
 
 	public List<ClothesVO> getList(Criteria cri);
 
@@ -21,5 +23,6 @@ public interface ClothesService {
 	public int getTotal(Criteria cri);
 	
 	public List<ClothesAttachVO> getAttachList(Long cno);
+	
 
 }

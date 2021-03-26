@@ -73,7 +73,7 @@
 					</div>
 					<!-- 로그인한 사용자랑 일치할 경우 보여주게 처리함. -->
 					<div class="infoBoxFoot">
-						<!-- 	<button id="modify">수정하기</button> -->
+						<button id="modify">수정하기</button>
 						<button id="remove">삭제하기</button>
 					</div>
 					<div class="infoBoxFoot">
@@ -99,11 +99,11 @@
 </section>
 
 <form class="objForm">
-	<input type="hidden" name="pageNum" value="${cri.pageNum }"> <input
-		type="hidden" name="amount" value="${cri.amount }"> <input
-		type="hidden" name="type" value="${cri.type }"> <input
-		type="hidden" name="keyword" value="${cri.keyword }"> <input
-		type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+	<input type="hidden" name="pageNum" value="${cri.pageNum }"> 
+	<input type="hidden" name="amount" value="${cri.amount }"> 
+	<input type="hidden" name="type" value="${cri.type }"> 
+	<input type="hidden" name="keyword" value="${cri.keyword }"> 
+
 </form>
 
 <script>
@@ -111,6 +111,7 @@
 
 		var objForm = $(".objForm");
 		var removeBtn = $("#remove");
+		var modifyBtn = $("#modify");
 
 		(function() {
 			var cno = '<c:out value="${clothes.cno}"/>';
@@ -143,17 +144,22 @@
 			console.log("remove click");
 
 			objForm.append('<input type="hidden" name="cno" value="${clothes.cno}">');
+			objForm.append('<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">');
 			objForm.attr("action","/clothes/remove").attr("method", "post");
 			objForm.submit();
 
 		});
+		
+		modifyBtn.on("click", function(e) {
+			e.preventDefault();
+
+			objForm.append('<input type="hidden" name="cno" value="${clothes.cno}">');
+			objForm.attr("action","/clothes/modify").attr("method", "get");
+			objForm.submit();
+		})
+		
+		
 	});
 </script>
-
-
-
-
-
-
 
 <%@ include file="../includes/footer.jsp"%>

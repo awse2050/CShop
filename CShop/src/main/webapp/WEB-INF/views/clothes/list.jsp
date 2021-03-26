@@ -34,56 +34,52 @@
 <section class="section">
 	<div class="container">
 		<div class="row">
-			<div>
-				<aside class="listAside">
-					<aside-header class="aside-header">의류</aside-header>
-						<nav>
-							<ul>
-								<li>팝니다</li>
-								<li>삽니다</li>
-							</ul>
-						</nav>
-				</aside>
-				<div class="listBody"> <!-- 본문 틀 -->
-					<div class="locationDiv">
-						<h3>HOME > 팝니다</h3> <!-- 현재위치 -->
-					</div>
-					<div class="filterDiv"> <!-- 분류, 갯수선택 select  -->
-						<select class="filterSelect" name="amount">
-							<option value="10"
-							${pageMaker.cri.amount eq 10 ? "selected" : "" }>10개</option>
-							<option value="20"
-							${pageMaker.cri.amount eq 20 ? "selected" : "" }>20개</option>
-							<option value="40"
-							${pageMaker.cri.amount eq 40 ? "selected" : "" }>40개</option>
-							<option value="60"
-							${pageMaker.cri.amount eq 60 ? "selected" : "" }>60개</option>
-							<option value="80"
-							${pageMaker.cri.amount eq 80 ? "selected" : "" }>80개</option>
-						</select>
-					</div>
-					<div class="itemsDiv"> <!-- 게시글 목록 큰틀 -->
-						<c:forEach items="${list }" var="list">
-							<div class="pickItem"> <!-- 작은틀 하나하나 -->
-								<a class="getBtn" href='<c:out value="${list.cno }" />'>
-									<!-- background-image : url(경로) -->
-									<c:if test="${!empty list.thumbnailUrl }">
-										<img src="/display?fileName=${list.thumbnailUrl}">
-									</c:if>
-									<c:if test="${empty list.thumbnailUrl }">
-										<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-									</c:if>
-									<div>
-										<b>${list.productName }</b>
-									</div>
-									<div>
-										<div>운포</div>
-										<strong>${list.price }원</strong>
-									</div>
-								</a>
-							</div>
-						</c:forEach>
-					</div>
+			<aside class="listAside">
+				<aside-header class="aside-header">패션</aside-header>
+					<nav class="listAside-nav">
+						<ul>
+							<li>팝니다</li>
+							<li>삽니다</li>
+						</ul>
+					</nav>
+			</aside>
+			<div class="listBody"> <!-- 본문 틀 -->
+				<div class="locationDiv">
+					<h3>HOME > 팝니다</h3> <!-- 현재위치 -->
+				</div>
+				<div class="filterDiv"> <!-- 분류, 갯수선택 select  -->
+					<select class="filterSelect" name="amount">
+						<option value="10"
+						${pageMaker.cri.amount eq 10 ? "selected" : "" }>10개</option>
+						<option value="20"
+						${pageMaker.cri.amount eq 20 ? "selected" : "" }>20개</option>
+						<option value="40"
+						${pageMaker.cri.amount eq 40 ? "selected" : "" }>40개</option>
+						<option value="60"
+						${pageMaker.cri.amount eq 60 ? "selected" : "" }>60개</option>
+						<option value="80"
+						${pageMaker.cri.amount eq 80 ? "selected" : "" }>80개</option>
+					</select>
+				</div>
+				<div class="itemsDiv"> <!-- 게시글 목록 큰틀 -->
+					<c:forEach items="${list }" var="list">
+						<div class="pickItem"> <!-- 작은틀 하나하나 -->
+							<a class="getBtn" href='<c:out value="${list.cno }" />'>
+								<!-- background-image : url(경로) -->
+								<c:if test="${!empty list.thumbnailUrl }">
+									<img src="/display?fileName=${list.thumbnailUrl}" class="listImg">
+								</c:if>
+								<c:if test="${empty list.thumbnailUrl }">
+									<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
+								</c:if>
+								<div style="margin: 15px 0px;">
+									<b>${list.productName }</b>
+									<div>운포</div>
+									<strong>${list.price }원</strong>
+								</div>
+							</a>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -91,7 +87,7 @@
 		
 		<div class="clothesSearch"> <!-- searchDiv -->
 			<form class="searchForm" action="/clothes/list">
-				<select name="type">
+				<select class="filterSelect" name="type">
 					<option value="">--</option>
 					<option value="p"
 					${pageMaker.cri.type eq p ? "selected" : "" }>상품명</option>
@@ -99,7 +95,7 @@
 				<input type="text" name="keyword" placeholder="검색어를 입력하세요">
 				<input type="hidden" name="pageNum" value=${pageMaker.cri.pageNum }>
 				<input type="hidden" name="amount" value=${pageMaker.cri.amount }>
-				<button class="searchBtn"><i class="fas fa-search"></i></button> 
+				<button id="searchBtn"><i class="fas fa-search"></i></button> 
 			</form>
 		</div>
 		
@@ -140,13 +136,11 @@
 
 	$(document).ready(function() {
 		
-		console.log('<c:out value="${list }"/>');
-		console.log(typeof '<c:out value="${list }"/>');
 		var objForm = $(".objForm");
 		var getBtn = $(".getBtn"); // 상품클릭 ( 상세페이지로 이동 )
 		var pageBtn = $(".pageBtn"); // 페이지 이동 버튼
 		
-		var searchBtn = $(".searchBtn");
+		var searchBtn = $("#searchBtn");
 		var searchForm = $(".searchForm");
 		
 		var filterSelect = $(".filterSelect");
@@ -179,10 +173,6 @@
 			searchForm.find("input[name='pageNum']").val(1);
 			searchForm.submit();
 		});
-	/* 	
-		$.getJSON("/clothes/getAttachList", {cno: 245}, function(result) {
-			console.log(result);
-		}) */
 		
 		filterSelect.on("change", function(e) {
 			e.preventDefault();

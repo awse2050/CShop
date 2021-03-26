@@ -63,6 +63,11 @@
 	padding-top: 45px;
 }
 
+.searchForm>input {
+	height: 30px;
+	padding: 5px 5px;
+}
+
 .listTablebody {
 	border-bottom: 1px solid #ddd;
 }
@@ -97,6 +102,8 @@
 .pickItem {
 	width: 20%;
 	text-align: center;
+	min-height: 200px;
+	height: 250px;
 }
 
 .pickItem>div {
@@ -117,7 +124,7 @@
 .aside-header::after {
 	content: "";
 	display: block;
-	width: 60px;
+	width: 100%;
 	height: 1px;
 	background: black;
 	margin: 10px auto;
@@ -125,6 +132,23 @@
 
 .aside-header>nav>ul>li {
 	margin-bottom: 10px;
+}
+
+.listAside-nav > ul {
+	margin: 20px;
+}
+
+.listAside-nav > ul > li {
+	font-weight: 700;
+	font-size:15px; 
+	color:#555; 
+	line-height:40px;
+}
+
+.listImg {
+	min-width:50%;
+	max-width:70%; 
+	min-height: 70%;
 }
 
 .loginInput {
@@ -161,6 +185,12 @@
 	width: 25%;
 	padding-left: 0px;
 	padding-right: 0px;
+}
+
+.title {
+	font-size: 18px;
+	font-weight: 700;
+	padding: 0px;
 }
 
 .locationDiv>h3 {
@@ -210,7 +240,8 @@
 .input-table>tbody>tr>td>input {
 	height: 25px;
 	width: 200px;
-	padding-left: 8px;
+	padding: 5px 8px;
+	border: 1px solid #ccc;
 }
 
 .addressDiv {
@@ -488,6 +519,31 @@
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 10px;
+}
+
+.uploadLi {
+	display: inline-block; 
+	position: relative; 
+	margin-right: 5px;
+}
+
+.uploadLi > button {
+	position: absolute; 
+	right: 0;
+}
+
+.uploadLi > p {
+	min-width: 125px; 
+	font-size: 12px; 
+	font-weight: 700; 
+	color: #999; 
+	text-align: center; 
+	margin-top: 10px;
+}
+
+.uploadImage {
+	width: 100%;
+	min-height: 130px;
 }
 
 .getBody {

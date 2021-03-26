@@ -54,9 +54,17 @@ public class ClothesServiceImpl implements ClothesService {
 	@Override
 	public ClothesVO get(Long cno) {
 		
-		log.info("cno : " + cno);
+		log.info("get cno : " + cno);
 		
 		mapper.updateViewCnt(cno, +1);
+		
+		return mapper.read(cno);
+	}
+	
+	@Override
+	public ClothesVO modify(Long cno) {
+		
+		log.info("modify cno : " + cno);
 		
 		return mapper.read(cno);
 	}
@@ -92,7 +100,6 @@ public class ClothesServiceImpl implements ClothesService {
 		}
 		
 		return clothesList;
-//		return mapper.getList(cri);
 	}
 
 	@Transactional
@@ -107,12 +114,23 @@ public class ClothesServiceImpl implements ClothesService {
 		return mapper.delete(cno);
 	}
 
+	@Transactional
 	@Override
 	public boolean modify(ClothesVO vo) {
-		
+
 		log.info("modify vo : " + vo);
+		// 우선 DB에 있는 데이터를 지운다.
+		attachMapper.deleteAll(vo.getCno());
 		
-		return mapper.update(vo);
+		boolean updateResult = mapper.update(vo);
+		if(updateResult && Objects.nonNull(vo.getAttachList())) {
+			vo.getAttachList().forEach(attach -> {
+				attach.setCno(vo.getCno());
+				attachMapper.insert(attach);
+			});
+		}
+		
+		return updateResult;
 	}
 
 	@Override

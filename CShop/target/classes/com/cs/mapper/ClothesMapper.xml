@@ -49,7 +49,7 @@
 	<update id="update"
 		parameterType="com.cs.domain.category.ClothesVO">
 		update tbl_clothes
-		set productName=#{productName}, description = #{description}, writer = #{writer},
+		set productName=#{productName}, description = #{description}, writer = #{writer}, count = #{count},
 		price = #{price}, category = #{category}, moddate = now()
 		where cno = #{cno}
 	</update>
