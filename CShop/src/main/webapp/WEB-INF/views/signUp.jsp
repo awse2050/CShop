@@ -117,7 +117,6 @@
 				<button class="signUp-btn">회원가입</button>
 			</div>
 			</form>
-			<button id="btn2">테스트</button>
 		</div>
 	</div>
 </section>	
@@ -166,10 +165,8 @@
 			
 		});
 		
-		
 		isExistUserIdBtn.on("click", function(e) {
 			e.preventDefault();
-			console.log("isExistUserIdBtn click");
 			
 			checkUserid = false;
 			
@@ -189,9 +186,7 @@
 			}
 			
 			$.get("/signUp/userid/"+userid, function(checkResult) {
-				console.log(checkResult);
 				if(checkResult == "exist") {
-					console.log("exist Result is 'exist'" );
 					alert("이미 존재하는 아이디 입니다.");
 				} else {
 					checkUserId = true;
@@ -199,54 +194,6 @@
 				}		
 			}); // ajax
 		});
-		
-		// 테스트버튼
-		$("#btn2").on("click", function(e) {
-			e.preventDefault();
-			
-			setMemberObj(); 
-			
-			console.log(memberObj);
-			
-			if(!isName(memberObj.username)) {
-				alert(errorMsg);
-				return false;
-			}
-			if(!isNickname(memberObj.nickname)) {
-				alert(errorMsg);
-				return false;
-			}
-			if(!isUserid(memberObj.userid)) {
-				alert(errorMsg);
-				return false;
-			}
-
-			if(!isPassword(memberObj.password, memberObj.confirmPassword)) {
-				alert(errorMsg);
-				return false;	
-			}
-			
-			if(!isPhone(memberObj.phone)) {
-				alert(errorMsg);
-				return false;
-			}
-			
-			if(!isEmail(memberObj.email)) {
-				alert(errorMsg);
-				return false;
-			}
-			
-			if(!isAddress(detailsAddress.val())) {
-				alert(errorMsg);
-				return false;
-			}
-			
-			if(!clickExistButton()) {
-				alert(errorMsg);
-				return false;
-			}
-			
-		})
 		
 		isExistEmailBtn.on("click", function(e) {
 			e.preventDefault();
@@ -260,21 +207,14 @@
 				return false;
 			}
 			
-			$.ajax({
-				type: 'post',
-				url: '/signUp/email',
-				data: {email: email},
-				dataType: 'text',
-				success: function(result) {
-					if(result == "exist") {
-						alert("존재하는 이메일입니다.");
-						return false;
-					} else {
-						alert("사용 가능한 이메일입니다.");
-						checkEmail = true;
-					}
-				}
-			})
+			$.get("/signUp/email/"+email, function(checkResult) {
+				if(checkResult == "exist") {
+					alert("이미 존재하는 이메일 입니다.");
+				} else {
+					checkEmail = true;
+					alert("사용 가능한 이메일 입니다.");
+				}		
+			}); // ajax 
 		})
 
 		signUpBtn.on("click", function(e) {
@@ -287,44 +227,35 @@
 			
 			console.log(memberObj);
 			
-			if(!isName(memberObj.name)) {
+			if(!isName(memberObj.username)) {
 				alert(errorMsg);
 				return false;
-			}
-			if(!isNickname(memberObj.nickname)) {
+			} else if(!isNickname(memberObj.nickname)) {
 				alert(errorMsg);
 				return false;
-			}
-			if(!isUserid(memberObj.userid)) {
+			} else if(!isUserid(memberObj.userid)) {
 				alert(errorMsg);
 				return false;
-			}
-
-			if(!isPassword(memberObj.password, memberObj.confirmPassword)) {
+			} else if(!isPassword(memberObj.password, memberObj.confirmPassword)) {
 				alert(errorMsg);
 				return false;	
-			}
-			
-			if(!isPhone(memberObj.phone)) {
+			} else if(!isPhone(memberObj.phone)) {
+				alert(errorMsg);
+				return false;
+			} else if(!isEmail(memberObj.email)) {
+				alert(errorMsg);
+				return false;
+			} else if(!isAddress(detailsAddress.val())) {
+				alert(errorMsg);
+				return false;
+			} else if(!clickExistButton()) {
 				alert(errorMsg);
 				return false;
 			}
+		
+			console.log("passed");
+			signUpForm.attr("action", "/signUp").attr("method", "post").submit();
 			
-			if(!isEmail(memberObj.email)) {
-				alert(errorMsg);
-				return false;
-			}
-			
-			if(!isAddress(detailsAddress.val())) {
-				alert(errorMsg);
-				return false;
-			}
-			
-			if(!clickExistButton()) {
-				alert(errorMsg);
-				return false;
-			}
-
 		});
 	 	
 		function clickExistButton() {
@@ -371,8 +302,13 @@
 		}
 		
 		function isName(username) {
+			var regExp = /^[가-힣]*$/;
+			
 			if(!username) {
 				errorMsg = "이름을 입력하세요";
+				return false;
+			} else if (!regExp.test(username)) {
+				errorMsg = "이름을 정확하게 입력하세요."
 				return false;
 			}
 			return true;
@@ -399,18 +335,14 @@
 		}
 	 	
 	 	function isPassword(password, confirmPassword) {
-	 		
 	 		// -- 비밀번호,아이디체크 영문,숫자만허용, 4~10자리
 	 		var regExp = /^[A-Za-z0-9]{8,16}$/ 
-	 		
-	 		console.log("password: ", password);
-			console.log("confirmPassword: ", confirmPassword);
 			
 	 		if(!isEqualsPassword(password, confirmPassword)) {
 				errorMsg = "패스워드를 일치시켜주세요";
 	 			return false;
 	 		} else if(!checkPasswordLength(password)) {
-	 			errorMsg = "비밀번호를 8~12자리 이상 입력해주세요.";
+	 			errorMsg = "비밀번호를 8~16자리로 입력해주세요.";
 	 			return false;
 	 		} else if(!regExp.test(password)) {
 	 			errorMsg = "영문+숫자 조합의 비밀번호를 입력하세요.";
@@ -424,7 +356,6 @@
 	 		console.log(password.length);
 	 		
 	 		var equalsResult = password.length >= 8;
-	 		console.log("length result : " + equalsResult);
 	 		
 	 		if(!equalsResult) {
 	 			return false;

@@ -66,23 +66,9 @@ public class CommonController {
 				: new ResponseEntity<String>("not exist", HttpStatus.OK);
 	}
 	
-//	@GetMapping(value = "/signUp/email/{email}",  produces = MediaType.TEXT_PLAIN_VALUE)
-//	@ResponseBody
-//	public ResponseEntity<String> isExistEmail(@PathVariable("email") String email) {
-//		log.info("is Exist Email : "+ email);
-//		
-//		String reg = "/[@.]/g";
-//		
-//		boolean checkResult = Objects.nonNull(memberService.getByEmail(email));
-//		log.info("checkResult : "+ checkResult);
-//		
-//		return checkResult ? new ResponseEntity<>("exist", HttpStatus.OK)
-//				: new ResponseEntity<String>("not exist", HttpStatus.OK);
-//	}
-	
-	@PostMapping(value = "/signUp/email",  produces = MediaType.TEXT_PLAIN_VALUE)
+	@GetMapping(value = "/signUp/email/{email:.+}")
 	@ResponseBody
-	public ResponseEntity<String> isExistEmail(String email) {
+	public ResponseEntity<String> isExistEmail(@PathVariable("email") String email) {
 		log.info("is Exist Email : "+ email);
 		
 		boolean checkResult = Objects.nonNull(memberService.getByEmail(email));
@@ -91,4 +77,5 @@ public class CommonController {
 		return checkResult ? new ResponseEntity<>("exist", HttpStatus.OK)
 				: new ResponseEntity<String>("not exist", HttpStatus.OK);
 	}
+
 }
