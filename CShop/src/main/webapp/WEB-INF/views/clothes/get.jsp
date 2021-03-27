@@ -104,6 +104,22 @@
 		</div>
 	</div>
 </section>
+<section class="section" style="padding-top: 40px">
+	<div class="container">
+		<div class="row" style="border-bottom: 1px solid #dedede">
+			<h2 class="title">댓글</h2>
+		</div>
+		<div class="row replyDiv" style="border: 1px solid #dedede; padding: 8px;">
+			<ul class="replyUL">
+				<div>
+					<li>작성자</li>
+					<li>댓글</li>
+					<li>2021.03.27 12:12:12</li>
+				</div>
+			</ul>
+		</div>
+	</div>
+</section>
 
 <form class="objForm">
 	<input type="hidden" name="pageNum" value="${cri.pageNum }"> 
@@ -113,15 +129,30 @@
 
 </form>
 
+<script type="text/javascript" src="../resources/js/reply.js?ver=2"></script>
+
 <script>
 	$(document).ready(function() {
 
+		var csrfHeaderName = "${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}";
+		
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		});	
+		
 		var objForm = $(".objForm");
 		var removeBtn = $("#remove");
 		var modifyBtn = $("#modify");
 		
 		var thumbImg = $(".thumbImg");
 		var mainImg = $(".mainImg");
+		
+		var replyDiv = $(".replyDiv");
+		var addReplyBtn = $("#addReplyBtn");
+		var cno = '<c:out value="${clothes.cno}"/>';
+		
+		showReplyList();
 		
 		(function() {
 			var cno = '<c:out value="${clothes.cno}"/>';
@@ -204,6 +235,73 @@
 			mainImg.html(str);
 			
 		});
+		// 등록기능
+		addReplyBtn.on("click", function(e) {
+			e.preventDefault();
+		
+			console.log("add reply Button click");
+			
+			var data = {cno: cno, reply: "reply" , replyer: "admin44"};
+			
+			replyService.add(data, function(result) {
+				console.log(result);
+			})
+		});
+		
+/* 		$("#get").on("click", function(e) {
+			e.preventDefault();
+		
+			replyService.get(40, function(result) {
+				console.log(result);
+			})
+		});
+		
+		$("#removen").on("click", function(e) {
+			e.preventDefault();
+			
+			replyService.remove(1, function(result) {
+				console.log(result);
+			})
+		});
+		
+		$("#getList").on("click", function(e) {
+			e.preventDefault();
+			
+			replyService.getList(373, function(result) {
+				console.log(result);
+			})
+		}); */
+		
+		/* 	<ul class="replyUL">
+				<li>작성자</li>
+				<li>댓글</li>
+				<li>2021.03.27 12:12:12</li>
+			</ul>
+		*/
+		
+		function showReplyList(page) {
+			var param = {page: page, cno: cno};
+			
+			replyService.getList(param, function(replyArr) {
+				if(!replyArr) {
+					return false;
+				}				
+				
+				var str = "";
+				$.each(replyArr, function(i,obj) {
+					
+					str += "<ul class='replyUL'>";	
+					str += "<div data-cno='"+obj.cno+"' data-rno='"+obj.rno+"'>";
+					str += "<div><i class='fas fa-user'></i>";
+					str += "<li>"+obj.replyer+"</li>";
+					str += "<li>"+obj.reply+"</li>";
+					str += "<li>"+replyService.formatTime(obj.moddate)+"</li></div>";
+					str += "</div></ul>";
+					
+				})
+				replyDiv.html(str);
+			})
+		}
 		
 		function showImage(fileCallPath){
 		    

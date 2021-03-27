@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cs.mapper.ClothesReplyMapper">
+
+	<insert id="insert" parameterType="com.cs.domain.category.ClothesReply">
+		insert into tbl_clothesreply ( cno , reply , replyer ) 
+		values ( #{cno} , #{reply} , #{replyer} )
+	</insert>
+	
+	<select id="read" resultType="com.cs.domain.category.ClothesReply">
+		select * from tbl_clothesreply where rno = #{rno}
+	</select>
+	
+	<select id="getReplyList" resultType="com.cs.domain.category.ClothesReply">
+		select * from tbl_clothesreply where cno = ${cno} order by rno desc limit #{cri.pageNum}, #{cri.amount}
+	</select>
+
+	<update id="update" parameterType="com.cs.domain.category.ClothesReply">
+		update tbl_clothesreply 
+		set reply = #{reply} , replyer = #{replyer}, moddate = now() 
+		where rno = #{rno}
+	</update>
+
+	<delete id="delete" parameterType="Long">
+		delete from tbl_clothesreply where rno = #{rno}
+	</delete>
+
+</mapper>

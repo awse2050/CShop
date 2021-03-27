@@ -584,6 +584,11 @@
 	width:600px;
 }
 
+.replyUL {
+	padding: 5px;
+	border-bottom: 1px solid #dedede;
+}
+
 .of-wrap {
 	overflow-wrap: anywhere;
 }
