@@ -66,15 +66,34 @@ public class ClothesController {
 	}
 	
 	// 목록, 수정, 삭제는 등록설정이 다 된 이후 추가 할것.
-	@GetMapping("/get")
+	@GetMapping({"/get"})
 	public void get(Long cno, Criteria cri, Model model) {
 		log.info("In Controller Get Page Cno : " + cno);
 		log.info("Criteria : " + cri);
 		
 		model.addAttribute("clothes", service.get(cno));
 		model.addAttribute("cri", cri);
-		
 	}
+	
+	@GetMapping({"/modify"})
+	public void modify(Long cno, Criteria cri, Model model) {
+		log.info("In Controller Modify Page Cno : " + cno);
+		log.info("Criteria : " + cri);
+		
+		model.addAttribute("clothes", service.modify(cno));
+		model.addAttribute("cri", cri);
+	}
+	
+	@PostMapping("/modify") 
+	public String modify(ClothesVO vo, Criteria cri, RedirectAttributes rttr) {
+		log.info("In Controller Modify VO : " + vo);
+		log.info("cri : " + cri);
+		
+		boolean modifyResult = service.modify(vo);
+		
+		return modifyResult ? "redirect:/index" : "redirect:/clothes/list";
+	}
+	
 	
 	@PostMapping("/remove")
 	public String remove(Long cno, Criteria cri, RedirectAttributes rttr) {

@@ -36,7 +36,7 @@
 	<div class="container">
 		<div class="row"> 
 			<!-- start form tag -->
-			<h2> 상품등록 </h2>
+			<h2 class="title"> 상품등록 </h2>
 			<form class="actionForm" action="/clothes/register" method="post">	
 				<fieldset>
 				<ul class="tabTitle">
@@ -104,31 +104,33 @@
 						</li>
 					</ul>
 					<!-- class= " input-table" -->
-					<table style="margin-top: 10px; width: 100%">
-						<tr style="height: 35px;">
-							<th>상품명</th>
-							<td>
-								<input type="text" name="productName" style="height: 25px; width: 100%;">
-							</td>
-						</tr>
-						<tr style="height: 35px;">
-							<th>수량</th>
-							<td>
-								<input type="text" name="count" style="height: 25px; ">
-							</td>
-						</tr>
-						<tr style="height: 35px;">
-							<th>판매가</th>
-							<td>
-								<input type="text" name="price" style="height: 25px; ">
-							</td>
-						</tr>
-						<tr style="height: 35px;">
-							<th>작성자</th>
-							<td>
-								<input type="text" name="writer" style="height: 25px; ">
-							</td>
-						</tr>
+					<table class="input-table" style="margin-top:0px; width: 100%;  border-top-width: 0px;">
+						<tbody>
+							<tr>
+								<th>상품명</th>
+								<td>
+									<input type="text" maxlength="40" name="productName" style="height: 25px; width:100%;">
+								</td>
+							</tr>
+							<tr>
+								<th>수량</th>
+								<td>
+									<input type="text" maxlength="5" name="count" style="height: 25px; width:100px; text-align: right;" value="0"> 개
+								</td>
+							</tr>
+							<tr>
+								<th>판매가</th>
+								<td>
+									<input type="text" maxlength="10" name="price" style="height: 25px; width: 160px; text-align: right;"> 원
+								</td>
+							</tr>
+							<tr>
+								<th>작성자</th>
+								<td>
+									<input type="text" name="writer" style="height: 25px; ">
+								</td>
+							</tr>
+						</tbody>
 					</table>
 				</fieldset>
 				<fieldset style="margin-top: 50px">
@@ -153,8 +155,8 @@
 				</fieldset>
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 				<div class="register-buttonRow">
-					<button class="regBtn"> 상품등록 </button>
-					<button class="listBtn"> 목록으로 </button>
+					<button id="regBtn"> 상품등록 </button>
+					<button id="listBtn"> 목록으로 </button>
 				</div>
 			</form>
 		</div>
@@ -180,10 +182,8 @@
 		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 		var maxSize = 5242880;
 		
-		var uploadLi = $(".uploadResult ul li");
-		
-		var regBtn = $(".regBtn");
-		var listBtn = $(".listBtn");
+		var regBtn = $("#regBtn");
+		var listBtn = $("#listBtn");
 		var actionForm = $(".actionForm");
 		
 		var filterSelect = $(".filterSelect");
@@ -250,9 +250,6 @@
 			}
 			
 			$.ajax({
-				beforeSend: function(xhr) {
-					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-				},
 				url: "/uploadAjaxAction",
 				processData: false,
 				contentType: false,
@@ -262,7 +259,7 @@
 				success: function(result) {
 					console.log(result);
 					
-					showUploadedFile(result); // 콜백으로 들어오는 result 는 controller에서 보내주는 list 다 ( attachFileDTO 타입의 List )
+					showUploadedFile(result); 
 //					$(".uploadDiv").html(cloneUpload.html()); // 업로드 후 내용 초기화
 				}
 			}); // ajax
@@ -297,25 +294,27 @@
 					
 					var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
 					
-					str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'><div>";
-					str += "<span>"+obj.fileName+"</span>";
-					str += "<button type'button' data-file=\'"+fileCallPath+"\' data-type='file' class='btn btn-warning btn-circle'>"; 
-					str += "<i class ='fa fa-times'></i></button><br>";
-					str += "<img src='/resources/img/X.svg.png'></a>";
-					str += "</div></li>";
+					str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-fileName='"+obj.fileName+"' data-type='"+obj.image+"' class='uploadLi'>";
+					str += "<button data-file='"+fileCallPath+"' data-type='file'>X</button>"
+					str += "<ion-icon name='camera-outline' class='index-category-icon'></ion-icon>";
+					str += "<p>그 외 파일"+(i+0)+"</p></li>";
 					
 				} else {
 					// 한글이름 문제 방지를 위한 encodeURIComponent사용
 					var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-					// 원본파일 이름
-					var originPath = obj.uploadPath+"\\"+obj.uuid+"_"+obj.fileName;
-					originPath = originPath.replace(new RegExp(/\\/g),"/");
 					
-					str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'><div>";
-					str += "<span> "+obj.fileName + "</span>";
-					str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='image' class='btn btn-warning btn-circle'>";
-					str += "<i class='fa fa-times'></i></button><br>";
-					str += "<img src='/display?fileName="+fileCallPath+"'></div></li>";
+					str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-fileName='"+obj.fileName+"' data-type='"+obj.image+"' class='uploadLi'>";
+					str += "<button data-file='"+fileCallPath+"' data-type='image'>X</button>"
+					str += "<img class='uploadImage' src='/display?fileName="+fileCallPath+"'>";
+					str += "<p>";
+					
+					if(i==0) {
+						str += "이미지"+(i+1)+"(대표이미지)";
+					} else {
+						str += "이미지"+(i+1);
+					}
+					
+					str +=  "</p></li>";
 					
 				}
 			});
