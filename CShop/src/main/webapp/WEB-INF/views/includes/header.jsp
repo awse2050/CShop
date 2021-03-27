@@ -29,7 +29,6 @@
   
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="/resources/images/favicon.png" />
-  
   <!-- icon -->
   <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
   <!-- Themefisher Icon font -->
