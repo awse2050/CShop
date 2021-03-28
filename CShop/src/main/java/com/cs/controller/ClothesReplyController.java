@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cs.domain.Criteria;
 import com.cs.domain.category.ClothesReply;
+import com.cs.domain.category.ReplyPageDTO;
 import com.cs.mapper.ClothesReplyMapper;
+import com.cs.service.ClothesReplyService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -27,13 +29,13 @@ import lombok.extern.log4j.Log4j;
 @RequiredArgsConstructor
 public class ClothesReplyController {
 
-	private final ClothesReplyMapper mapper;
+	private final ClothesReplyService service;
 	
 	@PostMapping(value = "/new" , consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> register(@RequestBody ClothesReply reply) {
 		log.info("In Controller Add reply : " + reply);
 		
-		int result = mapper.insert(reply);
+		int result = service.register(reply);
 		
 		return result == 1 ? new ResponseEntity<String>("success", HttpStatus.OK) 
 				: new ResponseEntity<String>("fail" , HttpStatus.BAD_REQUEST);
@@ -44,25 +46,37 @@ public class ClothesReplyController {
 		
 		log.info("In Controller Get Rno : " + rno);
 		
-		return new ResponseEntity<ClothesReply>(mapper.read(rno), HttpStatus.OK);
+		return new ResponseEntity<ClothesReply>(service.getByRno(rno), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{cno}/{page}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
-	public ResponseEntity<List<ClothesReply>> getList(@PathVariable("cno") Long cno, @PathVariable("page")int page) {
+	public ResponseEntity<ReplyPageDTO<ClothesReply>> getList(@PathVariable("cno") Long cno, @PathVariable("page")int page) {
 		log.info("In Controller Get List By Cno : " + cno);
 		
 		Criteria cri = new Criteria(page, 10);
 		
-		return new ResponseEntity<List<ClothesReply>>(mapper.getReplyList(cno, cri), HttpStatus.OK);
+		return new ResponseEntity<>(service.getReplyListWithPaging(cri, cno), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{rno}",  produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> remove(@PathVariable("rno") Long rno) {
 		log.info("In Controller Remove Rno : " + rno);
 		
-		boolean result = mapper.delete(rno);
+		boolean result = service.remove(rno);
 		
 		return result ? new ResponseEntity<String>("delete Success", HttpStatus.OK) 
 				: new ResponseEntity<String>(HttpStatus.BAD_GATEWAY);
+	}
+	
+	@PutMapping(value = "/{rno}", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> modify(@PathVariable("rno")Long rno, @RequestBody ClothesReply reply) {
+		log.info("In Controller Modify : " + rno);
+		log.info("In Controller Modify : " + reply);
+		reply.setRno(rno);
+		
+		boolean result = service.modify(reply);
+		
+		return result ? new ResponseEntity<String>("modify..", HttpStatus.OK )
+					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

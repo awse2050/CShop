@@ -41,4 +41,9 @@ public class ClothesReplyMapperTests {
 	public void getListTest() {
 		log.info(mapper.getReplyList(373L, new Criteria()));
 	}
+	
+	@Test
+	public void countTest() {
+		log.info(mapper.getCountByCno(373L));
+	}
 }

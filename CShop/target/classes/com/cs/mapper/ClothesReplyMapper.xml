@@ -27,5 +27,9 @@
 	<delete id="delete" parameterType="Long">
 		delete from tbl_clothesreply where rno = #{rno}
 	</delete>
+	
+	<select id="getCountByCno" resultType="int">
+		select count(cno) from tbl_clothesreply where cno = #{cno}
+	</select>
 
 </mapper>

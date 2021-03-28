@@ -44,7 +44,7 @@
  		
  		$.getJSON("/clothes/replies/"+cno+"/"+page+".json", function(result) {
  			if(callback) {
- 				callback(result);
+ 				callback(result.list, result.replyCnt);
  			}
  		}).fail(function(er) {
 			if(er) {
@@ -70,29 +70,41 @@
  		})
  	}
  	
- 	function modify() {
- 	
+ 	function modify(reply, callback, error) {
+ 		var rno = reply.rno;
+ 		
+ 		$.ajax({
+ 			type: 'put',
+ 			url: '/clothes/replies/'+rno,
+ 			data: JSON.stringify(reply),
+ 			contentType: "application/json; charset=utf-8",
+ 			success: function(result) {
+ 				if(callback) {
+ 					callback(result);
+ 				}
+ 			}
+ 			.fail(function(result) { 
+ 				if(error) {
+ 					error();
+ 				}
+ 			})
+ 		})
  	}
  	
  	function formatTime(time) {
  		
- 		var today = new Date();
- 		
- 		var gap = today.getTime() - time;
- 		
  		var dateObj = new Date(time);
  		
- 		if( gap < 1000 * 60 * 60 * 24) {
- 			var hh = dateObj.getHours();
- 			var mi = dateObj.getMinutes();
- 			var ss = dateObj.getSeconds();
- 			var yy = dateObj.getFullYear();
- 			var mm = dateObj.getMonth() + 1;
- 			var dd = dateObj.getDate();
- 			
- 			return [ yy, '.', ( mm > 9 ? '' : '0' ) + mm , '.', (dd > 9 ? '' : '0' ) + dd , ". " ,
- 			(hh > 9 ? '' : '0' ) + hh , ':', (mi > 9 ? '' : '0' ) + mi , ':' , (ss > 9 ? '' : '0' ) + ss].join('');
- 		} 
+		var hh = dateObj.getHours();
+		var mi = dateObj.getMinutes();
+		var ss = dateObj.getSeconds();
+		var yy = dateObj.getFullYear();
+		var mm = dateObj.getMonth() + 1;
+		var dd = dateObj.getDate();
+		
+		return [ yy, '.', ( mm > 9 ? '' : '0' ) + mm , '.', (dd > 9 ? '' : '0' ) + dd , ". " ,
+		(hh > 9 ? '' : '0' ) + hh , ':', (mi > 9 ? '' : '0' ) + mi , ':' , (ss > 9 ? '' : '0' ) + ss].join('');
+ 		 
  	}
  	
  	return {

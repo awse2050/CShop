@@ -104,20 +104,28 @@
 		</div>
 	</div>
 </section>
+
 <section class="section" style="padding-top: 40px">
 	<div class="container">
 		<div class="row" style="border-bottom: 1px solid #dedede">
 			<h2 class="title">댓글</h2>
 		</div>
-		<div class="row replyDiv" style="border: 1px solid #dedede; padding: 8px;">
-			<ul class="replyUL">
-				<div>
-					<li>작성자</li>
-					<li>댓글</li>
-					<li>2021.03.27 12:12:12</li>
-				</div>
-			</ul>
+		<div class="row" style="border: 1px solid #dedede; padding: 8px;">
+			<div class="replyDiv">
+				<ul class="replyUL">
+					<div>
+						<li>작성된 댓글이 없습니다.</li>
+					</div>
+				</ul>
+			</div>
+			<div class="replyWriteBox" style="margin-top: 5px; width:100%;">
+				<textarea type="text" cols="10" style="width:100%;"></textarea>
+				<button class="existcheck-btn" id="addReplyBtn">댓글등록</button>
+			</div>
 		</div>
+		<div class="text-center replyPage" style="margin-top: 10px;">
+			
+        </div>
 	</div>
 </section>
 
@@ -152,13 +160,15 @@
 		var addReplyBtn = $("#addReplyBtn");
 		var cno = '<c:out value="${clothes.cno}"/>';
 		
-		showReplyList();
+		var pageNum = 1;
+		var replyPage = $(".replyPage");
+		
+		showReplyList(1);
 		
 		(function() {
 			var cno = '<c:out value="${clothes.cno}"/>';
 			
 			$.getJSON("/clothes/getAttachList", {cno : cno},function(arr) {
-				console.log(arr);
 				// 대표이미지
 				var strUL = "";
 				
@@ -212,7 +222,6 @@
 		
 		mainImg.on("click", "img" , function(e) {
 			e.preventDefault();
-			
 			showImage($(this).attr('src'));
 		});
 		
@@ -248,60 +257,93 @@
 			})
 		});
 		
-/* 		$("#get").on("click", function(e) {
-			e.preventDefault();
-		
-			replyService.get(40, function(result) {
-				console.log(result);
-			})
-		});
-		
-		$("#removen").on("click", function(e) {
+		replyDiv.on("click", "button", function(e) {
 			e.preventDefault();
 			
-			replyService.remove(1, function(result) {
-				console.log(result);
-			})
+			var oper = $(this).data("oper");
+			var button = $(this).closest("div");
+			var cno = button.data("cno");
+			var rno = button.data("rno");
+
 		});
-		
-		$("#getList").on("click", function(e) {
-			e.preventDefault();
-			
-			replyService.getList(373, function(result) {
-				console.log(result);
-			})
-		}); */
-		
-		/* 	<ul class="replyUL">
-				<li>작성자</li>
-				<li>댓글</li>
-				<li>2021.03.27 12:12:12</li>
-			</ul>
-		*/
 		
 		function showReplyList(page) {
 			var param = {page: page, cno: cno};
 			
-			replyService.getList(param, function(replyArr) {
-				if(!replyArr) {
+			replyService.getList(param, function(list, replyCnt) {
+				if(!list) {
 					return false;
 				}				
-				
+				console.log(list);
 				var str = "";
-				$.each(replyArr, function(i,obj) {
+				
+				$.each(list, function(i,obj) {
 					
 					str += "<ul class='replyUL'>";	
-					str += "<div data-cno='"+obj.cno+"' data-rno='"+obj.rno+"'>";
-					str += "<div><i class='fas fa-user'></i>";
+					str += "<div data-cno='"+obj.cno+"' data-rno='"+obj.rno+"'><i class='fas fa-user'></i> ";
+					str += "<button data-oper='modify'>수정하기</button>";
+					str += "<button data-oper='remove'>삭제하기</button>";
 					str += "<li>"+obj.replyer+"</li>";
 					str += "<li>"+obj.reply+"</li>";
 					str += "<li>"+replyService.formatTime(obj.moddate)+"</li></div>";
-					str += "</div></ul>";
+					str += "</ul>";
 					
 				})
 				replyDiv.html(str);
+				showReplyPage(replyCnt);
 			})
 		}
+		
+		function showReplyPage(replyCnt) {
+			
+			var endNum = Math.ceil(pageNum / 10.0 ) * 10; 
+			var startNum = endNum - 9;
+			
+			var prev = startNum > 1 ;
+			var next = false;
+			
+			if(endNum * 10 >= replyCnt) {
+				endNum = Math.ceil(replyCnt/10.0);
+			}
+
+			if(endNum * 10 < replyCnt) {
+				next = true;
+			}
+			
+			var str = "<ul class='pageRow'>";
+			
+			//  이전버튼 생성
+			if(prev) {
+				str += "<a class='pageBtn' href='"+(startNum-1)+"'><li class='prevBtn'>prev</li></a>";
+			}
+
+			for(var i = startNum; i <= endNum; i++) {
+				var active = pageNum == i ? "active" : "";
+				
+				str += "<a class='pageBtn "+active+" ' href='"+i+"'><li>"+i+"</li></a>"
+			}
+		
+			if(next) {
+				str += "<a class='pageBtn' href='"+(endNum + 1)+"'><li class='nextBtn'>Next</li></a> ";
+			}
+			
+			str += "</ul>";
+			
+			replyPage.html(str);
+		}
+		
+		replyPage.on("click", "a", function(e) {
+		
+			e.preventDefault();
+			console.log("page click");
+			
+			var href = $(this).attr("href");
+			
+			pageNum = href; // 전역변수의 값을 덮어씀.
+			
+			showReplyList(pageNum);
+			
+		}) 
 		
 		function showImage(fileCallPath){
 		    
@@ -319,8 +361,6 @@
 		      $('.bigPictureWrapper').hide();
 		    }, 1000);
 		  });//end bigWrapperClick event
-		
-		
 	});
 </script>
 
