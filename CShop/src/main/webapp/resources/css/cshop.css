@@ -234,7 +234,7 @@
 }
 
 .like-table > tbody > tr {
-	height: 105px;
+	height: 200px;
 	border-bottom: 1px solid #e8e8e8;
 	text-align: center;
 }
@@ -532,6 +532,28 @@
 	min-width: 100px;
 	min-height: 25px;
 	color: #fff;
+	font-weight: 700;
+	font-size: 13px;
+	padding: 0 15px;
+}
+
+.small-btn {
+	border: 1px solid #888;
+	background: #888;
+	min-width: 50px;
+	min-height: 25px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 13px;
+	padding: 0 15px;
+}
+
+.small-btn2 {
+	border: 1px solid black;
+	background: white;
+	min-width: 50px;
+	min-height: 25px;
+	color: #black;
 	font-weight: 700;
 	font-size: 13px;
 	padding: 0 15px;

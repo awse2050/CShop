@@ -12,5 +12,7 @@ public interface LikeService {
 	public List<ClothesVO> getLikeListByUserid(String userid);
 	
 	public boolean remove(Long cno, String userid);
+	
+	public LikeVO getByCnoWithUserid(LikeVO vo);
 }
 

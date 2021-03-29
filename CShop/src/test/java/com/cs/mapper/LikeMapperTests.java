@@ -40,4 +40,9 @@ public class LikeMapperTests {
 		log.info(mapper.delete(374L, "admin44"));
 	}
 	
+	@Test
+	public void getByCnoWithUseridTest() {
+		log.info(mapper.getByCnoWithUserid(new LikeVO("admin44", 374L)));
+	}
+	
 }

@@ -73,6 +73,13 @@ public class LikeServiceImpl implements LikeService {
 		log.info("Cancel Like User : " + userid);
 		return likeMapper.delete(cno, userid);
 	}
+
+	@Override
+	public LikeVO getByCnoWithUserid(LikeVO vo) {
+		log.info("search Like Cno : " + vo.getCno());
+		log.info("search Like User : " + vo.getUserid());
+		return likeMapper.getByCnoWithUserid(vo);
+	}
 	
 	private String makeThumbnailURL(ClothesAttachVO attachVO) {
 		String url = null;
@@ -87,5 +94,6 @@ public class LikeServiceImpl implements LikeService {
 		
 		return url;
 	}
+	
 	
 }

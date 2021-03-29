@@ -15,4 +15,5 @@ public interface LikeMapper {
 	
 	public boolean delete(@Param("cno")Long cno, @Param("userid")String userid);
 	
+	public LikeVO getByCnoWithUserid(@Param("vo")LikeVO vo);
 }
