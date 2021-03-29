@@ -19,6 +19,8 @@ public interface ClothesReplyMapper {
 	public boolean update(ClothesReply reply);
 	//삭제
 	public boolean delete(Long rno);
+	// 댓글 전체 삭제
+	public void deleteAll(Long cno);
 	// 댓글 갯수
 	public int getCountByCno(Long cno);
 	

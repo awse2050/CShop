@@ -28,6 +28,10 @@
 		delete from tbl_clothesreply where rno = #{rno}
 	</delete>
 	
+	<delete id="deleteAll" parameterType="Long">
+		delete from tbl_clothesreply where cno = #{cno}
+	</delete>
+	
 	<select id="getCountByCno" resultType="int">
 		select count(cno) from tbl_clothesreply where cno = #{cno}
 	</select>

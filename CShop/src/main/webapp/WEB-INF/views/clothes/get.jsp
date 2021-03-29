@@ -221,12 +221,12 @@
 			objForm.submit();
 		})
 		
-		mainImg.on("click", "img" , function(e) {
+		mainImg.on("click", "img", function(e) {
 			e.preventDefault();
 			showImage($(this).attr('src'));
 		});
 		
-		thumbImg.on("click", "img" , function(e) {
+		thumbImg.on("click", "img", function(e) {
 			e.preventDefault();
 			var str = "";
 			
@@ -311,6 +311,7 @@
 				str += "<li class='moddate'>"+moddate+"</li>";
 				
 				parentDiv.html(str);
+				
 			} else if(oper == "modify") {
 				replyService.modify({rno:rno, reply:reply, replyer:replyer}, function(result) {
 					userIcon.after(str);
