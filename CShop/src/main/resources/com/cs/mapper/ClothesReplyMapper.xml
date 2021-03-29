@@ -15,7 +15,7 @@
 	</select>
 	
 	<select id="getReplyList" resultType="com.cs.domain.category.ClothesReply">
-		select * from tbl_clothesreply where cno = ${cno} order by rno desc limit #{cri.pageNum}, #{cri.amount}
+		select * from tbl_clothesreply where cno = ${cno} order by rno desc limit #{cri.skip}, #{cri.amount}
 	</select>
 
 	<update id="update" parameterType="com.cs.domain.category.ClothesReply">

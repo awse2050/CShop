@@ -10,7 +10,6 @@
  			type: 'post',
 			url: '/clothes/replies/new',
 			data: JSON.stringify(reply),
-			dataType: 'json',
 			contentType: "application/json; charset=utf-8",
 			success: function(result) {
 				if(callback) {
@@ -82,12 +81,12 @@
  				if(callback) {
  					callback(result);
  				}
- 			}
- 			.fail(function(result) { 
+ 			},
+ 			error: function(result) { 
  				if(error) {
  					error();
  				}
- 			})
+ 			}
  		})
  	}
  	

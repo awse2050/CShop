@@ -119,7 +119,7 @@
 				</ul>
 			</div>
 			<div class="replyWriteBox" style="margin-top: 5px; width:100%;">
-				<textarea type="text" cols="10" style="width:100%;"></textarea>
+				<textarea type="text" name="reply" cols="10" style="width:100%;"></textarea>
 				<button class="existcheck-btn" id="addReplyBtn">댓글등록</button>
 			</div>
 		</div>
@@ -137,7 +137,7 @@
 
 </form>
 
-<script type="text/javascript" src="../resources/js/reply.js?ver=2"></script>
+<script type="text/javascript" src="../resources/js/reply.js?ver=3"></script>
 
 <script>
 	$(document).ready(function() {
@@ -156,6 +156,7 @@
 		var thumbImg = $(".thumbImg");
 		var mainImg = $(".mainImg");
 		
+		var replyWriteBox = $(".replyWriteBox");
 		var replyDiv = $(".replyDiv");
 		var addReplyBtn = $("#addReplyBtn");
 		var cno = '<c:out value="${clothes.cno}"/>';
@@ -249,22 +250,73 @@
 			e.preventDefault();
 		
 			console.log("add reply Button click");
-			
-			var data = {cno: cno, reply: "reply" , replyer: "admin44"};
+			var replyBox = replyWriteBox.find("textarea[name='reply']");
+			var reply = replyBox.val();
+			var data = {cno: cno, reply: reply , replyer: "admin44"};
+			console.log(data);
 			
 			replyService.add(data, function(result) {
-				console.log(result);
-			})
+				replyBox.val("");
+				showReplyList(pageNum);
+			}) 
+		});
+		
+		replyDiv.on("click", "a", function(e) {
+			e.preventDefault();
+			
+			var oper = $(this).data("oper");
+			var parentDiv = $(this).closest("div");
+			var cno = parentDiv.data("cno");
+			var rno = parentDiv.data("rno");
+			var str = "";
+			
+			var reply = parentDiv.find("li.reply").html();
+			var replyer = parentDiv.find("li.replyer").html();
+			var moddate = parentDiv.find("li.moddate").html();
+			
+			if(oper == "remove") {
+				if(confirm("지우시겠습니까?")) {
+					replyService.remove(rno, function(result) {
+						showReplyList(pageNum);
+					});
+				}
+			} else if(oper == "modify") {
+				str += "<textarea type='text' name='reply' cols='10' style='width: 100%;'>"+reply+"</textarea>";			
+				str += "<button class='existcheck-btn' data-oper='modify' style='margin-right: 4px;'>수정</button>"
+				str += "<button class='existcheck-btn' data-oper='cancel'>취소</button>"
+				str += "<input type='hidden' name='replyer' value='"+replyer+"'>";
+				str += "<input type='hidden' name='moddate' value='"+moddate+"'>";
+				
+				parentDiv.html(str);
+			}
 		});
 		
 		replyDiv.on("click", "button", function(e) {
 			e.preventDefault();
-			
+			var str = "";
 			var oper = $(this).data("oper");
-			var button = $(this).closest("div");
-			var cno = button.data("cno");
-			var rno = button.data("rno");
-
+			var parentDiv = $(this).closest("div");
+			var rno = parentDiv.data("rno");
+			var replyer = parentDiv.find("input[name='replyer']").val();
+			var moddate = parentDiv.find("input[name='moddate']").val();
+			var reply = parentDiv.find("textarea[name='reply']").val();
+			
+			if(oper == "cancel") {
+				
+				str += "<i class='fas fa-user'></i> ";
+				str += "<a href='#' data-oper='modify' style='color: #999; font-size: 12px; margin: 0px 4px;'>수정하기</a>";
+				str += "<a href='#' data-oper='remove' style='color: #999; font-size: 12px; margin: 0px 4px;'>삭제하기</a>";
+				str += "<li class='replyer'>"+replyer+"</li>";
+				str += "<li class='reply'>"+reply+"</li>";
+				str += "<li class='moddate'>"+moddate+"</li>";
+				
+				parentDiv.html(str);
+			} else if(oper == "modify") {
+				replyService.modify({rno:rno, reply:reply, replyer:replyer}, function(result) {
+					userIcon.after(str);
+					showReplyList(pageNum);
+				});
+			}
 		});
 		
 		function showReplyList(page) {
@@ -272,20 +324,20 @@
 			
 			replyService.getList(param, function(list, replyCnt) {
 				if(!list) {
+					console.log("list is null");
 					return false;
 				}				
-				console.log(list);
 				var str = "";
 				
 				$.each(list, function(i,obj) {
 					
 					str += "<ul class='replyUL'>";	
 					str += "<div data-cno='"+obj.cno+"' data-rno='"+obj.rno+"'><i class='fas fa-user'></i> ";
-					str += "<button data-oper='modify'>수정하기</button>";
-					str += "<button data-oper='remove'>삭제하기</button>";
-					str += "<li>"+obj.replyer+"</li>";
-					str += "<li>"+obj.reply+"</li>";
-					str += "<li>"+replyService.formatTime(obj.moddate)+"</li></div>";
+					str += "<a href='#' data-oper='modify' style='color: #999; font-size: 12px; margin: 0px 4px;'>수정하기</a>";
+					str += "<a href='#' data-oper='remove' style='color: #999; font-size: 12px; margin: 0px 4px;'>삭제하기</a>";
+					str += "<li class='replyer'>"+obj.replyer+"</li>";
+					str += "<li class='reply'>"+obj.reply+"</li>";
+					str += "<li class='moddate'>"+replyService.formatTime(obj.moddate)+"</li></div>";
 					str += "</ul>";
 					
 				})
