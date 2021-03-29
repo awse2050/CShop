@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cs.domain.ClothesAttachVO;
 import com.cs.domain.Criteria;
+import com.cs.domain.LikeVO;
 import com.cs.domain.NoticeAttachVO;
 import com.cs.domain.category.ClothesVO;
 import com.cs.mapper.ClothesAttachMapper;
@@ -93,12 +94,7 @@ public class ClothesServiceImpl implements ClothesService {
 				attachVO = list.getAttachList().get(0);
 				log.info("attachVO : " + attachVO);
 				
-				try  {
-					list.setThumbnailUrl(URLEncoder.encode(attachVO.getUploadPath() + "/s_" + attachVO.getUuid() + "_" + attachVO.getFileName(),"UTF-8"));
-					
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
+				list.setThumbnailUrl(makeThumbnailURL(attachVO));
 			});
 		}
 		
@@ -153,5 +149,19 @@ public class ClothesServiceImpl implements ClothesService {
 		log.info("get attach number : " + cno);
 		
 		return attachMapper.findByCno(cno);
+	}
+	
+	private String makeThumbnailURL(ClothesAttachVO attachVO) {
+		String url = null;
+		
+		try  {
+			url = URLEncoder.encode(attachVO.getUploadPath() + "/s_" 
+										+ attachVO.getUuid() + "_" + attachVO.getFileName(),"UTF-8");
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		return url;
 	}
 }

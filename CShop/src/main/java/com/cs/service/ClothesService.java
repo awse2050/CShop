@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cs.domain.ClothesAttachVO;
 import com.cs.domain.Criteria;
+import com.cs.domain.LikeVO;
 import com.cs.domain.category.ClothesVO;
 
 public interface ClothesService {
@@ -24,5 +25,4 @@ public interface ClothesService {
 	
 	public List<ClothesAttachVO> getAttachList(Long cno);
 	
-
 }

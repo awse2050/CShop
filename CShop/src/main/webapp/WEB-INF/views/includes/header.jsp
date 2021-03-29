@@ -91,6 +91,11 @@
 						</a>
 					</li>
 					<li>
+						<a href="/like">
+						찜리스트
+						</a>
+					</li>
+					<li>
 						<sec:authorize access="isAnonymous()">
 						<a class="loginBtn" href="/loginPage">
 						로그인

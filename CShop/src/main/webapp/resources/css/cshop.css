@@ -215,6 +215,30 @@
 	padding: 50px 25px 100px;
 }
 
+.like-table {
+	margin-top: 10px;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.like-table>thead>tr {
+	min-height: 45px;
+	border-bottom: 1px solid #e8e8e8;
+	border-top: 1px solid #e8e8e8;
+}
+
+.like-table>thead>tr>th {
+	padding: 15px 0px;
+	background-color: #f8f8f8;
+	text-align: center;
+}
+
+.like-table > tbody > tr {
+	height: 105px;
+	border-bottom: 1px solid #e8e8e8;
+	text-align: center;
+}
+
 .input-table {
 	margin-top: 10px;
 	width: 100%;
