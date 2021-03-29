@@ -3,41 +3,12 @@
 
 <%@ include file="../includes/header.jsp"%>
 
-<div class="container" style="border-bottom: 1px solid #dedede">
-	<div class="index-category">
-		<div class="index-category-div">
-			<div class="index-category-child-div">
-				<a href="/clothes/list">
-					<div class="category">
-						<h3>패션</h3>
-					</div>
-				</a>	
-			</div>
-			<div class="index-category-child-div">
-				<a href="/mobile/list"> 
-					<div class="category">
-						<h3>휴대폰/통신</h3>
-					</div>
-				</a>	
-			</div>
-			<div class="index-category-child-div">
-				<a href="/office/list">
-					<div class="category">
-						<h3>사무용품</h3>
-					</div>
-				</a>	
-			</div>
-		</div>
-	</div>
-</div>
-<!-- end category header -->
-
 <section class="section">
 	<div class="container">
 		<div class="row"> 
 			<!-- start form tag -->
 			<h2 class="title"> 상품등록 </h2>
-			<form class="actionForm" action="/clothes/register" method="post">	
+			<form class="actionForm">	
 				<fieldset>
 				<ul class="tabTitle">
 					<li class="active">
@@ -82,8 +53,13 @@
 						<input type='file' name='uploadFile' multiple>
 					</div>
 					<div class='uploadResult'>
-						<ul>
+						<ul class="uploadUL" style="padding: 10px;">
 						
+						</ul>
+						<ul class="guide">
+							<li>*이미지1 썸네일 자동등록</li>
+							<li>*업로드 가능한 이미지 최대 용량은 5MB 입니다.</li>
+							<li>*이미지 최적 사이즈: PC: 600 x 480 / Mobile: 680 x 400</li>
 						</ul>
 					</div>
 				</div>
@@ -107,7 +83,7 @@
 					<table class="input-table" style="margin-top:0px; width: 100%;  border-top-width: 0px;">
 						<tbody>
 							<tr>
-								<th>상품명</th>
+								<th>상품명(40자 이하)</th>
 								<td>
 									<input type="text" maxlength="40" name="productName" style="height: 25px; width:100%;">
 								</td>
@@ -119,7 +95,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th>판매가</th>
+								<th>판매가(10자리 이하)</th>
 								<td>
 									<input type="text" maxlength="10" name="price" style="height: 25px; width: 160px; text-align: right;"> 원
 								</td>
@@ -185,7 +161,7 @@
 		var regBtn = $("#regBtn");
 		var listBtn = $("#listBtn");
 		var actionForm = $(".actionForm");
-		
+		var index = 1;
 		var filterSelect = $(".filterSelect");
 		
 		var categoryValue = "";
@@ -201,7 +177,7 @@
 			
 			var str = "";
 			// 첨부파일 이미지 정보
-			$(".uploadResult ul li").each(function(i,obj) {
+			$(".uploadUL li").each(function(i,obj) {
 				console.log(obj);	// 각 li의 태그가 전송된다 따라서 그 값의 속성을 가져오기 위해서 $()을 써줘야함.
 				str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+$(obj).data("path")+"'>";
 				str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+$(obj).data("uuid")+"'>";
@@ -210,8 +186,8 @@
 			});
 			
 			actionForm.append(str);
-			console.log(actionForm);
-			actionForm.submit();
+		 	actionForm.attr("action", "/clothes/register").attr("method", "post");
+			actionForm.submit(); 
 		})
 		
 		listBtn.on("click", function(e) {
@@ -284,7 +260,7 @@
 				return;
 			}
 			
-			var uploadUL = $(".uploadResult ul");
+			var uploadUL = $(".uploadUL");
 			
 			var str = "";
 			// 배열을 하나씩 뽑는다.
@@ -297,7 +273,7 @@
 					str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-fileName='"+obj.fileName+"' data-type='"+obj.image+"' class='uploadLi'>";
 					str += "<button data-file='"+fileCallPath+"' data-type='file'>X</button>"
 					str += "<ion-icon name='camera-outline' class='index-category-icon'></ion-icon>";
-					str += "<p>그 외 파일"+(i+0)+"</p></li>";
+					str += "<p>그 외 파일</p></li>";
 					
 				} else {
 					// 한글이름 문제 방지를 위한 encodeURIComponent사용
@@ -308,13 +284,14 @@
 					str += "<img class='uploadImage' src='/display?fileName="+fileCallPath+"'>";
 					str += "<p>";
 					
-					if(i==0) {
-						str += "이미지"+(i+1)+"(대표이미지)";
+					if(index==1) {
+						str += "이미지"+(index)+"(대표이미지)";
+						
 					} else {
-						str += "이미지"+(i+1);
+						str += "이미지"+(index);
 					}
-					
 					str +=  "</p></li>";
+					index++;
 					
 				}
 			});
@@ -324,6 +301,7 @@
 		
 		/* 삭제버튼 */
 		$(".uploadResult").on("click","button", function(e) {
+			e.preventDefault();
 			
 			console.log("delete file");
 			
@@ -343,7 +321,7 @@
 				data: {fileName: targetFile, type: type},
 				dataType: 'text',
 				success: function(result) {
-					console.log(result);
+					index--;
 					targetLi.remove(); //  태그제거
 				}
 			})

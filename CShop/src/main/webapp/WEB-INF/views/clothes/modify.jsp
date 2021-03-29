@@ -2,35 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp"%>
 
-<div class="container" style="border-bottom: 1px solid #dedede">
-	<div class="index-category">
-		<div class="index-category-div">
-			<div class="index-category-child-div">
-				<a href="/clothes/list">
-					<div class="category">
-						<h3>패션</h3>
-					</div>
-				</a>	
-			</div>
-			<div class="index-category-child-div">
-				<a href="/mobile/list"> 
-					<div class="category">
-						<h3>휴대폰/통신</h3>
-					</div>
-				</a>	
-			</div>
-			<div class="index-category-child-div">
-				<a href="/office/list">
-					<div class="category">
-						<h3>사무용품</h3>
-					</div>
-				</a>	
-			</div>
-		</div>
-	</div>
-</div>
-<!-- end category header -->
-
 <section class="section">
 	<div class="container">
 		<div class="row"> 
@@ -84,8 +55,8 @@
 						<input type='file' name='uploadFile' multiple>
 					</div>
 					<div class='uploadResult'>
-						<ul class="uploadUL" style="padding: 10px; ">
-							<li style="display: inline-block;  padding:5px; " > 
+						<ul class="uploadUL" style="padding: 10px;">
+							<li style="display: inline-block;  padding:5px;" > 
 								<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
 							</li>
 							<li style="display: inline-block;  padding:5px;">
@@ -118,7 +89,7 @@
 					<table class="input-table" style="margin-top:0px; width: 100%; border-top-width: 0px;">
 						<tbody>
 							<tr>
-								<th>상품명</th>
+								<th>상품명(40자리 이하)</th>
 								<td>
 									<input type="text" maxlength="40" name="productName" value="${clothes.productName }" style="height: 25px; width:100%;">
 								</td>
@@ -130,7 +101,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th>판매가</th>
+								<th>판매가(10자리 이하)</th>
 								<td>
 									<input type="text" maxlength="10" name="price" value="${clothes.price }" style="height: 25px; width: 160px; text-align: right;" > 원
 								</td>

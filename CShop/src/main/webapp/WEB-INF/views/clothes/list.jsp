@@ -3,44 +3,15 @@
 
 <%@ include file="../includes/header.jsp"%>
 
-<div class="container" style="border-bottom: 1px solid #dedede">
-	<div class="index-category">
-		<div class="index-category-div">
-			<div class="index-category-child-div">
-				<a href="/clothes/list">
-					<div class="category">
-						<h3>패션</h3>
-					</div>
-				</a>	
-			</div>
-			<div class="index-category-child-div">
-				<a href="/mobile/list"> 
-					<div class="category">
-						<h3>휴대폰/통신</h3>
-					</div>
-				</a>	
-			</div>
-			<div class="index-category-child-div">
-				<a href="/office/list">
-					<div class="category">
-						<h3>사무용품</h3>
-					</div>
-				</a>	
-			</div>
-		</div>
-	</div>
-</div>
-
 <section class="section">
 	<div class="container">
 		<div class="row">
 			<aside class="listAside">
 				<aside-header class="aside-header">패션</aside-header>
 					<nav class="listAside-nav">
-						<ul>
+						 <ul>
 							<li>팝니다</li>
-							<li>삽니다</li>
-						</ul>
+						</ul> 
 					</nav>
 			</aside>
 			<div class="listBody"> <!-- 본문 틀 -->

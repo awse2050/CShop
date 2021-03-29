@@ -3,34 +3,6 @@
 
 <%@ include file="../includes/header.jsp"%>
 
-<div class="container" style="border-bottom: 1px solid #dedede">
-	<div class="index-category">
-		<div class="index-category-div">
-			<div class="index-category-child-div">
-				<a href="/item/list">
-					<div class="category">
-						<h3>패션</h3>
-					</div>
-				</a>
-			</div>
-			<div class="index-category-child-div">
-				<a href="/mobile/list">
-					<div class="category">
-						<h3>휴대폰/통신</h3>
-					</div>
-				</a>
-			</div>
-			<div class="index-category-child-div">
-				<a href="/office/list">
-					<div class="category">
-						<h3>사무용품</h3>
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
-</div>
-
 <section class="section" style="padding: 0 0;">
 	<div class="container">
 		<div class="row">
@@ -65,15 +37,16 @@
 				<!-- /. imgBox -->
 				<div class="infoBox">
 					<div class="infoBoxHead">
-						<div class="detailsRow" style="text-align: right; font-size: 14px;">조회수: ${clothes.viewCnt }</div>
+						<div class="detailsRow" >조회수: ${clothes.viewCnt }</div>
 						<div class="detailsInfo">
-							<div class="pName"> 상품명 : ${clothes.productName }</div>
-							<div class="isTrade">교환가능 여부 : 불가</div>
+							<div class="pName" style="font-size: 20px;"> ${clothes.productName }</div>
+							<div class="isTrade" style="font-size:18px; font-weight:700;">교환가능 여부 : 불가</div>
 							<div class="priceRow">
-								<span>가격</span> <span>${clothes.price }</span>
+								<span style="font-size:14px; font-weight: 700;">가격</span> 
+								<span style="font-size:18px; font-weight: 700;">${clothes.price }</span>
 							</div>
 							<div class="countRow">
-								<span>수량</span> <span>${clothes.count }</span>
+								<span style="font-weight: 700;">수량</span> <span>${clothes.count }</span>
 							</div>
 						</div>
 					</div>
@@ -324,11 +297,15 @@
 			var param = {page: page, cno: cno};
 			
 			replyService.getList(param, function(list, replyCnt) {
+				var str = "";
+				
 				if(!list) {
-					console.log("list is null");
+					console.log("no list");
+					str += "<ul class='replyUL'>"
+					str += "<li>작성된 댓글이 없습니다.</li></ul>";
+					replyDiv.html(str);
 					return false;
 				}				
-				var str = "";
 				
 				$.each(list, function(i,obj) {
 					

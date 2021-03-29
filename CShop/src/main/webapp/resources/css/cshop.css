@@ -589,6 +589,19 @@
 	border-bottom: 1px solid #dedede;
 }
 
+.detailsRow {
+	text-align: right; 
+	font-size: 14px;
+}
+
+.detailsInfo {
+	padding:30px 10px;
+}
+
+.detailsInfo > div {
+	padding-bottom: 30px;
+}
+
 .of-wrap {
 	overflow-wrap: anywhere;
 }
