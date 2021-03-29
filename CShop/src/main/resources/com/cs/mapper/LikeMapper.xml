@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cs.mapper.LikeMapper">
+	
+	<resultMap type="com.cs.domain.LikeVO" id="likeMap">
+		<result property="userid" column="userid"/>
+		<result property="cno" column="like_cno"/>
+	</resultMap>
+		
+
+	<insert id="insert" parameterType="com.cs.domain.LikeVO">
+		insert into tbl_like ( userid , like_cno ) value ( #{userid} , #{cno} )
+	</insert>
+	
+	<select id="getLikeListByUserid" resultMap="likeMap" resultType="com.cs.domain.LikeVO">
+		select * from tbl_like where userid = #{userid}
+	</select>
+	
+	<delete id="delete">
+		delete from tbl_like where userid = #{userid} and like_cno = #{cno}
+	</delete>
+ 
+
+</mapper>

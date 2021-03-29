@@ -3,35 +3,6 @@
 
 <%@ include file="./includes/header.jsp"%>
 
-<div class="container" style="border-bottom: 1px solid #dedede">
-	<div class="index-category">
-		<div class="index-category-div">
-			<div class="index-category-child-div">
-				<a href="/clothes/list">
-					<div class="category">
-						<h3>패션</h3>
-					</div>
-				</a>	
-			</div>
-			<div class="index-category-child-div">
-				<a href="/mobile/list"> 
-					<div class="category">
-						<h3>휴대폰/통신</h3>
-					</div>
-				</a>	
-			</div>
-			<div class="index-category-child-div">
-				<a href="/office/list">
-					<div class="category">
-						<h3>사무용품</h3>
-					</div>
-				</a>	
-			</div>
-		</div>
-	</div>
-</div>
-<!-- end category header -->
-
 <section class="section" style="padding: 0 0;">
 	<div class="container">
 		<div class="row" style="padding-top: 30px;">
