@@ -13,6 +13,8 @@ public interface ClothesMapper {
 	public Long insert(ClothesVO vo);
 	//상세(목록)
 	public ClothesVO read(Long cno);
+	//조회
+	public List<ClothesVO> getByUserid(@Param("userid")String userid);
 	//수정
 	public boolean update(ClothesVO vo);
 	//삭제
