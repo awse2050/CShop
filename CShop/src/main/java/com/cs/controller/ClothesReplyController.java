@@ -68,15 +68,21 @@ public class ClothesReplyController {
 				: new ResponseEntity<String>(HttpStatus.BAD_GATEWAY);
 	}
 	
-	@PutMapping(value = "/{rno}", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> modify(@PathVariable("rno")Long rno, @RequestBody ClothesReply reply) {
+	@PutMapping(value = "/{rno}", consumes = "application/json",  
+				produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	public ResponseEntity<ClothesReply> modify(@PathVariable("rno")Long rno, @RequestBody ClothesReply reply) {
 		log.info("In Controller Modify : " + rno);
 		log.info("In Controller Modify : " + reply);
 		reply.setRno(rno);
 		
 		boolean result = service.modify(reply);
 		
-		return result ? new ResponseEntity<String>("modify..", HttpStatus.OK )
-					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		if(result) {
+			ClothesReply modifyReply = service.getByRno(reply.getRno());
+			log.info(modifyReply);
+			return new ResponseEntity<>(modifyReply, HttpStatus.OK);
+		}
+		
+		return null;
 	}
 }

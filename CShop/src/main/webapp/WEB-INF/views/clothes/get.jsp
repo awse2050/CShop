@@ -327,8 +327,16 @@
 				parentDiv.html(str);
 				
 			} else if(oper == "modify") {
-				replyService.modify({rno:rno, reply:reply, replyer:replyer}, function(result) {
-					userIcon.after(str);
+				replyService.modify({rno:rno, reply:reply, replyer:replyer}, function(reply) {
+				
+					str += "<i class='fas fa-user'></i> ";
+					str += "<a href='#' data-oper='modify' style='color: #999; font-size: 12px; margin: 0px 4px;'>수정하기</a>";
+					str += "<a href='#' data-oper='remove' style='color: #999; font-size: 12px; margin: 0px 4px;'>삭제하기</a>";
+					str += "<li class='replyer'>"+reply.replyer+"</li>";
+					str += "<li class='reply'>"+reply.reply+"</li>";
+					str += "<li class='moddate'>"+replyService.formatTime(moddate)+"</li>";
+					
+					parentDiv.html(str);
 					showReplyList(pageNum);
 				});
 			}
