@@ -37,7 +37,10 @@
 				<!-- /. imgBox -->
 				<div class="infoBox">
 					<div class="infoBoxHead">
-						<div class="detailsRow" >조회수: ${clothes.viewCnt }</div>
+						<div class="detailsRow" >
+							<a id="like" href="#"><i class="far fa-heart"></i></a>
+							<span style="padding-left: 5px;">조회수: ${clothes.viewCnt }</span>
+						</div>
 						<div class="detailsInfo">
 							<div class="pName" style="font-size: 20px;"> ${clothes.productName }</div>
 							<div class="isTrade" style="font-size:18px; font-weight:700;">교환가능 여부 : 불가</div>
@@ -55,10 +58,9 @@
 						<button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="modify">수정하기</button>
 						<button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="remove">삭제하기</button>
 					</div>
-<!-- 					<div class="infoBoxFoot">
-						<button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" >판매자에게 메세지 발송</button>
-						<button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;">찜</button>
-					</div> -->
+ 					<div class="infoBoxFoot">
+						<!-- <button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" >판매자에게 메세지 발송</button> -->
+					</div> 
 				</div>
 				<!-- /. infoBox -->
 			</div>
@@ -125,6 +127,7 @@
 		var objForm = $(".objForm");
 		var removeBtn = $("#remove");
 		var modifyBtn = $("#modify");
+		var likeBtn = $("#like");
 		
 		var thumbImg = $(".thumbImg");
 		var mainImg = $(".mainImg");
@@ -194,6 +197,44 @@
 			objForm.submit();
 		})
 		
+		likeBtn.on("click", "i", function(e) {
+			e.preventDefault();
+			var likeIcon = $(this).find("svg");
+			var text = $(this).find("span");
+			var likeClass = likeIcon.data("prefix");
+			
+			if(likeClass == "far") {
+				
+				$.ajax({
+					type: 'post',
+					url: '/like/add',
+					data: JSON.stringify({cno: cno , userid: "admin44"}),
+					contentType: "application/json; charset=utf-8",
+					success: function(msg) {
+						console.log(msg);
+						if(msg == "like") {
+							likeIcon.attr("data-prefix", "fas");
+							if(confirm("찜 목록에 등록되었습니다. 목록페이지로 이동하시겠습니까?")) {
+								self.location = "/like";
+							}
+						}
+					}
+				})
+			} else if(likeClass == "fas") {
+				
+				$.ajax({
+					type: 'delete',
+					url: '/like/'+cno+"/admin44",
+					contentType: "application/json; charset=utf-8",
+					success: function(msg) {
+						console.log(msg);
+						likeIcon.attr("data-prefix", "fas");
+					}
+				});
+			}
+		});
+		
+		
 		mainImg.on("click", "img", function(e) {
 			e.preventDefault();
 			showImage($(this).attr('src'));
@@ -255,8 +296,8 @@
 				}
 			} else if(oper == "modify") {
 				str += "<textarea type='text' name='reply' cols='10' style='width: 100%;'>"+reply+"</textarea>";			
-				str += "<button class='existcheck-btn' data-oper='modify' style='margin-right: 4px;'>수정</button>"
-				str += "<button class='existcheck-btn' data-oper='cancel'>취소</button>"
+				str += "<button class='small-btn' data-oper='modify' style='margin-right: 4px;'>수정</button>"
+				str += "<button class='small-btn2' data-oper='cancel'>취소</button>"
 				str += "<input type='hidden' name='replyer' value='"+replyer+"'>";
 				str += "<input type='hidden' name='moddate' value='"+moddate+"'>";
 				
