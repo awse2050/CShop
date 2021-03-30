@@ -78,27 +78,7 @@ public class ClothesServiceImpl implements ClothesService {
 		 
 		List<ClothesVO> clothesList = mapper.getList(cri);
 		
-		if(Objects.nonNull(clothesList)) {
-			log.info("Not Null ClothesList");
-			
-			clothesList.forEach(list -> {
-				list.setAttachList(attachMapper.findByCno(list.getCno()));
-				
-				if(list.getAttachList() == null || list.getAttachList().size() == 0) {
-					log.info(list.getCno() + " haven't AttachList..");
-					return;
-				}
-				
-				ClothesAttachVO attachVO;
-				
-				attachVO = list.getAttachList().get(0);
-				log.info("attachVO : " + attachVO);
-				
-				list.setThumbnailUrl(makeThumbnailURL(attachVO));
-			});
-		}
-		
-		return clothesList;
+		return formatData(clothesList);
 	}
 
 	@Transactional
@@ -149,6 +129,43 @@ public class ClothesServiceImpl implements ClothesService {
 		log.info("get attach number : " + cno);
 		
 		return attachMapper.findByCno(cno);
+	}
+	
+	@Override
+	public List<ClothesVO> getByUserid(String userid) {
+		log.info("get Clothes List By Userid : " + userid);
+		
+		List<ClothesVO> clothesList = mapper.getByUserid(userid);
+		
+		return formatData(clothesList);
+	}
+	
+	private List<ClothesVO> formatData(List<ClothesVO> listObj) {
+		List<ClothesVO> clothesList = listObj;
+		
+		if(Objects.nonNull(clothesList)) {
+			log.info("Not Null ClothesList");
+			
+			clothesList.forEach(list -> {
+				list.setAttachList(attachMapper.findByCno(list.getCno()));
+				
+				if(list.getAttachList() == null || list.getAttachList().size() == 0) {
+					log.info(list.getCno() + " haven't AttachList..");
+					return;
+				}
+				
+				ClothesAttachVO attachVO;
+				
+				attachVO = list.getAttachList().get(0);
+				log.info("attachVO : " + attachVO);
+				
+				list.setThumbnailUrl(makeThumbnailURL(attachVO));
+			});
+			
+			return clothesList;
+		} else {
+			return null;
+		}
 	}
 	
 	private String makeThumbnailURL(ClothesAttachVO attachVO) {

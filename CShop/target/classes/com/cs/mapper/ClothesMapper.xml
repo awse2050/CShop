@@ -33,6 +33,10 @@
 	<select id="read" resultType="com.cs.domain.category.ClothesVO">
 		select * from tbl_clothes where cno = #{cno}
 	</select>
+	
+	<select id="getByUserid" resultType="com.cs.domain.category.ClothesVO">
+		select * from tbl_clothes where writer = #{userid}
+	</select>
 
 	<select id="getList"
 		resultType="com.cs.domain.category.ClothesVO">

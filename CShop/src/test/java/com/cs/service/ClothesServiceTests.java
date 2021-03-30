@@ -69,6 +69,10 @@ public class ClothesServiceTests {
 		log.info(service.remove(242L));
 	}
 	
+	@Test
+	public void getByUseridTest() {
+		log.info(service.getByUserid("작성자100"));
+	}
 	
 }
 

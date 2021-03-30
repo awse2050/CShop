@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cs.domain.LikeVO;
@@ -35,6 +36,7 @@ public class LikeController {
 	}
 	
 	@GetMapping(value = "/like/{userid}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	@ResponseBody
 	public ResponseEntity<List<ClothesVO>> getLikeListWithUserid(@PathVariable("userid") String userid) {
 		// 유저아이디를 받는다.
 		log.info("In Controller Userid : " + userid);
@@ -43,6 +45,7 @@ public class LikeController {
 	}
 	
 	@DeleteMapping(value = "/like/{cno}/{userid}", produces = MediaType.TEXT_PLAIN_VALUE)
+	@ResponseBody
 	public ResponseEntity<String> remove(@PathVariable("cno")Long cno, @PathVariable("userid")String userid) {
 		log.info("In Controller Delete Like List Cno : " + cno);
 		log.info("In Controller Delete Like List Userid : " + userid);
@@ -54,6 +57,7 @@ public class LikeController {
 	}
 
 	@PostMapping(value = "/like/add", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+	@ResponseBody
 	public ResponseEntity<String> register(@RequestBody LikeVO vo) {
 		log.info("In Controller like regist VO : " + vo);
 		

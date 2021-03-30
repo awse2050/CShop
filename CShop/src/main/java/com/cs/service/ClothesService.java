@@ -25,4 +25,6 @@ public interface ClothesService {
 	
 	public List<ClothesAttachVO> getAttachList(Long cno);
 	
+	public List<ClothesVO> getByUserid(String userid);
+	
 }

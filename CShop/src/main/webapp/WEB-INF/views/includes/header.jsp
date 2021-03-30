@@ -96,12 +96,15 @@
 					</li>
 					<li>
 						<sec:authorize access="isAnonymous()">
-						<a class="loginBtn" href="/loginPage">
-						로그인
-						</a>
+							<a class="loginBtn" href="/loginPage">
+							로그인
+							</a>
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
-							<sec:authentication property="principal.vo.username"/>님 환영합니다.
+							<%-- <sec:authentication property="principal.vo.username"/>님 환영합니다. --%>
+							<a href="/mypage/index">
+								마이페이지
+							</a>
 						</sec:authorize>
 					</li>				
 					<sec:authorize access="isAuthenticated()">

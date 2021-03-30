@@ -74,7 +74,6 @@
 				}
 				
 				var likeBody = $(".likeBody");
-				
 		 		$.each(list, function(i, obj) {
 					var fileCallPath = encodeURIComponent(obj.thumbnailUrl);
 					/*  data-user => 로그인한 유저로 변경 */

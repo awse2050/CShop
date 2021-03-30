@@ -145,6 +145,67 @@
 	line-height:40px;
 }
 
+.asideMenu > ul > li.t{
+	font-weight: 800;
+	font-size: 15px;
+	color: #222;
+	padding: 0 0 18px 9px;
+}
+
+.asideMenu > ul > a > li.t{
+	font-weight: 800;
+	font-size: 15px;
+	color: #222;
+	padding: 0 0 18px 9px;
+}
+
+.asideMenu > ul > a > li.b{
+	display: block;
+	color: #666;
+	font-weight: 700;
+	font-size: 13px;
+	text-align: center;
+	padding-bottom: 18px;
+}
+
+.asideRow {
+	float: left;
+	width: 13%;
+}
+
+.asideHeader {
+	font-size: 20px;
+}
+
+.asideHeader::after {
+	content: "";
+	display: block;
+	width: 100%;
+	height: 1px;
+	background: black;
+	margin: 10px auto;
+}
+
+.bodyRow {
+	float: right;
+	width: 87%;
+	padding-left: 20px;
+}
+/* 형제? */
+.bodyRow > header + h2 {
+	margin-top: 50px;
+}
+
+.bodyRow > h2 {
+	font-size: 20px; 
+	font-weight: 700; 
+	color: #000; 
+	line-height: 26px; 
+	margin-bottom: 20px; 
+	padding-left: 20px;
+	
+}
+
 .listImg {
 	min-width:50%;
 	max-width:70%; 
@@ -154,6 +215,23 @@
 .loginInput {
 	height: 30px;
 	padding: 6px 25px;
+}
+
+.admin_cat::after {
+	content: "";
+	display: block;
+	width: 75px;
+	height: 100%;
+	position: absolute;
+	right: 50px;
+	top: 0px;
+}
+
+.admin_cat 01::after {
+	background: url("https://search.pstatic.net/sunny/?src=https%3A%2F%2Fmedia.istockphoto.com%2Fvectors%2Fflat-vector-golden-icon-of-american-dollar-coin-vector-id1064319426%3Fk%3D6%26m%3D1064319426%26s%3D170667a%26w%3D0%26h%3DP6vGOkpvv2bEjmPfYMRaoS8pez7Ag8gNuYD076_mL2A%3D&type=sc960_832") no-repeat center center;
+}
+.admin_cat 02::after {
+	background: url("https://search.pstatic.net/sunny/?src=https%3A%2F%2Fmedia.istockphoto.com%2Fvectors%2Fflat-vector-golden-icon-of-american-dollar-coin-vector-id1064319426%3Fk%3D6%26m%3D1064319426%26s%3D170667a%26w%3D0%26h%3DP6vGOkpvv2bEjmPfYMRaoS8pez7Ag8gNuYD076_mL2A%3D&type=sc960_832") no-repeat center center;
 }
 
 .add-ons, .idForm, .passwordForm>div {
@@ -549,7 +627,7 @@
 }
 
 .small-btn2 {
-	border: 1px solid black;
+	border: 1px solid #888;
 	background: white;
 	min-width: 50px;
 	min-height: 25px;

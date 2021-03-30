@@ -3,6 +3,7 @@ package com.cs.controller;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -94,7 +96,6 @@ public class ClothesController {
 		return modifyResult ? "redirect:/index" : "redirect:/clothes/list";
 	}
 	
-	
 	@PostMapping("/remove")
 	public String remove(Long cno, Criteria cri, RedirectAttributes rttr) {
 		
@@ -118,6 +119,21 @@ public class ClothesController {
 		return "redirect:/clothes/list";
 	}
 
+	@GetMapping(value = "/goods/{userid}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	@ResponseBody
+	public ResponseEntity<List<ClothesVO>> getByUserid(@PathVariable("userid") String userid) {
+		log.info("In Controller Get goodsList By Userid : "+ userid);
+		
+		List<ClothesVO> list = service.getByUserid(userid);
+		
+		if(Objects.nonNull(list)) {
+			log.info("There are list");
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		}
+		
+		return null;
+	}
+	
 	// 첨부파일 불러오기
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody

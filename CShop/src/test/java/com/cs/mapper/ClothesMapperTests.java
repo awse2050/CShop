@@ -83,4 +83,9 @@ public class ClothesMapperTests {
 	public void test2() {
 		mapper.updateViewCnt(150L, 1);
 	}
+	
+	@Test
+	public void getByUseridTest() {
+		log.info(mapper.getByUserid("작성자100"));
+	}
 }
