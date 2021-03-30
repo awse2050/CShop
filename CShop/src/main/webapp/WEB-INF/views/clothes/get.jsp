@@ -181,11 +181,13 @@
 			e.preventDefault();
 
 			console.log("remove click");
-
-			objForm.append('<input type="hidden" name="cno" value="${clothes.cno}">');
-			objForm.append('<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">');
-			objForm.attr("action","/clothes/remove").attr("method", "post");
-			objForm.submit();
+			if(confirm("지우시겠습니까?")) {
+				
+				objForm.append('<input type="hidden" name="cno" value="${clothes.cno}">');
+				objForm.append('<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">');
+				objForm.attr("action","/clothes/remove").attr("method", "post");
+				objForm.submit();
+			}
 
 		});
 		

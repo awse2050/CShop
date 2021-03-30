@@ -30,7 +30,7 @@ public class MyPageController {
 	public void goods(Model model) {
 		// 인자로 @Authenticationprincipal을 사용하여 아이디로 찾게 한다 (이후변경)
 		log.info("goods page...");
-		List<ClothesVO> list = clothesService.getByUserid("admin44");
+		List<ClothesVO> list = clothesService.getByUserid("hide");
 	
 		model.addAttribute("list", list);
 	}

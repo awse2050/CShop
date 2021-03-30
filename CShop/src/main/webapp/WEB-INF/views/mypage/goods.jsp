@@ -36,14 +36,14 @@
 									<tr data-cno="${list.cno }" data-user="${list.writer }">
 										<td>${list.cno }</td>			
 										<td style='text-align: left;'>
-											<a href="${list.cno }">
+											<a class="imgTag" href="${list.cno }">
 												<img src="/display?fileName=${list.thumbnailUrl }">
 											</a>
 											<span style="margin-left: 15px; font-weight: 700;">상품명 : ${list.productName }</span>
 										</td>
 										<td>${list.price }</td>
 										<td>
-											<button class="small-btn" style="margin-right: 5px;">수정</button>
+											<button class="small-btn" style="margin-right: 5px;" >수정</button>
 											<button class="small-btn2">삭제</button>
 										</td>
 									</tr>
@@ -57,6 +57,10 @@
 	</div>
 </section>
 
+<form class="objForm">
+	<input type="hidden" name="cno" >
+</form>
+
 <script>
 	
 	$(document).ready(function() {
@@ -68,7 +72,7 @@
 			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 		});	
 		
-		 (function() {
+		/* (function() {
 			
 			var userid = "hide";
 			var likeBody = $(".likeBody");
@@ -84,7 +88,6 @@
 				
 				$.each(list, function(i, obj) {
 					var fileCallPath = encodeURIComponent(obj.thumbnailUrl);
-					/*  data-user => 로그인한 유저로 변경 */
 					str += "<tr data-cno='"+obj.cno+"' data-user='"+userid+"'>";
 					str += "<td>"+obj.cno+"</td>";
 					str += "<td style='text-align:left;'>"
@@ -97,15 +100,46 @@
 					str += "</td>";
 					str += "</tr>"
 				});
-				
 				//likeBody.html(str); 
 			});
-		})(); 
+		})(); */
+				
+		var imgTag = $(".imgTag");
+		var objForm = $(".objForm");
+		var modifyBtn = $(".small-btn");
+		var removeBtn = $(".small-btn2");
 		
+		// ajax로 할 경우 a 태그에 이벤트위임을한다.
+		imgTag.on("click", function(e) {
+			e.preventDefault();	
+			var cno = $(this).attr("href");
+			
+			objForm.find("input[name='cno']").val(cno);
+			objForm.attr("action", "/clothes/get").submit();
+			
+		});
 		
-		
-		
-		
+		modifyBtn.on("click", function(e) {
+			e.preventDefault();
+			var parentTr = $(this).closest("tr");
+			var cno = parentTr.data("cno");
+			
+			objForm.find("input[name='cno']").val(cno);
+			objForm.attr("action", "/clothes/modify").submit();
+			
+		});
+		removeBtn.on("click", function(e) {
+			e.preventDefault();
+			var parentTr = $(this).closest("tr");
+			var cno = parentTr.data("cno");
+			
+			if(confirm("지우시겠습니까?")) {
+				objForm.find("input[name='cno']").val(cno);
+				objForm.append('<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">');
+				objForm.attr("action","/clothes/remove").attr("method", "post");
+				objForm.submit();
+			}
+		});
 	});
 	
 </script>
