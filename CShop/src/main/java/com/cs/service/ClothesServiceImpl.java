@@ -17,6 +17,7 @@ import com.cs.domain.category.ClothesVO;
 import com.cs.mapper.ClothesAttachMapper;
 import com.cs.mapper.ClothesMapper;
 import com.cs.mapper.ClothesReplyMapper;
+import com.cs.mapper.LikeMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -31,6 +32,8 @@ public class ClothesServiceImpl implements ClothesService {
 	private final ClothesAttachMapper attachMapper;
 	
 	private final ClothesReplyMapper replyMapper;
+	
+	private final LikeMapper likeMapper;
 	
 	// 두 테이블에서 작업을 하므로 동기화식으로 진행 ACID를 유지
 	@Transactional 
@@ -84,8 +87,10 @@ public class ClothesServiceImpl implements ClothesService {
 	@Transactional
 	@Override
 	public boolean remove(Long cno) {
-		
 		log.warn("remove cno : " + cno);
+
+		likeMapper.deleteAllByCno(cno);
+		log.warn("delete Like By Cno: "+ cno);
 		
 		replyMapper.deleteAll(cno);
 		log.warn("delete reply With Cno : " + cno);

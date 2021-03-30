@@ -22,6 +22,10 @@
 	<delete id="delete">
 		delete from tbl_like where userid = #{userid} and like_cno = #{cno}
 	</delete>
+	
+	<delete id="deleteAllByCno">
+		delete from tbl_like where like_cno = #{cno}
+	</delete>
  
  	<select id="getByCnoWithUserid" resultMap="likeMap" resultType="com.cs.domain.LikeVO">
  		select * from tbl_like where like_cno = #{vo.cno} and userid = #{vo.userid}
