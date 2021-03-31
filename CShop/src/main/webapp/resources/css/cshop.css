@@ -186,6 +186,17 @@
 	margin: 10px auto;
 }
 
+.bodyHeader>.header-title {
+	float: left;
+	font-size: 19px;
+}
+
+.bodyHeader>.header-location {
+	float: right; 
+	font-size: 12px; 
+	font-weight: 700;
+}
+
 .bodyRow {
 	float: right;
 	width: 87%;
@@ -209,7 +220,7 @@
 .listImg {
 	min-width:50%;
 	max-width:70%; 
-	min-height: 70%;
+	min-height: 60%;
 }
 
 .loginInput {
@@ -272,19 +283,6 @@
 }
 
 .locationDiv>h3 {
-	text-align: right;
-	font-size: 11px;
-}
-
-.signUp-header>.header-title, .header-location {
-	display: inline-block;
-}
-
-.signUp-header>.header-title {
-	font-size: 19px;
-}
-
-.signUp-header>.header-location {
 	text-align: right;
 	font-size: 11px;
 }
@@ -354,6 +352,14 @@
 	width: 250px;
 	height: 25px;
 	padding-left: 8px;
+	border: 1px solid #ccc;
+}
+
+.wid85-input {
+	height: 25px;
+	width: 85px;
+	padding: 5px 8px;
+	border: 1px solid #ccc;
 }
 
 .required::after {

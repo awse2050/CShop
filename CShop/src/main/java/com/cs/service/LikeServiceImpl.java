@@ -41,7 +41,7 @@ public class LikeServiceImpl implements LikeService {
 	@Override
 	public List<ClothesVO> getLikeListByUserid(String userid) {
 		// TODO Auto-generated method stub
-		log.info("get Like List with userid : " + userid);
+		log.warn("get Like List with userid : " + userid);
 		List<LikeVO> likeList = likeMapper.getLikeListByUserid(userid);
 
 		List<ClothesVO> clothesList = new ArrayList<ClothesVO>();
@@ -52,14 +52,14 @@ public class LikeServiceImpl implements LikeService {
 			ClothesVO vo = clothesMapper.read(i.getCno());
 			List<ClothesAttachVO> attachList = clothesAttachMapper.findByCno(i.getCno());
 			
-			if(Objects.isNull(attachList)) {
-				log.info("No have Attach By Cno : " + i.getCno());
-				return;
-			}
+			if(Objects.isNull(attachList) || attachList.size() == 0) {
+				log.warn("No have Attach By Cno : " + i.getCno());
+			} else {
+				ClothesAttachVO attachVO = clothesAttachMapper.findByCno(i.getCno()).get(0);
 			
-			ClothesAttachVO attachVO = clothesAttachMapper.findByCno(i.getCno()).get(0);
-		
-			vo.setThumbnailUrl(makeThumbnailURL(attachVO));
+				vo.setThumbnailUrl(makeThumbnailURL(attachVO));
+				log.warn("make ThumbnailUrl");
+			}
 			
 			clothesList.add(vo);
 		});

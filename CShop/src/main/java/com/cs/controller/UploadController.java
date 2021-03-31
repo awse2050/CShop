@@ -111,7 +111,7 @@ public class UploadController {
 	public ResponseEntity<byte[]> display(String fileName) {
 		
 		log.info("fileName : " + fileName);
-		
+	
 		File file = new File("C:\\upload\\" + fileName);
 		
 		ResponseEntity<byte[]> result = null;

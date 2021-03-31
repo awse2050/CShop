@@ -6,8 +6,11 @@
 <section class="section" style="padding: 0 0;">
 	<div class="container">
 		<div class="row" style="padding-top: 30px;">
-			<div class="signUp-header">
+			<div class="bodyHeader">
 				<div class="header-title">회원가입 정보입력</div>
+				<div class="header-location" >
+						HOME > 회원가입
+				</div>
 			</div>
 			<form class="signUpForm">
 				<table class="input-table">
@@ -70,10 +73,10 @@
 					<!-- 특정 라이브러리 요구? -->
 						<th class="required">주소</th>
 						<td>
-							<input type="text" id="postCode" style="width:85px;" readonly="readonly">
+							<input type="text" id="postCode" class="wid85-input" readonly="readonly">
 							<button class="existcheck-btn" id="searchAddressBtn">우편번호 찾기</button>
 							<div class="addressDiv">
-								<input type="text" id="roadAddress"  placeholder="도로명 주소" readonly="readonly">
+								<input type="text" id="roadAddress" placeholder="도로명 주소" readonly="readonly">
 								<input type="text" id="extraRoadAddress"  placeholder="참고항목" readonly="readonly">
 							</div>
 							<div class="addressDiv">
