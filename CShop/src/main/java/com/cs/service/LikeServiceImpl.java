@@ -81,6 +81,11 @@ public class LikeServiceImpl implements LikeService {
 		return likeMapper.getByCnoWithUserid(vo);
 	}
 	
+	@Override
+	public boolean isLike(LikeVO vo) {
+		return likeMapper.getByCnoWithUserid(vo) != null ;
+	}
+	
 	private String makeThumbnailURL(ClothesAttachVO attachVO) {
 		String url = null;
 		
@@ -94,6 +99,4 @@ public class LikeServiceImpl implements LikeService {
 		
 		return url;
 	}
-	
-	
 }

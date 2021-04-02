@@ -14,5 +14,7 @@ public interface LikeService {
 	public boolean remove(Long cno, String userid);
 	
 	public LikeVO getByCnoWithUserid(LikeVO vo);
+	
+	public boolean isLike(LikeVO vo);
 }
 

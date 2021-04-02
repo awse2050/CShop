@@ -1,5 +1,6 @@
 package com.cs.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
@@ -73,7 +74,5 @@ public class LikeController {
 		int result = likeService.register(vo);
 		log.info(result);
 		return new ResponseEntity<String>("like", HttpStatus.OK );
-					
 	}
-	
 }

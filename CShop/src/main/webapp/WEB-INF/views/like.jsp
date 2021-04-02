@@ -23,7 +23,7 @@
 			
 			<div style="border: 5px solid #e8e8e8; margin:30px 0px;">
 				<div style="padding: 25px;">
-					xxx 님은 [일반회원] 입니다.
+					<sec:authentication property="principal.vo.username" /> 님은 [일반회원] 입니다.
 				</div>
 			</div>
 		
@@ -66,7 +66,9 @@
 			var tableDiv = $(".tableDiv");
 			var likeBody = $(".likeBody");
 			
-			$.getJSON("/like/admin44", function(list) {
+			var userid = "<sec:authentication property='principal.username'/>";
+			
+			$.getJSON("/like/"+userid, function(list) {
 				console.log(list);
 				var str = "";
 				

@@ -38,7 +38,14 @@
 				<div class="infoBox">
 					<div class="infoBoxHead">
 						<div class="detailsRow" >
-							<a id="like" href="#"><i class="far fa-heart"></i></a>
+							<sec:authorize access="isAuthenticated()"> 
+								<c:if test="${like eq 'noLike'}">
+									<a id="like" href="#"><i class="far fa-heart"></i></a>
+								</c:if>
+								<c:if test="${like eq 'isLike'}">
+									<a id="like" href="#"><i class="fas fa-heart"></i></a>
+								</c:if>
+							</sec:authorize>
 							<span style="padding-left: 5px;">조회수: ${clothes.viewCnt }</span>
 						</div>
 						<div class="detailsInfo">
@@ -139,6 +146,11 @@
 		
 		var pageNum = 1;
 		var replyPage = $(".replyPage");
+		var loginUserid = null;
+		
+		<sec:authorize access="isAuthenticated()">
+			loginUserid = "<sec:authentication property='principal.username'/>";
+		</sec:authorize>
 		
 		showReplyList(1);
 		
@@ -160,7 +172,6 @@
 				}
 				
 				$.each(arr,function(i, obj) {
-					console.log(obj);
 					if (obj.fileType) {
 						var fileCallPath = encodeURIComponent(obj.uploadPath+ "/"+ obj.uuid+ "_"+ obj.fileName);
 						
@@ -219,7 +230,7 @@
 				$.ajax({
 					type: 'post',
 					url: '/like/add',
-					data: JSON.stringify({cno: cno , userid: "admin44"}),
+					data: JSON.stringify({cno: cno , userid: loginUserid }),
 					contentType: "application/json; charset=utf-8",
 					success: function(msg) {
 						console.log(msg);
@@ -235,11 +246,11 @@
 				
 				$.ajax({
 					type: 'delete',
-					url: '/like/'+cno+"/admin44",
+					url: '/like/'+cno+"/"+loginUserid,
 					contentType: "application/json; charset=utf-8",
 					success: function(msg) {
 						console.log(msg);
-						likeIcon.attr("data-prefix", "fas");
+						likeIcon.attr("data-prefix", "far");
 					}
 				});
 			}

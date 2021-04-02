@@ -89,11 +89,13 @@
 						공지사항
 						</a>
 					</li>
-					<li>
-						<a href="/like">
-						찜리스트
-						</a>
-					</li>
+					<sec:authorize access="isAuthenticated()">
+						<li>
+							<a href="/like">
+							찜리스트
+							</a>
+						</li>
+					</sec:authorize>
 					<li>
 						<sec:authorize access="isAnonymous()">
 							<a class="loginBtn" href="/loginPage">

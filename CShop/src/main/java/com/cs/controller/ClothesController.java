@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cs.domain.ClothesAttachVO;
 import com.cs.domain.Criteria;
+import com.cs.domain.LikeVO;
 import com.cs.domain.PageDTO;
 import com.cs.domain.category.ClothesVO;
 import com.cs.service.ClothesService;
+import com.cs.service.LikeService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -34,6 +37,9 @@ public class ClothesController {
 	
 	@Autowired
 	private ClothesService service;
+	
+	@Autowired
+	private LikeService likeService;
 	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
@@ -69,9 +75,18 @@ public class ClothesController {
 	
 	// 목록, 수정, 삭제는 등록설정이 다 된 이후 추가 할것.
 	@GetMapping({"/get"})
-	public void get(Long cno, Criteria cri, Model model) {
+	public void get(Long cno, Criteria cri, Authentication auth, Model model) {
 		log.info("In Controller Get Page Cno : " + cno);
 		log.info("Criteria : " + cri);
+		if(auth != null) {
+			boolean isLike = likeService.isLike(new LikeVO(auth.getName(), cno));
+			log.info("like ? " + isLike);
+			if(isLike) {
+				model.addAttribute("like", "isLike");
+			} else {
+				model.addAttribute("like", "noLike");
+			}
+		}
 		
 		model.addAttribute("clothes", service.get(cno));
 		model.addAttribute("cri", cri);
