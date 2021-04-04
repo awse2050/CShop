@@ -308,6 +308,29 @@
 	text-align: center;
 }
 
+.msg-table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+.msg-table>thead>tr {
+	min-height: 45px;
+	border-bottom: 1px solid #e8e8e8;
+	border-top: 1px solid #e8e8e8;
+}
+
+.msg-table>thead>tr>th {
+	padding: 15px 0px;
+	background-color: #f8f8f8;
+	text-align: center;
+}
+
+.msg-table > tbody > tr {
+	height: 35px;
+	border-bottom: 1px solid #e8e8e8;
+	text-align: center;
+}
+
 .input-table {
 	margin-top: 10px;
 	width: 100%;
@@ -351,6 +374,13 @@
 .wid85-input {
 	height: 25px;
 	width: 85px;
+	padding: 5px 8px;
+	border: 1px solid #ccc;
+}
+
+.msg-input {
+	height: 300px;
+	width: 100%;
 	padding: 5px 8px;
 	border: 1px solid #ccc;
 }
@@ -628,6 +658,16 @@
 .small-btn2 {
 	border: 1px solid #888;
 	background: white;
+	min-width: 50px;
+	min-height: 25px;
+	color: #black;
+	font-weight: 700;
+	font-size: 13px;
+	padding: 0 15px;
+}
+.small-btn3 {
+	border: 1px solid #888;
+	background: lavender;
 	min-width: 50px;
 	min-height: 25px;
 	color: #black;

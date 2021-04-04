@@ -19,7 +19,7 @@
 						</div>
 					</div>
 					<div class="new_message" style="float: right; text-align:center;margin: 60px 30px;" >
-						<a href="#">
+						<a href="/message/receive">
 							<i class="fas fa-sms"></i>
 							새로운 메세지 0통
 						</a>
@@ -32,7 +32,7 @@
 					<a href="/mypage/goods" class="admin_cat 01" style="position: relative; display: inline-block; line-height: 104px; width:48%; padding-left: 50px; font-size: 15px; font-weight: 700;">
 						판매관리
 					</a>
-					<a href="#" class="admin_cat 02" style="position: relative; display: inline-block; line-height: 104px; width:48%; padding-left: 50px; font-size: 15px; font-weight: 700;">
+					<a href="/message/receive" class="admin_cat 02" style="position: relative; display: inline-block; line-height: 104px; width:48%; padding-left: 50px; font-size: 15px; font-weight: 700;">
 						메세지 관리
 					</a>
 				</section>
