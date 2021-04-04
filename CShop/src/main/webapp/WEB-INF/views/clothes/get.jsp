@@ -61,10 +61,15 @@
 						</div>
 					</div>
 					<!-- 로그인한 사용자랑 일치할 경우 보여주게 처리함. -->
-					<div class="infoBoxFoot">
-						<button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="modify">수정하기</button>
-						<button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="remove">삭제하기</button>
-					</div>
+					<sec:authentication property="principal" var="pinfo" />
+						<sec:authorize access="isAuthenticated()">
+							<c:if test="${pinfo.username eq clothes.writer }">
+								<div class="infoBoxFoot">
+									<button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="modify">수정하기</button>
+									<button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="remove">삭제하기</button>
+								</div>
+							</c:if>
+						</sec:authorize>
  					<div class="infoBoxFoot">
 						<!-- <button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" >판매자에게 메세지 발송</button> -->
 					</div> 
@@ -92,7 +97,7 @@
 		<div class="row" style="border-bottom: 1px solid #dedede">
 			<h2 class="title">댓글</h2>
 		</div>
-		<div class="row" style="border: 1px solid #dedede; padding: 8px;">
+		<div class="row replyBox" style="border: 1px solid #dedede; padding: 8px;">
 			<div class="replyDiv">
 				<ul class="replyUL">
 					<div>
@@ -100,8 +105,8 @@
 					</div>
 				</ul>
 			</div>
-			<div class="replyWriteBox" style="margin-top: 5px; width:100%;">
-				<textarea type="text" name="reply" cols="10" style="width:100%;"></textarea>
+			<div class="replyWriteBox">
+				<textarea type="text" name="reply" cols="10"></textarea>
 				<button class="existcheck-btn" id="addReplyBtn">댓글등록</button>
 			</div>
 		</div>
@@ -139,6 +144,7 @@
 		var thumbImg = $(".thumbImg");
 		var mainImg = $(".mainImg");
 		
+		var replyBox = $(".replyBox");
 		var replyWriteBox = $(".replyWriteBox");
 		var replyDiv = $(".replyDiv");
 		var addReplyBtn = $("#addReplyBtn");
@@ -146,7 +152,7 @@
 		
 		var pageNum = 1;
 		var replyPage = $(".replyPage");
-		var loginUserid = null;
+		var loginUserid = null; // 비로그인사용자.
 		
 		<sec:authorize access="isAuthenticated()">
 			loginUserid = "<sec:authentication property='principal.username'/>";
@@ -204,6 +210,7 @@
 			if(confirm("지우시겠습니까?")) {
 				
 				objForm.append('<input type="hidden" name="cno" value="${clothes.cno}">');
+				objForm.append('<input type="hidden" name="writer" value="${clothes.writer}">');
 				objForm.append('<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">');
 				objForm.attr("action","/clothes/remove").attr("method", "post");
 				objForm.submit();
@@ -288,7 +295,7 @@
 			console.log("add reply Button click");
 			var replyBox = replyWriteBox.find("textarea[name='reply']");
 			var reply = replyBox.val();
-			var data = {cno: cno, reply: reply , replyer: "admin44"};
+			var data = {cno: cno, reply: reply , replyer: loginUserid};
 			console.log(data);
 			
 			replyService.add(data, function(result) {
@@ -312,12 +319,12 @@
 			
 			if(oper == "remove") {
 				if(confirm("지우시겠습니까?")) {
-					replyService.remove(rno, function(result) {
+					replyService.remove(rno, replyer, function(result) {
 						showReplyList(pageNum);
 					});
 				}
 			} else if(oper == "modify") {
-				str += "<textarea type='text' name='reply' cols='10' style='width: 100%;'>"+reply+"</textarea>";			
+				str += "<textarea type='text' name='reply' cols='10' data-oper='"+reply+"' style='width: 100%;'>"+reply+"</textarea>";			
 				str += "<button class='small-btn' data-oper='modify' style='margin-right: 4px;'>수정</button>"
 				str += "<button class='small-btn2' data-oper='cancel'>취소</button>"
 				str += "<input type='hidden' name='replyer' value='"+replyer+"'>";
@@ -336,24 +343,29 @@
 			var replyer = parentDiv.find("input[name='replyer']").val();
 			var moddate = parentDiv.find("input[name='moddate']").val();
 			var reply = parentDiv.find("textarea[name='reply']").val();
+			var originalReply = parentDiv.find("textarea[name='reply']").data("oper");
 			
 			if(oper == "cancel") {
 				
 				str += "<i class='fas fa-user'></i> ";
-				str += "<a href='#' data-oper='modify' style='color: #999; font-size: 12px; margin: 0px 4px;'>수정하기</a>";
-				str += "<a href='#' data-oper='remove' style='color: #999; font-size: 12px; margin: 0px 4px;'>삭제하기</a>";
+				if(replyer == loginUserid) {
+					str += "<a href='#' data-oper='modify' style='color: #999; font-size: 12px; margin: 0px 4px;'>수정하기</a>";
+					str += "<a href='#' data-oper='remove' style='color: #999; font-size: 12px; margin: 0px 4px;'>삭제하기</a>";
+				}
 				str += "<li class='replyer'>"+replyer+"</li>";
-				str += "<li class='reply'>"+reply+"</li>";
+				str += "<li class='reply'>"+originalReply+"</li>";
 				str += "<li class='moddate'>"+moddate+"</li>";
 				
 				parentDiv.html(str);
 				
 			} else if(oper == "modify") {
-				replyService.modify({rno:rno, reply:reply, replyer:replyer}, function(reply) {
+				replyService.modify({rno:rno, reply:reply, replyer: loginUserid}, function(reply) {
 				
 					str += "<i class='fas fa-user'></i> ";
-					str += "<a href='#' data-oper='modify' style='color: #999; font-size: 12px; margin: 0px 4px;'>수정하기</a>";
-					str += "<a href='#' data-oper='remove' style='color: #999; font-size: 12px; margin: 0px 4px;'>삭제하기</a>";
+					if(replyer == loginUserid) {
+						str += "<a href='#' data-oper='modify' style='color: #999; font-size: 12px; margin: 0px 4px;'>수정하기</a>";
+						str += "<a href='#' data-oper='remove' style='color: #999; font-size: 12px; margin: 0px 4px;'>삭제하기</a>";
+					}
 					str += "<li class='replyer'>"+reply.replyer+"</li>";
 					str += "<li class='reply'>"+reply.reply+"</li>";
 					str += "<li class='moddate'>"+replyService.formatTime(moddate)+"</li>";
@@ -367,11 +379,16 @@
 		function showReplyList(page) {
 			var param = {page: page, cno: cno};
 			
+			if(!loginUserid) {
+				var inputBox = replyWriteBox.find("textarea[name='reply']");
+				inputBox.attr("readonly", "readonly").attr("placeholder", "로그인 후 입력가능합니다.");
+				addReplyBtn.hide();
+			}
+			
+			
 			replyService.getList(param, function(list, replyCnt) {
 				var str = "";
-				
-				if(!list) {
-					console.log("no list");
+				if(!list || list.length == 0) {
 					str += "<ul class='replyUL'>"
 					str += "<li>작성된 댓글이 없습니다.</li></ul>";
 					replyDiv.html(str);
@@ -382,8 +399,10 @@
 					
 					str += "<ul class='replyUL'>";	
 					str += "<div data-cno='"+obj.cno+"' data-rno='"+obj.rno+"'><i class='fas fa-user'></i> ";
-					str += "<a href='#' data-oper='modify' style='color: #999; font-size: 12px; margin: 0px 4px;'>수정하기</a>";
-					str += "<a href='#' data-oper='remove' style='color: #999; font-size: 12px; margin: 0px 4px;'>삭제하기</a>";
+					if(obj.replyer == loginUserid) {
+						str += "<a href='#' data-oper='modify' style='color: #999; font-size: 12px; margin: 0px 4px;'>수정하기</a>";
+						str += "<a href='#' data-oper='remove' style='color: #999; font-size: 12px; margin: 0px 4px;'>삭제하기</a>";
+					}
 					str += "<li class='replyer'>"+obj.replyer+"</li>";
 					str += "<li class='reply'>"+obj.reply+"</li>";
 					str += "<li class='moddate'>"+replyService.formatTime(obj.moddate)+"</li></div>";

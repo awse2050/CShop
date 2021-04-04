@@ -20,8 +20,17 @@ public class MappingTests {
 		StringBuffer url = new StringBuffer("http://localhost:8080/index");
 		url.delete(0,"localhost:8080".length() + url.indexOf("localhost:8080"));
 		log.info(url);
+		
 //		log.info(url.indexOf("localhost:8080"));
 //		log.info(url.lastIndexOf("localhost:8080"));
 //		log.info(url.substring(0, "localhost:8080".length() + url.indexOf("localhost:8080")));
+	}
+	
+	@Test
+	public void uriTest() {
+		StringBuffer url = new StringBuffer("http://localhost:8080/mypage/goods");
+		log.info(url.indexOf("localhost:8080")+"localhost:8080".length());
+		log.info(url.substring(0, url.indexOf("localhost:8080")+"localhost:8080".length()));
+		log.info(url);
 	}
 }

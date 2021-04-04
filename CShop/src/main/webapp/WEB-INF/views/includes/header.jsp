@@ -163,24 +163,33 @@
 		var loginBtn = $(".loginBtn");
 		var logoutBtn = $(".logoutBtn");
 		var addBtn = $(".addBtn");
+		var loginUserid = null;
+		
+		<sec:authorize access="isAuthenticated()">
+		 	loginUserid = '<sec:authentication property="principal.username" />';
+		</sec:authorize>
 		
 		logoutBtn.on("click", function(e) {
 			e.preventDefault();
 			
 			$(".logoutForm").submit();
 			
-		})
+		});
 		
 		loginBtn.on("click", function(e) {
 			console.log("click");
 		
-		})
+		});
 		
 		addBtn.on("click", function(e) {
 			e.preventDefault();
 		
-			self.location="/clothes/register";
-			
+			if(!loginUserid) {
+				alert("권한이 없습니다. 로그인을 해주세요.");
+				self.location="/loginPage";
+			} else {
+				self.location="/clothes/register";
+			}
 		});
 	});
 

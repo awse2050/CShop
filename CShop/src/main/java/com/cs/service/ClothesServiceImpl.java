@@ -41,19 +41,19 @@ public class ClothesServiceImpl implements ClothesService {
 	public Long register(ClothesVO vo) {
 		
 		log.info("regist vo : " + vo);
-		
-		if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
-			log.info("No Attach List");
-			return 0L;
-		}
-		
+
 		Long result = mapper.insert(vo);
 		
-		vo.getAttachList().forEach(attach -> {
-		
-			attach.setCno(mapper.getLastCno());
-			attachMapper.insert(attach);
-		});
+		if(vo.getAttachList() != null) {
+			vo.getAttachList().forEach(attach -> {
+				
+				attach.setCno(mapper.getLastCno());
+				attachMapper.insert(attach);
+				
+			});
+		} else {
+			log.warn("No Attach List");
+		}
 		
 		return result;
 	}

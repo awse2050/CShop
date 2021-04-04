@@ -102,8 +102,9 @@
 							</tr>
 							<tr>
 								<th>작성자</th>
+								<sec:authentication property="principal" var="pinfo"/>
 								<td>
-									<input type="text" name="writer" style="height: 25px; ">
+									<input type="text" name="writer" value="${pinfo.username }" readonly="readonly" style="height: 25px;">
 								</td>
 							</tr>
 						</tbody>
@@ -165,13 +166,15 @@
 		var filterSelect = $(".filterSelect");
 		
 		var categoryValue = "";
-		console.log("category : " +categoryValue);
+		var productName = "";
+		var price = "";
+		var desc = "";
+		var count = "";
 	
 		regBtn.on("click", function(e) {
 			e.preventDefault();
 	
-			if(categoryValue === "" || categoryValue === null) {
-				alert("카테고리를 지정해주세요.");
+			if(!checkValue()) {
 				return false;
 			}
 			
@@ -188,24 +191,41 @@
 			actionForm.append(str);
 		 	actionForm.attr("action", "/clothes/register").attr("method", "post");
 			actionForm.submit(); 
-		})
+		});
 		
 		listBtn.on("click", function(e) {
 			e.preventDefault();
 		
 			self.location="/clothes/list";
 		
-		})
+		});
 		
 		filterSelect.on("change", function(e) {
 			e.preventDefault();
-			// options 대신 children을 써도 같은 데이터를 가지고 있는 property로 상관없다.
-			// 근데 어떤걸 쓰는게 더 좋은건지에 대한 확실한 이유를 모르고 있음.
 			var amount = this.options[this.selectedIndex].value;
 			
 			categoryValue = amount;
-			
+		});
+		
+		$("input[name='productName']").on("change", function(e) {
+			e.preventDefault();
+			productName = $(this).val();
 		})
+		
+		$("input[name='price']").on("change", function(e) {
+			e.preventDefault();
+			price = $(this).val();
+		});
+		
+		$("input[name='count']").on("change", function(e) {
+			e.preventDefault();
+			count = $(this).val();
+		});
+		
+		$("textarea[name='description']").on("change", function(e) {
+			e.preventDefault();
+			desc = $(this).val();
+		});
 		
 		// 이미지 추가시 동작
 		$("input[type='file']").on("change", function(e) {
@@ -240,6 +260,30 @@
 				}
 			}); // ajax
 		});
+		
+		function checkValue() {
+			if(!categoryValue) {
+				alert("카테고리를 지정해주세요.");
+				return false;
+			}
+			if(!productName) {
+				alert("상품명을 입력하세요.");
+				return false;
+			}
+			if(!count) {
+				alert("수량을 입력하세요.");
+				return false;
+			}
+			if(!price) {
+				alert("가격을 입력하세요.");
+				return false;
+			}
+			if(!desc) {
+				alert("상세 설명을 입력하세요.");
+				return false;
+			}
+			return true;
+		}
 		
 		function checkExtension(fileName, fileSize) {
 			if(fileSize >= maxSize) {
