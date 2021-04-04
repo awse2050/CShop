@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.cs.mapper.MessageMapper"> 
+	
+	<insert id="insert" parameterType="com.cs.domain.MessageVO">
+		insert into tbl_message ( sender, receiver, text ) 
+		values ( #{sender}, #{receiver}, #{text})
+	</insert> 
+ 	
+ 	<select id="getReceivedList" resultType="com.cs.domain.MessageVO">
+ 		select * from tbl_message where receiver = #{receiver} order by mno desc
+ 	</select>
+ 	
+ 	<select id="getSentList" resultType="com.cs.domain.MessageVO">
+ 		select * from tbl_message where sender = #{sender} order by mno desc
+ 	</select>
+ 	
+ 	<select id="read" resultType="com.cs.domain.MessageVO">
+ 		select * from tbl_message where mno = #{mno}
+ 	</select>
+ 
+ 	<delete id="delete">
+ 		delete from tbl_message where mno = #{mno}
+ 	</delete>
+ 
+ </mapper>
+  
+ 

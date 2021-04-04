@@ -29,7 +29,7 @@ import lombok.extern.log4j.Log4j;
 public class MyPageController {
 	
 	private final ClothesService clothesService;
-
+	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/index")
 	public void index() {

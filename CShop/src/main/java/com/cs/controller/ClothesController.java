@@ -30,18 +30,18 @@ import com.cs.domain.category.ClothesVO;
 import com.cs.service.ClothesService;
 import com.cs.service.LikeService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
+@RequiredArgsConstructor
 @RequestMapping("/clothes/*")
 public class ClothesController {
 	
-	@Autowired
-	private ClothesService service;
+	private final ClothesService service;
 	
-	@Autowired
-	private LikeService likeService;
+	private final LikeService likeService;
 	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
