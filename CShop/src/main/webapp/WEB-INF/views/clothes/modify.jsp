@@ -214,6 +214,8 @@
 		var uploadUL = $(".uploadUL");
 		var modBtn = $("#modBtn");
 		var listBtn = $("#listBtn");
+		var requestUri = '<c:out value="${requestUri}"/>';
+		console.log(requestUri);
 		
 		modBtn.on("click", function(e) {
 			e.preventDefault();
@@ -233,6 +235,8 @@
 			
 			actionForm.append(objForm.html());
 			actionForm.append(str);
+			actionForm.append("<input type='hidden' name='requestUri' value='"+requestUri+"'>");
+			
 			//  form 전송
 			actionForm.attr("action", "/clothes/modify").attr("method", "post").submit();
 			

@@ -58,7 +58,7 @@
 		
 		(function() {
 			
-			var userid = "hide";
+			var userid = '<sec:authentication property="principal.username" />';
 			var likeBody = $(".likeBody");
 			var tableDiv = $(".tableDiv");
 			
@@ -110,6 +110,7 @@
 			var oper = $(this).data("oper");
 			var parentTr = $(this).closest("tr");
 			var cno = parentTr.data("cno");
+			var writer = '<sec:authentication property="principal.username"/>';
 			
 			if(oper == "modify") {
 				
@@ -120,6 +121,8 @@
 
 				if(confirm("지우시겠습니까?")) {
 					objForm.find("input[name='cno']").val(cno);
+					objForm.append("<input type='hidden' name='writer' value='"+writer+"'>");
+					objForm.append("<input type='hidden' name='requestUri' value='/mypage/goods'>");
 					objForm.append('<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">');
 					objForm.attr("action","/clothes/remove").attr("method", "post");
 					objForm.submit();

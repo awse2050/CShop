@@ -52,11 +52,12 @@
 		}) 
  	}
  	
- 	function remove(rno, callback, error) {
+ 	function remove(rno, replyer, callback, error) {
  	
  		$.ajax({
  			type: 'delete',
  			url: '/clothes/replies/'+rno,
+ 			data: JSON.stringify({rno: rno, replyer: replyer}),
  			contentType: "application/json; charset=utf-8",
  			success: function(result) {
  				if(callback) {

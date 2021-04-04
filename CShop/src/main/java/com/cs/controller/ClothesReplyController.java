@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class ClothesReplyController {
 
 	private final ClothesReplyService service;
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/new" , consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> register(@RequestBody ClothesReply reply) {
 		log.info("In Controller Add reply : " + reply);
@@ -58,9 +60,11 @@ public class ClothesReplyController {
 		return new ResponseEntity<>(service.getReplyListWithPaging(cri, cno), HttpStatus.OK);
 	}
 
+	@PreAuthorize("principal.username == #reply.replyer")
 	@DeleteMapping(value = "/{rno}",  produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> remove(@PathVariable("rno") Long rno) {
+	public ResponseEntity<String> remove(@RequestBody ClothesReply reply, @PathVariable("rno") Long rno) {
 		log.info("In Controller Remove Rno : " + rno);
+		log.info("In Controller Remove reply : " + reply);
 		
 		boolean result = service.remove(rno);
 		
@@ -68,6 +72,7 @@ public class ClothesReplyController {
 				: new ResponseEntity<String>(HttpStatus.BAD_GATEWAY);
 	}
 	
+	@PreAuthorize("principal.username == #reply.replyer")
 	@PutMapping(value = "/{rno}", consumes = "application/json",  
 				produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<ClothesReply> modify(@PathVariable("rno")Long rno, @RequestBody ClothesReply reply) {

@@ -719,6 +719,16 @@
 	border-bottom: 1px solid #dedede;
 }
 
+.replyWriteBox {
+	margin-top: 5px; 
+	width:100%;
+}
+
+.replyWriteBox > textarea {
+	width:100%; 
+	padding: 3px 3px;
+}
+
 .detailsRow {
 	text-align: right; 
 	font-size: 14px;

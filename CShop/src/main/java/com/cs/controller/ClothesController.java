@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -80,7 +82,7 @@ public class ClothesController {
 		log.info("Criteria : " + cri);
 		if(auth != null) {
 			boolean isLike = likeService.isLike(new LikeVO(auth.getName(), cno));
-			log.info("like ? " + isLike);
+			log.info("isLike ? " + isLike);
 			if(isLike) {
 				model.addAttribute("like", "isLike");
 			} else {
@@ -93,37 +95,66 @@ public class ClothesController {
 	}
 	
 	@GetMapping({"/modify"})
-	public void modify(Long cno, Criteria cri, Model model) {
+	public void modify(Long cno, Criteria cri, HttpServletRequest request, Model model) {
 		log.info("In Controller Modify Page Cno : " + cno);
 		log.info("Criteria : " + cri);
 		
+		String uri = getUri(request);
+		log.info(uri);
 		model.addAttribute("clothes", service.modify(cno));
 		model.addAttribute("cri", cri);
+		model.addAttribute("requestUri", uri);
 	}
 	
+	@PreAuthorize("principal.username == #vo.writer")
 	@PostMapping("/modify") 
-	public String modify(ClothesVO vo, Criteria cri, RedirectAttributes rttr) {
+	public String modify(ClothesVO vo, Criteria cri, HttpServletRequest request, RedirectAttributes rttr) {
 		log.info("In Controller Modify VO : " + vo);
 		log.info("cri : " + cri);
 		
 		boolean modifyResult = service.modify(vo);
 		
-		return modifyResult ? "redirect:/index" : "redirect:/clothes/list";
+		String uri = request.getParameter("requestUri");
+		log.info(uri);
+		
+		if(modifyResult) {
+			
+			if(uri.contains("mypage")) {
+				return "redirect:"+uri;
+			}
+			
+			rttr.addAttribute("cno", vo.getCno());
+			rttr.addAttribute("pageNum", cri.getPageNum());
+			rttr.addAttribute("amount", cri.getAmount());
+			rttr.addAttribute("type", cri.getType());
+			rttr.addAttribute("keyword", cri.getKeyword());
+			
+		}
+		return "redirect:/clothes/get";
 	}
 	
+	@PreAuthorize("principal.username == #writer")
 	@PostMapping("/remove")
-	public String remove(Long cno, Criteria cri, RedirectAttributes rttr) {
+	public String remove(Long cno, String writer, Criteria cri, HttpServletRequest request, RedirectAttributes rttr) {
 		
 		log.info("In Controller Remove Cno : " + cno);
+		log.info("In Controller Remove With Writer : " + writer);
 		
 		List<ClothesAttachVO> attachList = service.getAttachList(cno);
 		log.info("Cno have AttachList : " + attachList);
+		
+		String uri = request.getParameter("requestUri");
+		log.info(uri);
 		
 		boolean result = service.remove(cno);
 		
 		if(result) {
 			
 			deleteFile(attachList);
+			
+			if(uri.contains("mypage")) {
+				return "redirect:"+uri;
+			}
 			
 			rttr.addAttribute("pageNum", cri.getPageNum());
 			rttr.addAttribute("amount", cri.getAmount());
@@ -171,5 +202,15 @@ public class ClothesController {
 				e.printStackTrace();
 			}
 		});
+	}
+	
+	private String getUri(HttpServletRequest request) {
+		StringBuffer referer = new StringBuffer(request.getHeader("referer"));
+		String host = request.getHeader("Host");
+		
+		String uri = referer.delete(0, host.length() + referer.indexOf(host)).toString();
+		
+		return uri;
+		
 	}
 }
