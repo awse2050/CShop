@@ -50,7 +50,7 @@ public class ClothesController {
 		log.info("In Controller Cri : " + cri);
 		model.addAttribute("list", service.getList(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
-		
+		model.addAttribute("asideHeader", "clothes");
 	}
 	
 	@GetMapping("/register")
