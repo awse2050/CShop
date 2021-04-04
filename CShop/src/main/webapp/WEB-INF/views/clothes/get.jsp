@@ -71,7 +71,7 @@
 							</c:if>
 						</sec:authorize>
  					<div class="infoBoxFoot">
-						<!-- <button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" >판매자에게 메세지 발송</button> -->
+						 <!-- <button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="msg" >판매자에게 메세지 발송</button> -->
 					</div> 
 				</div>
 				<!-- /. infoBox -->
@@ -262,7 +262,6 @@
 				});
 			}
 		});
-		
 		
 		mainImg.on("click", "img", function(e) {
 			e.preventDefault();

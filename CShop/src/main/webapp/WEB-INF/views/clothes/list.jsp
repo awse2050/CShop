@@ -6,17 +6,16 @@
 <section class="section">
 	<div class="container">
 		<div class="row">
-			<aside class="listAside">
-				<aside-header class="aside-header">패션</aside-header>
-					<nav class="listAside-nav">
-						 <ul>
-							<li>팝니다</li>
-						</ul> 
-					</nav>
-			</aside>
-			<div class="listBody"> <!-- 본문 틀 -->
-				<div class="locationDiv">
-					<h3>HOME > 팝니다</h3> <!-- 현재위치 -->
+			<%@ include file="../includes/board-Aside.jsp"%>
+			<div class="bodyRow">
+				<div class="header-location">
+					HOME > 패션 > 팝니다
+				</div>
+			
+				<div class="bodyHeader">
+					<div class="header-title">
+						상품목록
+					</div>
 				</div>
 				<div class="filterDiv"> <!-- 분류, 갯수선택 select  -->
 					<select class="filterSelect" name="amount">
@@ -45,8 +44,9 @@
 								</c:if>
 								<div style="margin: 15px 0px;">
 									<b>${list.productName }</b>
-									<div>운포</div>
-									<strong>${list.price }원</strong>
+									<div>
+										<strong>${list.price }원</strong>
+									</div>
 								</div>
 							</a>
 						</div>
@@ -103,6 +103,11 @@
 	<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 </form>
 
+<div>
+ <button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="msg" >판매자에게 메세지 발송</button>
+
+</div>
+
 <script>
 
 	$(document).ready(function() {
@@ -110,7 +115,7 @@
 		var objForm = $(".objForm");
 		var getBtn = $(".getBtn"); // 상품클릭 ( 상세페이지로 이동 )
 		var pageBtn = $(".pageBtn"); // 페이지 이동 버튼
-		
+		var msgBtn = $("#msg");
 		var searchBtn = $("#searchBtn");
 		var searchForm = $(".searchForm");
 		
@@ -164,7 +169,6 @@
 			objForm.attr("action", "/clothes/get").submit();
 			
 		})
-		
 	}); // end document
 
 </script>
