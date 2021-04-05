@@ -10,7 +10,7 @@
 			<div class="bodyRow">
 				<div class="bodyHeader">
 					<div class="header-title">
-						메세지 관리
+						보낸 메세지
 					</div>
 					<div class="header-location">
 						HOME > 마이페이지 > 메세지 관리 > 보낸 메세지
@@ -21,8 +21,9 @@
 					<table class="like-table">
 						<thead>
 							<tr>
-								 <th style="width: 10%;">받은사람</th>
-								<th style="width: 10%;">내용</th>
+								<th style="width: 15%;">받은사람</th>
+								<th>내용</th>
+								<th style="width: 25%;">보낸날짜</th>
 							</tr>
 						</thead>
 						<tbody class="likeBody">
@@ -34,7 +35,6 @@
 		</div>
 	</div>
 </section>
-		
 
 <%@ include file="../includes/footer.jsp"%>
 			
