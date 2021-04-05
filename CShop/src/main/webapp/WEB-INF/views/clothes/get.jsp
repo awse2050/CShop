@@ -3,6 +3,38 @@
 
 <%@ include file="../includes/header.jsp"%>
 
+<div id="writeModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background: #2C3E50; padding: 20px;">
+        <h5 class="modal-title" style="color: white;">메세지 보내기</h5>
+      </div>
+      <div class="modal-body" style="padding: 15px 30px; background: #f7f7f7;">
+	      <table class="msg-table">
+			 <tbody>
+				<tr style="border-top: 1px solid #e8e8e8;">
+					<td style="width: 20%;">수신자</td>
+					<td style="text-align: left; padding-left: 5px;" >${clothes.writer }</td>
+				</tr>
+				<tr>
+					<td class="required" style="width: 20%;">내용</td>
+					<td style="padding: 10px 3px 5px 3px;">
+					<!-- 높이 직접변경 -->
+						<textarea class="msg-input" type="text" name="text" style="height: 150px;"></textarea>
+					</td>
+				</tr>
+			 </tbody>
+		  </table>
+      </div>
+      <div class="modal-footer">
+        <button class="small-btn" id="sendMsg">보내기</button>
+        <button class="small-btn2" id="cancelMsg">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <section class="section" style="padding: 0 0;">
 	<div class="container">
 		<div class="row">
@@ -71,7 +103,7 @@
 							</c:if>
 						</sec:authorize>
  					<div class="infoBoxFoot">
-						 <!-- <button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="msg" >판매자에게 메세지 발송</button> -->
+						 <button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="msg" >판매자에게 메세지 발송</button>
 					</div> 
 				</div>
 				<!-- /. infoBox -->
@@ -143,6 +175,11 @@
 		
 		var thumbImg = $(".thumbImg");
 		var mainImg = $(".mainImg");
+		
+		var writeModal = $("#writeModal");
+		var msgBtn = $("#msg");
+		var sendBtn = $("#sendMsg");
+		var cancelBtn = $("#cancelMsg");
 		
 		var replyBox = $(".replyBox");
 		var replyWriteBox = $(".replyWriteBox");
@@ -261,6 +298,47 @@
 					}
 				});
 			}
+		});
+		
+		msgBtn.on("click", function(e) {
+			e.preventDefault();
+			// 로그인한 사용자일 경우에만 나타나게한다. 비로그인 = null
+			if(!loginUserid) {
+				alert("로그인이 필요한 서비스입니다.")
+				return false;
+			}
+			$("textarea[name='text']").val("");
+			writeModal.modal("show");
+		});
+		
+		sendBtn.on("click", function(e) {
+			e.preventDefault();
+			var text = $("textarea[name='text']").val();
+			var receiver = '<c:out value="${clothes.writer}"/>'
+			if(text.length >= 500) {
+				alert("내용이 너무 깁니다.");
+				return false;
+			}
+			
+			$.ajax({
+				type: 'post',
+				url: '/message/write',
+				data: JSON.stringify({sender: loginUserid, receiver: receiver, text: text}),
+				contentType: "application/json; charset=utf-8",
+				success: function(msg) {
+					if(msg) {
+						alert("성공적으로 메세지를 보냈습니다.");
+						writeModal.modal("hide");
+					}
+				}
+			}); 
+			
+		})
+		
+		cancelBtn.on("click", function(e) {
+			e.preventDefault();
+			
+			writeModal.modal("hide");
 		});
 		
 		mainImg.on("click", "img", function(e) {

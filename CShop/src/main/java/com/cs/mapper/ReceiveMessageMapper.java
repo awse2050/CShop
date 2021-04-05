@@ -6,8 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.cs.domain.MessageVO;
 
-public interface MessageMapper {
-
+public interface ReceiveMessageMapper {
 	// 추가
 	public int insert(MessageVO msg);
 	// 받은 메세지
@@ -18,6 +17,4 @@ public interface MessageMapper {
 	public MessageVO read(Long mno);
 	// 삭제
 	public boolean delete(Long mno);
-	
-	
 }

@@ -14,12 +14,16 @@
 							<!-- img -->
 						</div>
 						<div class="profile_text" style="margin-top:30px; float: left;">
-							<p style="font-size:18px; color: #000; magrin-bottom: 10px;">~~님 </p>
-							<p style="font-size: 13px; color:#666; margin-bottom: 15px;">userid</p>
+							<p style="font-size:18px; color: #000; magrin-bottom: 10px;">
+								<sec:authentication property="principal.vo.username" />	
+							</p>
+							<p style="font-size: 13px; color:#666; margin-bottom: 15px;">
+								<sec:authentication property="principal.username" />	
+							</p>
 						</div>
 					</div>
-					<div class="new_message" style="float: right; text-align:center;margin: 60px 30px;" >
-						<a href="/message/receive">
+					<div class="new_message" style="float: right; text-align:center; margin: 60px 30px;" >
+						<a href="/message/receive/list">
 							<i class="fas fa-sms"></i>
 							새로운 메세지 0통
 						</a>

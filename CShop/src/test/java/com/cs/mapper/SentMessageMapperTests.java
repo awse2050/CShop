@@ -14,10 +14,10 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", 
 "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
-public class MessageMapperTests {
+public class SentMessageMapperTests {
 
 	@Autowired
-	private MessageMapper mapper;
+	private SentMessageMapper mapper;
 	
 	@Test
 	public void insertTest() {

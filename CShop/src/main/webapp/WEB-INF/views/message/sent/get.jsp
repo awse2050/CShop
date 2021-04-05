@@ -1,19 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="../includes/header.jsp"%>
+<%@ include file="../../includes/header.jsp"%>
     
 <sec:authentication property="principal" var="pinfo"/>
 
 <section class="section" >
 	<div class="container">
 		<div class="row">
-			<%@ include file="../includes/msg-Aside.jsp"%>
+			<%@ include file="../../includes/msg-Aside.jsp"%>
 			<div class="bodyRow">
 				<div class="bodyHeader">
-					<c:if test="${pinfo.username eq msg.receiver }">
-						<button class="small-btn">답장</button>
-					</c:if>
 					<button class="small-btn2">삭제</button>
 					<button class="small-btn3">목록</button>
 				</div>
@@ -21,17 +18,11 @@
 					<table class="msg-table">
 					 <tbody>
 						<tr>
-							<c:if test="${pinfo.username eq msg.sender }">
-								<td style="width: 20%;">받는사람</td>
-								<td style="text-align: left;">${msg.receiver }  </td>
-							</c:if>
-							<c:if test="${pinfo.username eq msg.receiver }">
-								<td style="width: 20%;">보낸사람</td>
-								<td style="text-align: left;">${msg.sender }</td>
-							</c:if>
+							<td style="width: 20%;">받은사람</td>
+							<td style="text-align: left;">${msg.receiver }</td>
 						</tr>
 						<tr>
-							<td style="width: 20%;">받은날짜</td>
+							<td style="width: 20%;">보낸날짜</td>
 							<td style="text-align: left;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${msg.sentdate }" /></td>
 						</tr>
 						<tr>
@@ -61,26 +52,20 @@
 		
 		var mno = '<c:out value="${msg.mno}" />';
 		
-		replyBtn.on("click", function(e) {
-			
-			objForm.append("<input type='hidden' name='mno' value='"+mno+"'>");
-			objForm.attr("action", "/message/reply").submit();			
-		})
-	
 		removeBtn.on("click", function(e) {
 			e.preventDefault();
 			
 			objForm.append("<input type='hidden' name='mno' value='"+mno+"'>");
-			objForm.attr("action", "/message/remove").attr("method", "post").submit();		
+			objForm.attr("action", "/message/removeSentMsg").attr("method", "post").submit();		
 		});
 		
 		listBtn.on("click", function(e) {
 			e.preventDefault();
 		
-			self.location = "/message/receive";
+			self.location = "/message/sent/list";
 		});
 	})
 	
 </script>
 
-<%@ include file="../includes/footer.jsp"%>
+<%@ include file="../../includes/footer.jsp"%>
