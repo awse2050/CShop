@@ -11,7 +11,7 @@
 		 	<a href="/mypage/goods">
 				<li class="b">상품목록</li>
 		 	</a>
-		 	<a href="#">
+		 	<a href="/message/receive/list">
 				<li class="t">메세지 관리</li>
 		 	</a>
 			<li class="t">회원정보 변경</li>

@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../includes/header.jsp"%>
-    
+
+<sec:authentication property="principal" var="pinfo"/>
+
 <section class="section" >
 	<div class="container">
 		<div class="row">
@@ -12,18 +14,13 @@
 					<button class="small-btn">보내기</button>
 					<button class="small-btn2">취소</button>
 				</div>
-				<div class="tableDiv" style="margin-top: 20px; border-top: 1px solid #e8e8e8;"> <!-- 이상이 있으면 해당 div 제거 -->
+				<div class="tableDiv" style="margin-top: 20px; border-top: 1px solid #e8e8e8;"> 
 					<form class="replyForm">
 						<table class="msg-table">
 						 <tbody>
 							<tr>
 								<td style="width: 20%;">받는사람</td>
-								<c:if test="${empty receiver }">
-									<td style="text-align: left; padding-left: 5px;" >${msg.sender }</td>
-								</c:if>
-								<c:if test="${empty sender }">
-									<td style="text-align: left; padding-left: 5px;">${msg.receiver }  </td>
-								</c:if>
+								<td style="text-align: left; padding-left: 5px;" >${msg.sender }</td>
 							</tr>
 							<tr>
 								<td class="required" style="width: 20%;">내용</td>
@@ -52,14 +49,25 @@
 		var sendBtn = $(".small-btn");
 		var backBtn = $(".small-btn2");
 		var replyForm = $(".replyForm");
+		var objForm = $(".objForm");
+		var loginUser = '<sec:authentication property="principal.username" />'
+		var receiver = '<c:out value="${msg.receiver}" />';
+		var sender = '<c:out value="${msg.sender}" />';
 		
 		sendBtn.on("click", function(e) {
 			e.preventDefault();
 			
-			replyForm.append("<input type='hidden' name='sender' value='admin44'>")
-			replyForm.append("<input type='hidden' name='receiver' value='hide'>");
-			
+			replyForm.append("<input type='hidden' name='receiver' value='"+sender+"'>");
+			replyForm.append("<input type='hidden' name='sender' value='"+loginUser+"'>")
 			replyForm.attr("action", "/message/reply").attr("method", "post").submit();
+		})
+		
+		backBtn.on("click", function(e) {
+			e.preventDefault();
+			var mno = '<c:out value="${msg.mno}"/>';
+			
+			objForm.append("<input type='hidden' name='mno' value='"+mno+"'>");
+			objForm.attr("action", "/message/receive/get").submit();
 		})
 	});
 	

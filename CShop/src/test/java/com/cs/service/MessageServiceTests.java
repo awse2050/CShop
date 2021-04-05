@@ -22,23 +22,28 @@ public class MessageServiceTests {
 	@Test
 	public void registerTest() {
 		MessageVO msg = new MessageVO();
-		msg.setReceiver("hide44");
+		msg.setReceiver("nubi");
 		msg.setSender("admin44");
-		msg.setText("안녕하세요??");
+		msg.setText("혹시 운포인지 궁금해서 연락드려요.");
 		
 		log.info(service.register(msg));
 	}
 	
 	@Test
 	public void getTest() {
-		log.info(service.getByMno(2L));
-		log.info(service.getSentList("admin44"));
-		log.info(service.getReceivedList("hide44"));
-		
+		log.info(service.getSentMsgByMno(56L));
+		log.info(service.getReceivedMsgByMno(1L));
 	}
 	
 	@Test
-	public void deleteTest() {
-		log.info(service.remove(2L));
+	public void getListTest() {
+		log.info(service.getReceivedList("admin44"));
+		log.info(service.getSentList("admin44"));
+	}
+
+	@Test
+	public void removeTest() {
+		log.info(service.removeReceivedMsgByMno(1L));
+		log.info(service.removeSentMsgByMno(56L));
 	}
 }

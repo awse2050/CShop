@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ include file="../includes/header.jsp"%>
+<%@ include file="../../includes/header.jsp"%>
 
 <section class="section" >
 	<div class="container">
 		<div class="row">
-			<%@ include file="../includes/msg-Aside.jsp"%>
+			<%@ include file="../../includes/msg-Aside.jsp"%>
 			<div class="bodyRow">
 				<div class="bodyHeader">
 					<div class="header-title">
@@ -59,12 +59,12 @@
 			var mno = $(this).attr("href");
 			
 			objForm.append("<input type='hidden' name='mno' value='"+mno+"'>");
-			objForm.attr("action", "/message/read").submit();
+			objForm.attr("action", "/message/receive/get").submit();
 		})
 	})
 
 </script>
 
 
-<%@ include file="../includes/footer.jsp"%>
+<%@ include file="../../includes/footer.jsp"%>
 			

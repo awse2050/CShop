@@ -8,12 +8,16 @@ public interface MessageService {
 
 	// 추가
 	public int register(MessageVO msg);
-	// 읽기
-	public MessageVO getByMno(Long mno);
-	// 받은 메세지
+	// 받은메세지 읽기
+	public MessageVO getReceivedMsgByMno(Long mno);
+	// 보낸메세지 읽기
+	public MessageVO getSentMsgByMno(Long mno);
+	// 보낸 메세지
 	public List<MessageVO> getReceivedList(String userid);
-	// 전송한 메세지
+	// 받은 메세지 삭제
 	public List<MessageVO> getSentList(String userid);
-	// 삭제
-	public boolean remove(Long mno);
+	// 받은 메세지
+	public boolean removeReceivedMsgByMno(Long mno);
+	// 보낸 메세지 삭제
+	public boolean removeSentMsgByMno(Long mno);
 }

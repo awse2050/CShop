@@ -1,5 +1,6 @@
 package com.cs.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,8 +42,13 @@ public class MyPageController {
 	public void goods(Authentication auth, Model model) {
 		// 인자로 @Authenticationprincipal을 사용하여 아이디로 찾게 한다 (이후변경)
 		log.info("goods page...");
-		List<ClothesVO> list = clothesService.getByUserid(auth.getName());
-	
+		
+		List<ClothesVO> list = new ArrayList<ClothesVO>();
+		
+		if(auth != null) {
+			
+			list = clothesService.getByUserid(auth.getName());
+		}
 		model.addAttribute("list", list);
 	}
 	

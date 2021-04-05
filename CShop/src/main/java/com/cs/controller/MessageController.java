@@ -3,6 +3,8 @@ package com.cs.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,26 +28,40 @@ public class MessageController {
 	
 	private final MessageService msgService;
 	
-	@GetMapping("/receive")
-	public void receive(Model model) {
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/receive/list")
+	public void receive(Authentication auth, Model model) {
 		log.info("Receive Message Page....");
-		// 추후 로그인 사용자 넣기로 변경.	
-		model.addAttribute("getMsg", msgService.getReceivedList("admin44"));
+		if( auth != null) {
+			model.addAttribute("getMsg", msgService.getReceivedList(auth.getName()));
+		}
 	}
 	
-	@GetMapping("/sent")
-	public void sent(Model model) {
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/sent/list")
+	public void sent(Authentication auth, Model model) {
 		log.info("Sent Message Page....");
-		
-		model.addAttribute("sentMsg", msgService.getSentList("admin44"));
+		if( auth != null) {
+			model.addAttribute("sentMsg", msgService.getSentList(auth.getName()));
+		}
 	}
 	
-	@GetMapping({"/read","/reply"})
-	public void read(Long mno, Model model) {
+	@GetMapping({"/receive/get","/reply"})
+	public void get(Long mno, Authentication auth, Model model) {
 		log.info("In Controller read Mno msg : " + mno);
-		// 로그인한 사용자와 비교해서 해당 사용자가 보낸사람이면 sender 를 보내고 아니라면 receiver를 보낸다.
-		model.addAttribute("msg", msgService.getByMno(mno));
-		model.addAttribute("sender", msgService.getByMno(mno).getSender());
+		if( auth != null) {
+			log.info("Login User.. : " + auth.getName());
+		}
+		model.addAttribute("msg", msgService.getReceivedMsgByMno(mno));
+	}
+	
+	@GetMapping("/sent/get")
+	public void read(Long mno, Authentication auth, Model model) {
+		log.info("In Controller read Mno msg : " + mno);
+		if( auth != null) {
+			log.info("Login User.. : " + auth.getName());
+		}
+		model.addAttribute("msg", msgService.getSentMsgByMno(mno));
 	}
 
 	// 답장보내기
@@ -58,13 +74,35 @@ public class MessageController {
 		return "redirect:/message/receive";
 	}
 	
-	@PostMapping("/remove")
-	public String remove(Long mno, RedirectAttributes rttr) {
+	@PostMapping("/removeSentMsg")
+	public String removeSentMsg(Long mno, RedirectAttributes rttr) {
 		log.info("Remove Message Mno : " + mno);
 		
-		boolean removeResult = msgService.remove(mno);
+		boolean removeResult = msgService.removeSentMsgByMno(mno);
 		log.info("remove ? : " +removeResult);
 		
-		return "redirect:/message/receive";
+		return "redirect:/message/sent/list";
+	}
+	
+	@PostMapping("/removeReceivedMsg")
+	public String removeReceivedMsg(Long mno, RedirectAttributes rttr) {
+		log.info("Remove Message Mno : " + mno);
+		
+		boolean removeResult = msgService.removeReceivedMsgByMno(mno);
+		log.info("remove ? : " +removeResult);
+		
+		return "redirect:/message/receive/list";
+	}
+	
+	// 판매자에게 메세지 보내기
+	@PostMapping(value = "/write", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> writeMsg(@RequestBody MessageVO msg) {
+		log.info("Send Message info : " + msg);
+		
+		int sendResult = msgService.register(msg);
+		
+		return sendResult == 1 ? new ResponseEntity<>("Send", HttpStatus.OK) 
+				: new ResponseEntity<>("", HttpStatus.OK);
 	}
 }
