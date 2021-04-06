@@ -152,7 +152,7 @@ public class ClothesController {
 			
 			deleteFile(attachList);
 			
-			if(uri.contains("mypage")) {
+			if(uri != null && uri.length() != 0 && uri.contains("mypage")) {
 				return "redirect:"+uri;
 			}
 			

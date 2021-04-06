@@ -65,7 +65,6 @@
 			var nno = "${notice.nno}";
 			
 			$.getJSON("/notice/getAttachList", {nno: nno}, function(arr) {
-				console.log(arr);
 				
 				var str = "";
 				
@@ -130,8 +129,6 @@
 		$(".uploadResult").on("click", "button", function(e) {
 			e.preventDefault();
 			
-			console.log("delete File");
-			
 			if(confirm("삭제하시겠습니까?")) {
 				var targetDiv = $(this).closest("div");
 				targetDiv.remove();
@@ -147,15 +144,12 @@
 			 
 			 var formData = new FormData();
 			 var inputFiles = $("input[name='uploadFile']");
-			 console.log(inputFiles);
 			 
 			 var files = inputFiles[0].files;
-			console.log(files);
 			
 			for(var i=0; i < files.length; i++) {
 				// 확장자 및 크기체크 미통과시
 				if(!checkExtension(files[i].name, files[i].size)) {
-					console.log("return")
 					return false;
 				}
 				formData.append("uploadFile", files[i]);
@@ -180,17 +174,14 @@
 		});
 		
 		function showUploadResult(uploadArr) {
-			console.log(uploadArr);
 			
 			if(!uploadArr || uploadArr.length == 0) {
-				console.log("return..")
 				return;
 			}
 			
 			var str = "";
 			
 			$.each(uploadArr, function(i, obj) {
-				console.log(obj);
 				if(obj.image) {
 					var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 					

@@ -3,26 +3,6 @@
 
 <%@ include file="../includes/header.jsp"%>
 
-<div class="container" style="border-bottom: 1px solid #dedede; padding-top:20px; padding-bottom: 20px;">
-	<div class="notice-header-title">
-	 	<div>CS Service</div>
-	</div>
-	<div class="notice-header-subTitle">
-		<div> 
-			<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-			<p>공지사항</p>
-		</div>
-		<div>
-			<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-			<p>FAQ</p>
-		</div>
-		<div>
-			<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-			<p>1:1문의</p>
-		</div>
-	</div>
-</div>
-
 <section class="product-category section" style="padding-top: 50px;">
 	<div class="container">
 		<div class="row">
@@ -54,9 +34,6 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<div style="min-height: 25px">
-				<button class="registerBtn customBtn" style="float: right;">글쓰기</button>
-			</div>
 	
 			<div class="searchDiv">
 				<form class="searchForm" action="/notice/list">
@@ -109,15 +86,6 @@
 		var pageBtn = $(".pageBtn");
 		var searchForm = $(".searchForm");
 		var searchBtn = $(".searchBtn");
-		var registerBtn = $('.registerBtn');
-		
-		registerBtn.on("click", function(e) {
-			e.preventDefault();
-			
-			console.log("register btn ...");	
-			
-			location.href = "/notice/register";
-		});
 		
 		getBtn.on("click", function(e) {
 			e.preventDefault();
@@ -133,7 +101,6 @@
 			e.preventDefault();
 
 			var page = $(this).attr("href");
-			console.log(page);
 
 			moveForm.find("input[name='pageNum']").val(page);
 			moveForm.attr("action", "/notice/list");
@@ -145,9 +112,7 @@
 			// 검색시 1페이지로 변경 후 전송
 			searchForm.find("input[name='pageNum']").val(1);
 			searchForm.submit();
-
 		});
-
 	});
 </script>
 

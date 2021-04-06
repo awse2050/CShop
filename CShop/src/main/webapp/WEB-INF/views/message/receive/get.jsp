@@ -62,8 +62,10 @@
 		removeBtn.on("click", function(e) {
 			e.preventDefault();
 			
-			objForm.append("<input type='hidden' name='mno' value='"+mno+"'>");
-			objForm.attr("action", "/message/removeReceivedMsg").attr("method", "post").submit();		
+			if(confirm("삭제하시겠습니까?")){
+				objForm.append("<input type='hidden' name='mno' value='"+mno+"'>");
+				objForm.attr("action", "/message/removeReceivedMsg").attr("method", "post").submit();		
+			}
 		});
 		
 		listBtn.on("click", function(e) {

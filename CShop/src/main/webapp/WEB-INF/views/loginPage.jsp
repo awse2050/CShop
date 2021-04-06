@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-    <%@ include file="./includes/header.jsp" %>
+<%@ include file="./includes/header.jsp" %>
+
  <section class="section">
  	<div class="container text-center" style="width: 300px;">
  		<div class="row" >
@@ -34,7 +35,7 @@
 	 		</form>
  		 </div>
  	</div>
- </section>
+</section>
     
 <script>
 	
@@ -47,12 +48,8 @@
 		
 			self.location = "/signUp";
 		})
-		
-		
 	})
-	
 	
 </script>
     
-    
-    <%@ include file="./includes/footer.jsp" %>
+<%@ include file="./includes/footer.jsp" %>

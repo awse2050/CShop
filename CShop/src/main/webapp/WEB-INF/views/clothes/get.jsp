@@ -243,7 +243,6 @@
 		removeBtn.on("click", function(e) {
 			e.preventDefault();
 
-			console.log("remove click");
 			if(confirm("지우시겠습니까?")) {
 				
 				objForm.append('<input type="hidden" name="cno" value="${clothes.cno}">');
@@ -252,7 +251,6 @@
 				objForm.attr("action","/clothes/remove").attr("method", "post");
 				objForm.submit();
 			}
-
 		});
 		
 		modifyBtn.on("click", function(e) {
@@ -277,7 +275,6 @@
 					data: JSON.stringify({cno: cno , userid: loginUserid }),
 					contentType: "application/json; charset=utf-8",
 					success: function(msg) {
-						console.log(msg);
 						if(msg == "like") {
 							likeIcon.attr("data-prefix", "fas");
 							if(confirm("찜 목록에 등록되었습니다. 목록페이지로 이동하시겠습니까?")) {
@@ -293,7 +290,6 @@
 					url: '/like/'+cno+"/"+loginUserid,
 					contentType: "application/json; charset=utf-8",
 					success: function(msg) {
-						console.log(msg);
 						likeIcon.attr("data-prefix", "far");
 					}
 				});
@@ -332,7 +328,6 @@
 					}
 				}
 			}); 
-			
 		})
 		
 		cancelBtn.on("click", function(e) {
@@ -369,11 +364,9 @@
 		addReplyBtn.on("click", function(e) {
 			e.preventDefault();
 		
-			console.log("add reply Button click");
 			var replyBox = replyWriteBox.find("textarea[name='reply']");
 			var reply = replyBox.val();
 			var data = {cno: cno, reply: reply , replyer: loginUserid};
-			console.log(data);
 			
 			replyService.add(data, function(result) {
 				replyBox.val("");
@@ -532,7 +525,6 @@
 		replyPage.on("click", "a", function(e) {
 		
 			e.preventDefault();
-			console.log("page click");
 			
 			var href = $(this).attr("href");
 			
@@ -548,7 +540,7 @@
 		    
 		    $(".bigPicture")
 		    .html("<img src='"+fileCallPath+"' >")
-		    .animate({width:'100%', height: '100%'}, 1000);
+		    .animate({width:'80%', height: '80%'}, 1000);
 		    
 		  }//end fileCallPath
 		  

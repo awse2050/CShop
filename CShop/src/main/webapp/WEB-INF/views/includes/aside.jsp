@@ -18,9 +18,6 @@
 			<a href="/mypage/confirm">
 				<li class="b">회원정보 수정</li>
 			</a>
-			<a href="#">
-				<li class="b">회원탈퇴</li>
-			</a>
 		</ul> 
 	</nav>
 </aside>

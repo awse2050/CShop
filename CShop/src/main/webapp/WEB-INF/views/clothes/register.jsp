@@ -132,8 +132,8 @@
 				</fieldset>
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 				<div class="register-buttonRow">
-					<button id="regBtn"> 상품등록 </button>
-					<button id="listBtn"> 목록으로 </button>
+					<button class="small-btn" id="regBtn"> 상품등록 </button>
+					<button class="small-btn2" id="listBtn"> 목록으로 </button>
 				</div>
 			</form>
 		</div>
@@ -181,7 +181,7 @@
 			var str = "";
 			// 첨부파일 이미지 정보
 			$(".uploadUL li").each(function(i,obj) {
-				console.log(obj);	// 각 li의 태그가 전송된다 따라서 그 값의 속성을 가져오기 위해서 $()을 써줘야함.
+				// 각 li의 태그가 전송된다 따라서 그 값의 속성을 가져오기 위해서 $()을 써줘야함.
 				str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+$(obj).data("path")+"'>";
 				str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+$(obj).data("uuid")+"'>";
 				str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+$(obj).data("filename")+"'>";
@@ -235,7 +235,6 @@
 			var inputFile = $("input[name='uploadFile']");
 			
 			var files = inputFile[0].files;
-			console.log(files);
 			
 			for (var i = 0; i < files.length; i++) {
 				
@@ -253,7 +252,6 @@
 				type: 'post',
 				dataType: 'json',
 				success: function(result) {
-					console.log(result);
 					
 					showUploadedFile(result); 
 //					$(".uploadDiv").html(cloneUpload.html()); // 업로드 후 내용 초기화
@@ -309,7 +307,6 @@
 			var str = "";
 			// 배열을 하나씩 뽑는다.
 			$(uploadResultArr).each(function(i, obj) {
-				console.log(obj);
 				if(!obj.image) {
 					
 					var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
@@ -339,7 +336,6 @@
 					
 				}
 			});
-			console.log(str);
 			uploadUL.append(str);
 		}
 		
@@ -347,14 +343,11 @@
 		$(".uploadResult").on("click","button", function(e) {
 			e.preventDefault();
 			
-			console.log("delete file");
-			
 			var targetFile = $(this).data('file');
 			var type = $(this).data('type');
 			
 			// 태그 제거용 선언
 			var targetLi = $(this).closest("li");
-			console.log(targetLi);
 			
 			$.ajax({
 				beforeSend: function(xhr) {

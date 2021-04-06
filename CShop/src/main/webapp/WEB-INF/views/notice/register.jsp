@@ -63,20 +63,16 @@
 		
 		registerBtn.on("click", function(e) {
 			e.preventDefault();
-			console.log("register click");
 			var str = "";
 			$(".uploadResult ul li").each(function(i, obj) {
 				
 				var jobj = $(obj);
-				
-				console.log(jobj);
 				
 				str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
 				str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
 				str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
 				str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+jobj.data("type")+"'>";
 				
-				console.log(str);
 			})
 			subForm.append(str).submit();		
 		})
@@ -89,15 +85,12 @@
 			 
 			 var formData = new FormData();
 			 var inputFiles = $("input[name='uploadFile']");
-			 console.log(inputFiles);
 			 
 			 var files = inputFiles[0].files;
-			console.log(files);
 			
 			for(var i=0; i < files.length; i++) {
 				// 확장자 및 크기체크 미통과시
 				if(!checkExtension(files[i].name, files[i].size)) {
-					console.log("return")
 					return false;
 				}
 				formData.append("uploadFile", files[i]);
@@ -122,17 +115,14 @@
 		});
 		
 		function showUploadResult(uploadArr) {
-			console.log(uploadArr);
 			
 			if(!uploadArr || uploadArr.length == 0) {
-				console.log("return..")
 				return;
 			}
 			
 			var str = "";
 			
 			$.each(uploadArr, function(i, obj) {
-				console.log(obj);
 				if(obj.image) {
 					var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 					
@@ -167,7 +157,6 @@
 				url: '/deleteFile',
 				data: {fileName: file, type: type},
 				success: function(result) {
-					console.log(result);
 					targetLi.remove();
 				}
 			});

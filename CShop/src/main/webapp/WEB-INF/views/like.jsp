@@ -69,7 +69,6 @@
 			var userid = "<sec:authentication property='principal.username'/>";
 			
 			$.getJSON("/like/"+userid, function(list) {
-				console.log(list);
 				var str = "";
 				
 				if(list.length == 0) {
@@ -82,7 +81,6 @@
 				}
 				
 		 		$.each(list, function(i, obj) {
-		 			console.log(obj);
 					var fileCallPath = encodeURIComponent(obj.thumbnailUrl);
 					/*  data-user => 로그인한 유저로 변경 */
 					str += "<tr data-cno='"+obj.cno+"' data-user='admin44'>";
@@ -114,9 +112,7 @@
 			
 			var trTag = $(this).closest("tr");
 			var cno = trTag.data("cno");
-			var userid = trTag.data("user");
-			console.log(cno);
-			console.log(userid);
+			var userid = "<sec:authentication property='principal.username'/>";
 			
 			if(confirm("찜목록에서 삭제하겠습니까?")) {
 				$.ajax({
@@ -124,7 +120,6 @@
 					url: '/like/'+cno+"/"+userid,
 					contentType: "application/json; charset=utf-8",
 					success: function(msg) {
-						console.log(msg);
 						trTag.remove();
 					}
 				});

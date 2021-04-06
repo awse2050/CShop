@@ -167,7 +167,6 @@
 
 		modifyBtn.on("click", function(e) {
 			e.preventDefault();
-			console.log("sign Up Btn Click");
 			
 			errorMsg = "";
 			// 우선 value를 모아서 memberObj에 저장한다.
@@ -207,8 +206,6 @@
 		
 		function clickExistButton() {
 			
-			console.log("is Click Exist Button ? ");
-			
 			if (!checkEmail) {
 				errorMsg = "이메일 중복확인을 해주세요.";
 				return false;
@@ -221,7 +218,6 @@
 				errorMsg = "상세주소를 입력하세요.";
 				return false;
 			}
-			console.log("address complete");
 			return true;
 		}
 		
@@ -276,8 +272,6 @@
 	 	
 	 	function checkPasswordLength(password) {
 	 		
-	 		console.log(password.length);
-	 		
 	 		var equalsResult = password.length >= 8;
 	 		
 	 		if(!equalsResult) {
@@ -288,19 +282,14 @@
 		
 		function isEqualsPassword(password, confirmPassword) {
 			
-			console.log("isEqualsPassword()");
-			
 			if(password === confirmPassword) {
 				return true;                                    
 			} else {
-				console.log("Not Equals Password");
 				return false;
 			}
 		}
 	
 		function setMemberObj() {
-			
-			console.log("set Member Obj");
 			
 			var address = getAddress();
 			memberObj = { 
@@ -316,8 +305,6 @@
 		}
 		
 		function getAddress() {
-			console.log("Making Address...");
-			
 			if(!detailsAddress.val()) {
 				return "";
 			}
@@ -332,7 +319,6 @@
 		function openAddressSearchWindow() {
 			new daum.Postcode({
 				oncomplete: function(data) {
-					console.log(data);
 					
 					var roadAddr = data.roadAddress; // 도로명 주소 변수
 		            var extraRoadAddr = ''; // 참고 항목 변수

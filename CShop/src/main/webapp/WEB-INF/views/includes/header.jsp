@@ -160,7 +160,6 @@
 	$(document).ready(function() {
 		
 		var loginModal = $("#loginModal");
-		var loginBtn = $(".loginBtn");
 		var logoutBtn = $(".logoutBtn");
 		var addBtn = $(".addBtn");
 		var loginUserid = null;
@@ -174,11 +173,6 @@
 			
 			$(".logoutForm").submit();
 			
-		});
-		
-		loginBtn.on("click", function(e) {
-			console.log("click");
-		
 		});
 		
 		addBtn.on("click", function(e) {

@@ -140,8 +140,8 @@
 				</fieldset>
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 				<div class="register-buttonRow">
-					<button id="modBtn"> 수정완료 </button>
-					<button id="listBtn"> 목록으로 </button>
+					<button class="small-btn" id="modBtn"> 수정완료 </button>
+					<button class="small-btn2" id="listBtn"> 목록으로 </button>
 				</div>
 			</form>
 		</div>
@@ -169,7 +169,6 @@
 
 		(function() {
 			var cno = '<c:out value="${clothes.cno}" />';
-			console.log(cno);
 			
 			var uploadUL = $(".uploadUL");
 			
@@ -177,12 +176,10 @@
 				if(!attachArr) {
 					return false;
 				}
-				console.log(attachArr);
 				uploadUL.html(""); 
 				var str ="";
 				
 				$(attachArr).each(function(i, obj) {
-					console.log(obj);
 					if(obj.fileType) {
 						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 						
@@ -215,28 +212,23 @@
 		var modBtn = $("#modBtn");
 		var listBtn = $("#listBtn");
 		var requestUri = '<c:out value="${requestUri}"/>';
-		console.log(requestUri);
 		
 		modBtn.on("click", function(e) {
 			e.preventDefault();
 			
-			console.log("modify Button Click");		
 			var str ="";
 			// 업로드 목록 추출
 			$(".uploadUL li").each(function(i, obj) {
-				console.log(obj);
 				
 				str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+$(obj).data("path")+"' >"
 				str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+$(obj).data("type")+"' >"
 				str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+$(obj).data("uuid")+"' >"
 				str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+$(obj).data("filename")+"' >"
-				console.log(str);
 			});
 			
 			actionForm.append(objForm.html());
 			actionForm.append(str);
 			actionForm.append("<input type='hidden' name='requestUri' value='"+requestUri+"'>");
-			
 			//  form 전송
 			actionForm.attr("action", "/clothes/modify").attr("method", "post").submit();
 			
@@ -245,7 +237,6 @@
 		listBtn.on("click", function(e) {
 			e.preventDefault();
 			
-			console.log("list Button Click")
 			// 우선은 게시물에서 왔기 떄문에 list로 가던지 원래있던 페이지로 가던지하면된다.
 			// 원래는 마이페이지에서 오기 떄문에 마이페이지로 간다?
 			objForm.attr("action", "/clothes/list").submit();
@@ -257,7 +248,6 @@
 			
 			var inputFiles = $("input[name='uploadFile']");
 			var files = inputFiles[0].files;
-			console.log(files);
 			
 			for(var i = 0; i < files.length; i++) {
 				
@@ -276,7 +266,6 @@
 				data: formData,
 				dataType: 'json',
 				success: function(result) {
-					console.log(result);
 					showUploadResult(result);
 				}
 			}); // end ajax
@@ -285,8 +274,6 @@
 		//삭제
 		uploadUL.on("click", "button", function(e) {
 			e.preventDefault();
-		
-			console.log("delete button");
 			// 해당 버튼이있는 li
 			var liTag = $(this).closest("li");
 			
@@ -333,7 +320,6 @@
 			var str = "";
 			
 			$.each(uploadArr, function(i, obj) {
-				console.log(obj);				 
 				if(obj.image) {
 					var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid+"_"+obj.fileName);
 					

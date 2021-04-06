@@ -32,7 +32,6 @@
 				<div style="border-bottom: 1px solid #dedede; height: 25px;"></div>
 			
 				<div class="footerBtn">
-					<button class="subBtn customBtn" data-oper="modify" >수정</button>
 					<button class="subBtn customBtn" data-oper="list" >목록</button>
 				</div>
 			</div>
@@ -56,7 +55,6 @@
 			var nno = "${notice.nno}";
 			
 			$.getJSON("/notice/getAttachList", {nno: nno}, function(result) {
-				console.log(result);
 				
 				var str = "";
 				
@@ -67,7 +65,6 @@
 						str += "<div><img src='/display?fileName="+fileCallPath+"'></div>";
 					}
 				});
-				console.log(str);
 				$(".getContent").append(str);
 				
 			})
@@ -80,14 +77,8 @@
 			e.preventDefault();
 			
 			var oper = $(this).data("oper");
-			console.log(oper);
 			
-			if(oper === "modify") {
-				subForm.append("<input type='text' name='nno' value='${notice.nno }'>");
-				subForm.attr("action", "/notice/modify")
-				subForm.submit();
-				
-			} else if(oper === "list") {
+			if(oper === "list") {
 				subForm.attr("action", "/notice/list");
 				subForm.submit();
 			}

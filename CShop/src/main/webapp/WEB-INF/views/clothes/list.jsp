@@ -11,7 +11,6 @@
 				<div class="header-location">
 					HOME > 패션 > 팝니다
 				</div>
-			
 				<div class="bodyHeader">
 					<div class="header-title">
 						상품목록
@@ -102,11 +101,6 @@
 	<input type="hidden" name="type" value="${pageMaker.cri.type }">
 	<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 </form>
-
-<div>
- <button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="msg" >판매자에게 메세지 발송</button>
-
-</div>
 
 <script>
 

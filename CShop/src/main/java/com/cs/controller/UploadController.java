@@ -34,11 +34,6 @@ import net.coobird.thumbnailator.Thumbnailator;
 @Log4j
 public class UploadController {
 
-	@GetMapping("/uploadAjax")
-	public void uploadAjax() {
-		log.info("upload ajax... ");
-	}
-	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/uploadAjaxAction" , produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
