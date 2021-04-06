@@ -48,7 +48,8 @@
  	
  	<update id="update" parameterType="com.cs.domain.MemberVO">
  		update tbl_member 
- 		set password = #{password}, email = #{email}, phone = #{phone}, address = #{address} 
+ 		set password = #{password}, email = #{email}, phone = #{phone}, 
+ 			road_address = #{roadAddress} , details_address = #{detailsAddress}
  		where userid = #{userid}
  	</update>
 

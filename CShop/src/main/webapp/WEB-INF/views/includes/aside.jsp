@@ -15,7 +15,7 @@
 				<li class="t">메세지 관리</li>
 		 	</a>
 			<li class="t">회원정보 변경</li>
-			<a href="#">
+			<a href="/mypage/confirm">
 				<li class="b">회원정보 수정</li>
 			</a>
 			<a href="#">

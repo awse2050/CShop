@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,15 +39,21 @@ public class MyPageController {
 	
 	private final MemberService memberService;
 	
+	private final PasswordEncoder encoder;
+	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/index")
 	public void index() {
 		log.info("My Page....");
 	}
 	
-	@GetMapping("/myinfo")
-	public void myInfo() {
+	@GetMapping({"/myinfo", "/confirm"})
+	public void myInfo(Authentication auth, Model model) {
 		log.info("My Info....");
+		
+		if(auth != null) {
+			model.addAttribute("myInfo", memberService.getByUserId(auth.getName()));
+		}
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -78,6 +86,7 @@ public class MyPageController {
 		return null;
 	}
 	
+	@PreAuthorize("principal.username == #vo.userid")
 	@PostMapping("/myinfo")
 	public String modifyMyInfo(MemberVO vo, RedirectAttributes rttr) {
 		log.info("Modify MyInfo In Controller");
@@ -87,4 +96,18 @@ public class MyPageController {
 		
 		return result ? "redirect:/mypage/index" : null;
 	}
+	
+	@GetMapping(value = "/pwConfirm/{userid}/{pw}", produces = MediaType.TEXT_PLAIN_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> confirmPassword(@PathVariable("pw")String password, @PathVariable("userid")String userid) {
+		log.info("userid : " + userid);
+		log.info("pwd : " + password);
+		
+		MemberVO member = memberService.getByUserId(userid);
+		boolean confirmResult = encoder.matches(password, member.getPassword());
+		
+		return confirmResult ? new ResponseEntity<>("right", HttpStatus.OK) :
+				new ResponseEntity<>("diff", HttpStatus.OK);
+	}
+	
 }

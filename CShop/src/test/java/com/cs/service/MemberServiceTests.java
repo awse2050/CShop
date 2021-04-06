@@ -64,4 +64,13 @@ public class MemberServiceTests {
 		
 		log.info(service.getByUserId("admin44"));
 	}
+	
+	@Test
+	public void passwordEqualsTest() {
+		MemberVO vo = service.getByUserId("test33");
+		
+		// 비암호화된 값, 암호화된 값. 
+		log.info(encoder.matches("pwpw1212", vo.getPassword())); // true
+		log.info(encoder.matches(vo.getPassword(), encoder.encode("pw44"))); // false
+	}
 }
