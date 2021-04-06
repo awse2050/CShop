@@ -284,6 +284,10 @@
 	padding: 50px 25px 100px;
 }
 
+.myinfoForm {
+	padding: 50px 25px 100px;
+}
+
 .like-table {
 	margin-top: 10px;
 	width: 100%;
@@ -335,7 +339,7 @@
 	margin-top: 10px;
 	width: 100%;
 	table-layout: fixed;
-	border-top: 5px solid #e8e8e8;
+	border-top: 2px solid #e8e8e8;
 }
 
 .input-table>tbody>tr {
@@ -345,8 +349,9 @@
 
 .input-table>tbody>tr>th {
 	padding: 8px 10px 8px 20px;
-	background-color: #f8f8f8;
+	background-color: #f4f4f4;
 	width: 20%;
+	font-weight: 700;
 }
 
 .input-table>tbody>tr>td {
@@ -376,6 +381,15 @@
 	width: 85px;
 	padding: 5px 8px;
 	border: 1px solid #ccc;
+}
+
+.confirmPw-input {
+	height: 25px;
+	width: 500px; 
+	padding: 5px 8px;
+	border: 1px solid #ccc;
+	font-size: 22px; 
+	text-align: center;
 }
 
 .msg-input {
@@ -632,6 +646,34 @@
 	font-size: 18px;
 	padding: 0 15px;
 }
+
+.myinfo-btnRow {
+	margin-top: 50px;
+	text-align: center;
+}
+
+.myinfo-btn {
+	border: 1px solid #000;
+	background: #000;
+	min-width: 200px;
+	min-height: 45px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 18px;
+	padding: 0 15px;
+}
+
+.myinfo-btn2 {
+	border: 1px solid #999;
+	background: #999;
+	min-width: 200px;
+	min-height: 45px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 18px;
+	padding: 0 15px;
+}
+
 
 .existcheck-btn {
 	border: 1px solid #888;
