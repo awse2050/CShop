@@ -59,7 +59,6 @@ public class MemberServiceTests {
 		vo.setPassword(encoder.encode("pw44"));
 		vo.setEmail("admin44@naver.com");
 		vo.setPhone("01030909402");
-		vo.setAddress("서울시 은계남로 12");
 		
 		log.info(service.modifyMyInfo(vo));
 		

@@ -98,7 +98,6 @@ public class MemberMapperTests {
 		vo.setPassword(encoder.encode("pw44"));
 		vo.setEmail("admin44@gmail.com");
 		vo.setPhone("01034845222");
-		vo.setAddress("서울시 은계남로 11");
 		
 		log.info(mapper.update(vo));
 		
