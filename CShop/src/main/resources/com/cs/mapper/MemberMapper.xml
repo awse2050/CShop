@@ -45,5 +45,11 @@
  		from tbl_member m left outer join tbl_member_auth auth on m.userid = auth.userid
  		where m.email = #{email}
  	</select>
+ 	
+ 	<update id="update" parameterType="com.cs.domain.MemberVO">
+ 		update tbl_member 
+ 		set password = #{password}, email = #{email}, phone = #{phone}, address = #{address} 
+ 		where userid = #{userid}
+ 	</update>
 
  </mapper>

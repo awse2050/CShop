@@ -50,4 +50,19 @@ public class MemberServiceTests {
 	public void getByEmailTest() {
 		log.info(service.getByEmail("tntn@naver.com"));
 	}
+	
+	@Test
+	public void updateTest() {
+		MemberVO vo = service.getByUserId("admin44");
+		log.info(vo);
+		
+		vo.setPassword(encoder.encode("pw44"));
+		vo.setEmail("admin44@naver.com");
+		vo.setPhone("01030909402");
+		vo.setAddress("서울시 은계남로 12");
+		
+		log.info(service.modifyMyInfo(vo));
+		
+		log.info(service.getByUserId("admin44"));
+	}
 }

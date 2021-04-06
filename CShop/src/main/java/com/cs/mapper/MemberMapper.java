@@ -11,5 +11,7 @@ public interface MemberMapper {
 	public int insert(MemberVO vo);
 	// 이메일 중복체크를 위한 조회
 	public MemberVO readByEmail(String email);
+	// 회원정보 수정
+	public boolean update(MemberVO vo);
 
 }
