@@ -17,7 +17,8 @@
  		<result property="nickname" column="nickname"/>
  		<result property="email" column="email"/>
  		<result property="phone" column="phone"/>
- 		<result property="address" column="address"/>
+ 		<result property="roadAddress" column="road_address"/>
+ 		<result property="detailsAddress" column="details_address"/>
  		<collection property="authList" resultMap="authMap"/>
  	</resultMap>
 
@@ -28,8 +29,8 @@
  
  	<!-- 추가 -->
  	<insert id="insert" parameterType="com.cs.domain.MemberVO">
- 		insert into tbl_member ( userid , password, username, nickname, email, phone, address ) 
- 		values ( #{userid} , #{password}, #{username}, #{nickname}, #{email}, #{phone}, #{address} )
+ 		insert into tbl_member ( userid , password, username, nickname, email, phone, road_address, details_address  ) 
+ 		values ( #{userid} , #{password}, #{username}, #{nickname}, #{email}, #{phone}, #{roadAddress}, #{detailsAddress} )
  	</insert>
 
 	<!-- 읽기 -->

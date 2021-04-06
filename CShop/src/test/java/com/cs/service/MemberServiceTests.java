@@ -35,7 +35,6 @@ public class MemberServiceTests {
 		vo.setUsername("준섭");
 		vo.setNickname("wesaq");
 		vo.setPhone("010-3194-3287");
-		vo.setAddress("시흥시 은계남로 11");
 		vo.setEmail("kyh3964@naver.com");
 		
 		log.info(service.register(vo));

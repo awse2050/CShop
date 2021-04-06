@@ -59,19 +59,18 @@ public class MemberMapperTests {
 		log.info(mapper.read("awse2050"));
 	}
 	
-	@Transactional
 	@Test
 	public void customMemberInsertTest() {
 		MemberVO vo = new MemberVO();
 		
-		vo.setUserid("awse205011");
+		vo.setUserid("hide12");
 		vo.setPassword(encoder.encode("pw22"));
-		vo.setUsername("윤환");
-		vo.setNickname("wesaq");
-		vo.setPhone("010-3194-3287");
-		vo.setAddress("시흥시 은계남로 11");
-		vo.setEmail("kyh3964@naver.com");
-
+		vo.setUsername("윤환121");
+		vo.setNickname("3845839ww");
+		vo.setPhone("01039593222");
+		vo.setRoadAddress("시흥시 은계남로 11");
+		vo.setDetailsAddress("904-1332");
+		vo.setEmail("kyh1111@naver.com");
 		
 		AuthVO auth = new AuthVO();
 		auth.setUserid(vo.getUserid());
@@ -79,7 +78,7 @@ public class MemberMapperTests {
 		
 		log.info(vo);
 		log.info(auth);
-		log.info(mapper.insert(vo));
+//		log.info(mapper.insert(vo));
 	
 		log.info(authMapper.insert(auth));
 	}

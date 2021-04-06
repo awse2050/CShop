@@ -123,7 +123,7 @@
 		var detailsAddress = $("#detailsAddress");
 		var extraRoadAddress = $("#extraRoadAddress");
 		var postCode = $("#postCode");
-		
+
 		$("input[name='email']").on("change", function(e) {
 			checkEmail = false;
 		})
@@ -227,7 +227,8 @@
 				return false;
 			}
 		
-			console.log("passed");
+			signUpForm.append("<input type='hidden' name='roadAddress' value='"+memberObj.roadAddress+"'>");
+			signUpForm.append("<input type='hidden' name='detailsAddress' value='"+memberObj.detailsAddress+"'>");
 			signUpForm.attr("action", "/signUp").attr("method", "post").submit();
 			
 		});
@@ -354,7 +355,7 @@
 			console.log("set Member Obj");
 			
 			var address = getAddress();
-			
+			console.log(address);
 			memberObj = { 
 					userid: signUpForm.find("input[name='userid']").val(),
 					username: signUpForm.find("input[name='username']").val(),
@@ -363,16 +364,24 @@
 					nickname: signUpForm.find("input[name='nickname']").val(),
 					phone: signUpForm.find("input[name='phone']").val(),
 					email: signUpForm.find("input[name='email']").val(),
-					address: address
+					roadAddress: address.roadAddress,
+					detailsAddress : address.detailsAddress,
 				}
+			console.log(memberObj)
 		}
 		
 		function getAddress() {
 			console.log("Making Address...");
+			
 			if(!detailsAddress.val()) {
 				return "";
 			}
-			return roadAddress.val() + detailsAddress.val() + extraRoadAddress.val();
+			
+			var address = {
+					roadAddress: roadAddress.val() + extraRoadAddress.val(),
+					detailsAddress: detailsAddress.val()	
+			}
+			return address;
 		}
 		
 		function openAddressSearchWindow() {
