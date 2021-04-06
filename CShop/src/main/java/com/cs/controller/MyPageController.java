@@ -14,11 +14,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cs.domain.MemberVO;
 import com.cs.domain.category.ClothesVO;
 import com.cs.service.ClothesService;
+import com.cs.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -31,10 +35,17 @@ public class MyPageController {
 	
 	private final ClothesService clothesService;
 	
+	private final MemberService memberService;
+	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/index")
 	public void index() {
 		log.info("My Page....");
+	}
+	
+	@GetMapping("/myinfo")
+	public void myInfo() {
+		log.info("My Info....");
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -65,5 +76,15 @@ public class MyPageController {
 		}
 		
 		return null;
+	}
+	
+	@PostMapping("/myinfo")
+	public String modifyMyInfo(MemberVO vo, RedirectAttributes rttr) {
+		log.info("Modify MyInfo In Controller");
+		log.info("Modify User Info : " + vo);
+		
+		boolean result = memberService.modifyMyInfo(vo);
+		
+		return result ? "redirect:/mypage/index" : null;
 	}
 }

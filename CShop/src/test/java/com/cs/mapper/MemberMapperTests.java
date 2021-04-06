@@ -89,4 +89,18 @@ public class MemberMapperTests {
 		log.info(mapper.readByEmail("tntn@naver.com"));
 		
 	}
+	
+	@Test
+	public void updateTest() {
+		MemberVO vo = mapper.read("admin44");
+		log.info(vo);
+		
+		vo.setPassword(encoder.encode("pw44"));
+		vo.setEmail("admin44@gmail.com");
+		vo.setPhone("01034845222");
+		
+		log.info(mapper.update(vo));
+		
+		log.info( mapper.read("admin44"));
+	}
 }

@@ -199,8 +199,6 @@
 			// 우선 value를 모아서 memberObj에 저장한다.
 			setMemberObj(); 
 			
-			console.log(memberObj);
-			
 			if(!isName(memberObj.username)) {
 				alert(errorMsg);
 				return false;
@@ -355,7 +353,6 @@
 			console.log("set Member Obj");
 			
 			var address = getAddress();
-			console.log(address);
 			memberObj = { 
 					userid: signUpForm.find("input[name='userid']").val(),
 					username: signUpForm.find("input[name='username']").val(),
@@ -367,7 +364,6 @@
 					roadAddress: address.roadAddress,
 					detailsAddress : address.detailsAddress,
 				}
-			console.log(memberObj)
 		}
 		
 		function getAddress() {
@@ -414,12 +410,11 @@
 	                } else {
 	                	extraRoadAddress.val("");
 	                }
-	                
 	                // 혹시모르는 필수 주소 표시항목
-	                console.log(data.bname);
-	                console.log(data.bcode);
-	                console.log(data.sido);
-	                console.log(data.sigungu);
+	                //console.log(data.bname);
+	                //console.log(data.bcode);
+	                //console.log(data.sido);
+	                //console.log(data.sigungu);
 				}
 			}).open();
 		}

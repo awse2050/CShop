@@ -32,19 +32,14 @@ public class MemberServiceImpl implements MemberService {
 	public int register(MemberVO vo) {
 		
 		log.info("Register MemberVO : " + vo);
-//		
-//		MemberVO member = memberMapper.read(vo.getUserid());
-//		if(Objects.nonNull(member)) {
-//			return 2;
-//		}
-//		
+
 		vo.setPassword(encoder.encode(vo.getPassword()));
 		// 추가로 권한을 넣어줘야한다... 트랜잭션 추가
 		int addResult = memberMapper.insert(vo);
 		
 		if(addResult == 1) {
-			log.info("Add Complete User Data");
-			log.info("By inserting Auth");
+			log.warn("Add Complete User Data");
+			log.warn("By inserting Auth");
 			authMapper.insert(new AuthVO(vo.getUserid(), "ROLE_MEMBER"));
 		}
 		
@@ -65,6 +60,17 @@ public class MemberServiceImpl implements MemberService {
 		log.info("get By Email : " + email);
 
 		return memberMapper.readByEmail(email);
+	}
+	
+	@Override
+	public boolean modifyMyInfo(MemberVO vo) {
+		log.warn("modify Member VO : " + vo);
+		
+		log.warn("Encoding Password...");
+		vo.setPassword(encoder.encode(vo.getPassword()));
+		log.warn("after VO ... : " + vo);
+		
+		return memberMapper.update(vo);
 	}
 	
 }

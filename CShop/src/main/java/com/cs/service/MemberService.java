@@ -11,5 +11,6 @@ public interface MemberService {
 	public MemberVO getByUserId(String userid);
 	// 이메일로 존재여부 체크
 	public MemberVO getByEmail(String email);
-	
+	// 회원 정보 수정
+	public boolean modifyMyInfo(MemberVO vo);
 }
