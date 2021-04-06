@@ -1,5 +1,9 @@
 package com.cs.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,11 +34,11 @@ public class MessageController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/receive/list")
-	public void receive(Authentication auth, Model model) {
+	public void receive(Authentication auth, Model model)  {
 		log.info("Receive Message Page....");
 		if( auth != null) {
 			model.addAttribute("getMsg", msgService.getReceivedList(auth.getName()));
-		}
+		} 
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -46,6 +50,7 @@ public class MessageController {
 		}
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping({"/receive/get","/reply"})
 	public void get(Long mno, Authentication auth, Model model) {
 		log.info("In Controller read Mno msg : " + mno);
@@ -55,6 +60,7 @@ public class MessageController {
 		model.addAttribute("msg", msgService.getReceivedMsgByMno(mno));
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/sent/get")
 	public void read(Long mno, Authentication auth, Model model) {
 		log.info("In Controller read Mno msg : " + mno);
@@ -65,15 +71,17 @@ public class MessageController {
 	}
 
 	// 답장보내기
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/reply")
 	public String register(MessageVO msg, RedirectAttributes rttr) {
 		log.info("Write Reply Message : " + msg);
 		
 		int sendResult = msgService.register(msg);
-		log.info(sendResult);
-		return "redirect:/message/receive";
+		
+		return "redirect:/message/receive/list";
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/removeSentMsg")
 	public String removeSentMsg(Long mno, RedirectAttributes rttr) {
 		log.info("Remove Message Mno : " + mno);
@@ -84,6 +92,7 @@ public class MessageController {
 		return "redirect:/message/sent/list";
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/removeReceivedMsg")
 	public String removeReceivedMsg(Long mno, RedirectAttributes rttr) {
 		log.info("Remove Message Mno : " + mno);
@@ -95,6 +104,7 @@ public class MessageController {
 	}
 	
 	// 판매자에게 메세지 보내기
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/write", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> writeMsg(@RequestBody MessageVO msg) {

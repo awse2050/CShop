@@ -22,8 +22,8 @@ public class MessageServiceTests {
 	@Test
 	public void registerTest() {
 		MessageVO msg = new MessageVO();
-		msg.setReceiver("nubi");
-		msg.setSender("admin44");
+		msg.setReceiver("admin44");
+		msg.setSender("nubi");
 		msg.setText("혹시 운포인지 궁금해서 연락드려요.");
 		
 		log.info(service.register(msg));

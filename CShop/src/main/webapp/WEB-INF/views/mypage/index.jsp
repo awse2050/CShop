@@ -15,7 +15,7 @@
 						</div>
 						<div class="profile_text" style="margin-top:30px; float: left;">
 							<p style="font-size:18px; color: #000; magrin-bottom: 10px;">
-								<sec:authentication property="principal.vo.username" />	
+								<sec:authentication property="principal.vo.username" />	님
 							</p>
 							<p style="font-size: 13px; color:#666; margin-bottom: 15px;">
 								<sec:authentication property="principal.username" />	
@@ -29,14 +29,14 @@
 						</a>
 					</div>
 				</header>
-				<!-- 사이에 아이콘하나 추가 -->
+				
 				<h2><i class="fas fa-user-check"></i>판매</h2>
 				<section style="border: 3px solid #e8e8e8; width: 100%;">
 					<!-- css에서 배경이미지 추후 넣을 것. -->
 					<a href="/mypage/goods" class="admin_cat 01" style="position: relative; display: inline-block; line-height: 104px; width:48%; padding-left: 50px; font-size: 15px; font-weight: 700;">
 						판매관리
 					</a>
-					<a href="/message/receive" class="admin_cat 02" style="position: relative; display: inline-block; line-height: 104px; width:48%; padding-left: 50px; font-size: 15px; font-weight: 700;">
+					<a href="/message/receive/list" class="admin_cat 02" style="position: relative; display: inline-block; line-height: 104px; width:48%; padding-left: 50px; font-size: 15px; font-weight: 700;">
 						메세지 관리
 					</a>
 				</section>
