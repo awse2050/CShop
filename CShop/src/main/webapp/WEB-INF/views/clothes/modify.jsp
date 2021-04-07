@@ -141,7 +141,7 @@
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 				<div class="register-buttonRow">
 					<button class="small-btn" id="modBtn"> 수정완료 </button>
-					<button class="small-btn2" id="listBtn"> 목록으로 </button>
+					<button class="small-btn2" id="backBtn"> 뒤로가기 </button>
 				</div>
 			</form>
 		</div>
@@ -210,7 +210,7 @@
 		var objForm = $(".objForm");
 		var uploadUL = $(".uploadUL");
 		var modBtn = $("#modBtn");
-		var listBtn = $("#listBtn");
+		var backBtn = $("#backBtn");
 		var requestUri = '<c:out value="${requestUri}"/>';
 		
 		modBtn.on("click", function(e) {
@@ -234,12 +234,16 @@
 			
 		})
 	
-		listBtn.on("click", function(e) {
+		backBtn.on("click", function(e) {
 			e.preventDefault();
 			
-			// 우선은 게시물에서 왔기 떄문에 list로 가던지 원래있던 페이지로 가던지하면된다.
-			// 원래는 마이페이지에서 오기 떄문에 마이페이지로 간다?
-			objForm.attr("action", "/clothes/list").submit();
+			var uri = '<c:out value="${requestUri}"/>';
+			if(uri.includes("mypage")){
+				self.location = '/mypage/goods';
+			} else {
+				objForm.append("<input type='hidden' name='cno' value='"+${clothes.cno}+"'>");
+				objForm.attr("action", "/clothes/get").submit();
+			}		
 		});
 		
 		// 업로드를 했을 경우

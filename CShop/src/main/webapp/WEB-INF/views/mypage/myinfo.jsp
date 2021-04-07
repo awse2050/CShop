@@ -209,7 +209,7 @@
 	 	
 		cancelBtn.on("click", function(e) {
 			e.preventDefault();
-		
+
 			self.location = "/mypage/index";			
 		});
 		
