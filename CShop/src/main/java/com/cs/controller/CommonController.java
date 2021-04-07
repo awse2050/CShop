@@ -42,16 +42,17 @@ public class CommonController {
 	public void getSignUp() {
 		log.info("Move SignUp Page...");
 	}
-	
-	@PostMapping("/signUp")
-	public String postSignUp(MemberVO vo, RedirectAttributes rttr) {
+
+	@PostMapping(value = "/signUp/{userid}", consumes = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> signUp(@RequestBody MemberVO vo, @PathVariable("userid")String userid) {
 		log.info("Sign Up In Controller");
 		log.info("Regist Data : " + vo);
 		
 		int result = memberService.register(vo);
-		log.info("result : " + result);
 		
-		return "redirect:/index";
+		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK) 
+				: new ResponseEntity<>("", HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/signUp/userid/{userid}", produces = MediaType.TEXT_PLAIN_VALUE)

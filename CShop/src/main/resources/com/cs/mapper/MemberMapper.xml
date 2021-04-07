@@ -17,6 +17,7 @@
  		<result property="nickname" column="nickname"/>
  		<result property="email" column="email"/>
  		<result property="phone" column="phone"/>
+ 		<result property="postcode" column="postcode"/>
  		<result property="roadAddress" column="road_address"/>
  		<result property="detailsAddress" column="details_address"/>
  		<collection property="authList" resultMap="authMap"/>
@@ -29,8 +30,8 @@
  
  	<!-- 추가 -->
  	<insert id="insert" parameterType="com.cs.domain.MemberVO">
- 		insert into tbl_member ( userid , password, username, nickname, email, phone, road_address, details_address  ) 
- 		values ( #{userid} , #{password}, #{username}, #{nickname}, #{email}, #{phone}, #{roadAddress}, #{detailsAddress} )
+ 		insert into tbl_member ( userid , password, username, nickname, email, phone, postcode, road_address, details_address  ) 
+ 		values ( #{userid} , #{password}, #{username}, #{nickname}, #{email}, #{phone}, #{postcode} , #{roadAddress}, #{detailsAddress} )
  	</insert>
 
 	<!-- 읽기 -->
@@ -49,7 +50,7 @@
  	<update id="update" parameterType="com.cs.domain.MemberVO">
  		update tbl_member 
  		set password = #{password}, email = #{email}, phone = #{phone}, 
- 			road_address = #{roadAddress} , details_address = #{detailsAddress}
+ 		postcode = ${postcode},	road_address = #{roadAddress} , details_address = #{detailsAddress}, moddate = now()
  		where userid = #{userid}
  	</update>
 

@@ -24,6 +24,7 @@
 							<th>이름</th>
 							<td>
 								<c:out value="${myInfo.username }" />
+								<input type="hidden" name="username" value="${myInfo.username }" readonly>
 							</td>
 						</tr>
 						<tr>
@@ -192,10 +193,18 @@
 				return false;
 			}
 			
-			myinfoForm.append("<input type='hidden' name='roadAddress' value='"+memberObj.roadAddress+"'>");
-			myinfoForm.append("<input type='hidden' name='detailsAddress' value='"+memberObj.detailsAddress+"'>");
-			myinfoForm.attr("action", "/mypage/myinfo").attr("method", "post").submit();
-			
+			$.ajax({
+				type : 'put',
+				url: '/mypage/myinfo/'+memberObj.userid,
+				data: JSON.stringify(memberObj),
+				contentType: 'application/json; charset=utf-8',
+				success: function(result) {
+					if(result) {
+						alert("수정되었습니다.");
+						self.location = '/mypage/index';
+					}
+				}
+			})
 		});
 	 	
 		cancelBtn.on("click", function(e) {
@@ -294,11 +303,13 @@
 			var address = getAddress();
 			memberObj = { 
 					userid: myinfoForm.find("input[name='userid']").val(),
+					username: myinfoForm.find("input[name='username']").val(),
 					password: myinfoForm.find("input[name='password']").val(),
 					confirmPassword: myinfoForm.find("input[name='confirmPassword']").val(),
 					nickname: myinfoForm.find("input[name='nickname']").val(),
 					phone: myinfoForm.find("input[name='phone']").val(),
 					email: myinfoForm.find("input[name='email']").val(),
+					postcode: myinfoForm.find("input[id='postCode']").val(),
 					roadAddress: address.roadAddress,
 					detailsAddress : address.detailsAddress,
 				}

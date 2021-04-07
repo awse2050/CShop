@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -86,17 +88,6 @@ public class MyPageController {
 		return null;
 	}
 	
-	@PreAuthorize("principal.username == #vo.userid")
-	@PostMapping("/myinfo")
-	public String modifyMyInfo(MemberVO vo, RedirectAttributes rttr) {
-		log.info("Modify MyInfo In Controller");
-		log.info("Modify User Info : " + vo);
-		
-		boolean result = memberService.modifyMyInfo(vo);
-		
-		return result ? "redirect:/mypage/index" : null;
-	}
-	
 	@GetMapping(value = "/pwConfirm/{userid}/{pw}", produces = MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> confirmPassword(@PathVariable("pw")String password, @PathVariable("userid")String userid) {
@@ -110,4 +101,16 @@ public class MyPageController {
 				new ResponseEntity<>("diff", HttpStatus.OK);
 	}
 	
+	@PreAuthorize("principal.username == #member.userid")
+	@PutMapping(value = "/myinfo/{userid}")
+	public ResponseEntity<String> modifyInfo(@RequestBody MemberVO member, @PathVariable("userid")String userid) {
+		log.info("Modify MyInfo In Controller");
+		log.info("Modify User Info : " + member);
+		
+		boolean result = memberService.modifyMyInfo(member);
+		
+		return result ? new ResponseEntity<String>("modify", HttpStatus.OK) 
+				: new ResponseEntity<String>("", HttpStatus.OK);
+	}
+
 }

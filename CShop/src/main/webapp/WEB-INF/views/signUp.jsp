@@ -92,6 +92,7 @@
 			</div>
 			</form>
 		</div>
+		<button id="but">테스트</button>	
 	</div>
 </section>	
 		
@@ -118,6 +119,8 @@
 		var checkUserId;
 		var checkEmail;
 		
+		var but = $("#but");
+		
 		var searchAddressBtn = $("#searchAddressBtn");
 		var roadAddress = $("#roadAddress");
 		var detailsAddress = $("#detailsAddress");
@@ -137,6 +140,14 @@
 			
 			openAddressSearchWindow();
 			
+		});
+		
+		but.on("click", function(e) {
+			e.preventDefault();
+		
+			setMemberObj();
+			
+			console.log(memberObj);
 		});
 		
 		isExistUserIdBtn.on("click", function(e) {
@@ -222,10 +233,19 @@
 				alert(errorMsg);
 				return false;
 			}
-		
-			signUpForm.append("<input type='hidden' name='roadAddress' value='"+memberObj.roadAddress+"'>");
-			signUpForm.append("<input type='hidden' name='detailsAddress' value='"+memberObj.detailsAddress+"'>");
-			signUpForm.attr("action", "/signUp").attr("method", "post").submit();
+
+			$.ajax({
+				type : 'post',
+				url: '/signUp/'+memberObj.userid,
+				data: JSON.stringify(memberObj),
+				contentType: 'application/json; charset=utf-8',
+				success: function(result) {
+					if(result) {
+						alert("성공적으로 가입되었습니다.");
+						self.location = '/index';
+					}
+				}
+			})
 			
 		});
 	 	
@@ -349,6 +369,7 @@
 					nickname: signUpForm.find("input[name='nickname']").val(),
 					phone: signUpForm.find("input[name='phone']").val(),
 					email: signUpForm.find("input[name='email']").val(),
+					postcode: signUpForm.find("input[id='postCode']").val(),
 					roadAddress: address.roadAddress,
 					detailsAddress : address.detailsAddress,
 				}
