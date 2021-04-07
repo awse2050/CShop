@@ -55,10 +55,10 @@
 			<div class="getBody">
 				<div class="uploadResult imgBox">
 					<!-- 대표이미지 -->
-					<ul class="mainImg" style="border: 1px solid #999; padding: 40px 0;">
+					<ul class="mainImg">
 					</ul>
 					<!-- 그외 썸네일 이미지 -->
-					<ul class="thumbImg"style="padding: 15px 10px; text-align: left; display: flex; flex-wrap: wrap; ">
+					<ul class="thumbImg">
 						
 					</ul>
 					<div class='bigPictureWrapper'>
@@ -81,14 +81,15 @@
 							<span style="padding-left: 5px;">조회수: ${clothes.viewCnt }</span>
 						</div>
 						<div class="detailsInfo">
-							<div class="pName" style="font-size: 20px;"> ${clothes.productName }</div>
-							<div class="isTrade" style="font-size:18px; font-weight:700;">교환가능 여부 : 불가</div>
+							<div class="pName" > ${clothes.productName }</div>
+							<div class="isTrade">교환가능 여부 : 불가</div>
 							<div class="priceRow">
-								<span style="font-size:14px; font-weight: 700;">가격</span> 
-								<span style="font-size:18px; font-weight: 700;">${clothes.price }</span>
+								<span>가격</span> 
+								<span>${clothes.price }</span>
 							</div>
 							<div class="countRow">
-								<span style="font-weight: 700;">수량</span> <span>${clothes.count }</span>
+								<span class="count">수량</span> 
+								<span>${clothes.count }</span>
 							</div>
 						</div>
 					</div>
@@ -97,13 +98,13 @@
 						<sec:authorize access="isAuthenticated()">
 							<c:if test="${pinfo.username eq clothes.writer }">
 								<div class="infoBoxFoot">
-									<button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="modify">수정하기</button>
-									<button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="remove">삭제하기</button>
+									<button id="modify">수정하기</button>
+									<button id="remove">삭제하기</button>
 								</div>
 							</c:if>
 						</sec:authorize>
  					<div class="infoBoxFoot">
-						 <button style="width: 45%; font-size: 17px; line-height: 54px; font-weight: 700;" id="msg" >판매자에게 메세지 발송</button>
+						 <button id="msg">판매자에게 메세지 발송</button>
 					</div> 
 				</div>
 				<!-- /. infoBox -->
@@ -117,7 +118,7 @@
 		<div class="row" style="border-bottom: 1px solid #dedede">
 			<h2 class="title">상세 정보</h2>
 		</div>
-		<div style="padding-top: 15px;">
+		<div class="descriptRow">
 		<!-- 	<div>*사이즈 :  <br/> *구성 :  <br/>  *퀄리티 : <br/>   *하자 : <br/>  </div> -->
 			<div>${clothes.description }</div>
 		</div>
@@ -129,7 +130,7 @@
 		<div class="row" style="border-bottom: 1px solid #dedede">
 			<h2 class="title">댓글</h2>
 		</div>
-		<div class="row replyBox" style="border: 1px solid #dedede; padding: 8px;">
+		<div class="row replyBox">
 			<div class="replyDiv">
 				<ul class="replyUL">
 					<div>
@@ -142,7 +143,7 @@
 				<button class="existcheck-btn" id="addReplyBtn">댓글등록</button>
 			</div>
 		</div>
-		<div class="text-center replyPage" style="margin-top: 10px;">
+		<div class="replyPage">
 			
         </div>
 	</div>
