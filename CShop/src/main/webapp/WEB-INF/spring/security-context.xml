@@ -11,9 +11,13 @@
 <bean id="customUserDetailsService" class="com.cs.security.CustomUserDetailsService" />
 	
 	<security:http>
+		<security:intercept-url pattern="/message/**" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/message/*" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/mypage/*" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/like" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/clothes/modify" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/clothes/register" access="hasRole('ROLE_MEMBER')" />
 		
-		<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')" />
-		<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')" />
 		<!-- 접근제한은 추후 다른 jsp로 처리하도록 변경 -->
 		<security:access-denied-handler ref="customAccessHandler" />
 		<security:form-login login-page="/loginPage"  authentication-success-handler-ref="customLoginSuccessHandler" />

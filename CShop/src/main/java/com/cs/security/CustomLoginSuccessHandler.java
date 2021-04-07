@@ -39,7 +39,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		);
 		
 		log.warn("로그인 대상자가 가진 권한 : " + roleNames);
-		
 
 		log.warn("to move page : " + uri.toString());
 		// 아무것도 아니라면 그 페이지 그대로 이동한다.
