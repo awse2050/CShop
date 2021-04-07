@@ -14,7 +14,7 @@
 					<button class="small-btn2">삭제</button>
 					<button class="small-btn3">목록</button>
 				</div>
-				<div class="tableDiv" style="margin-top: 20px; border-top: 1px solid #e8e8e8;"> <!-- 이상이 있으면 해당 div 제거 -->
+				<div class="tableDiv"> <!-- 이상이 있으면 해당 div 제거 -->
 					<table class="msg-table">
 					 <tbody>
 						<tr>

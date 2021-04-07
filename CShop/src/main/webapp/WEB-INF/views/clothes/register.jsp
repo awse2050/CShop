@@ -33,7 +33,7 @@
 					</select>
 				</div>
 				</fieldset>
-				<fieldset style="margin-top: 50px">
+				<fieldset>
 				<ul class="tabTitle" >
 					<li>
 						<p>카테고리 등록</p>
@@ -53,7 +53,7 @@
 						<input type='file' name='uploadFile' multiple>
 					</div>
 					<div class='uploadResult'>
-						<ul class="uploadUL" style="padding: 10px;">
+						<ul class="uploadUL">
 						
 						</ul>
 						<ul class="guide">
@@ -64,7 +64,7 @@
 					</div>
 				</div>
 				</fieldset>
-				<fieldset style="margin-top: 50px">
+				<fieldset>
 					<ul class="tabTitle" >
 						<li>
 							<p>카테고리 등록</p>
@@ -110,8 +110,8 @@
 						</tbody>
 					</table>
 				</fieldset>
-				<fieldset style="margin-top: 50px">
-					<ul class="tabTitle" >
+				<fieldset>
+					<ul class="tabTitle">
 						<li>
 							<p>카테고리 등록</p>
 						</li>

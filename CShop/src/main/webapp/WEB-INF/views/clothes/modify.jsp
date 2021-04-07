@@ -8,7 +8,7 @@
 			<!-- start form tag -->
 			<h2 class="title"> 게시물 수정</h2>
 			<form class="actionForm">	
-				<fieldset  style="margin-top: 50px">
+				<fieldset>
 				<ul class="tabTitle">
 					<li class="active">
 						<p>카테고리 등록</p>
@@ -35,7 +35,7 @@
 					</select>
 				</div>
 				</fieldset>
-				<fieldset style="margin-top: 50px">
+				<fieldset>
 				<ul class="tabTitle" >
 					<li>
 						<p>카테고리 등록</p>
@@ -55,13 +55,8 @@
 						<input type='file' name='uploadFile' multiple>
 					</div>
 					<div class='uploadResult'>
-						<ul class="uploadUL" style="padding: 10px;">
-							<li style="display: inline-block;  padding:5px;" > 
-								<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-							</li>
-							<li style="display: inline-block;  padding:5px;">
-								<ion-icon name="camera-outline" class="index-category-icon"></ion-icon>
-							</li>
+						<ul class="uploadUL">
+							
 						</ul>
 						<ul class="guide">
 							<li>*이미지1 썸네일 자동등록</li>
@@ -71,7 +66,7 @@
 					</div>
 				</div>
 				</fieldset>
-				<fieldset style="margin-top: 50px">
+				<fieldset>
 					<ul class="tabTitle" >
 						<li>
 							<p>카테고리 등록</p>
@@ -117,7 +112,7 @@
 						<input type="hidden" name="cno" value="${clothes.cno }" >
 					</table>
 				</fieldset>
-				<fieldset style="margin-top: 50px">
+				<fieldset>
 					<ul class="tabTitle" >
 						<li>
 							<p>카테고리 등록</p>
