@@ -72,7 +72,7 @@ public class LikeController {
 		}
 		
 		int result = likeService.register(vo);
-		log.info(result);
+		
 		return new ResponseEntity<String>("like", HttpStatus.OK );
 	}
 }

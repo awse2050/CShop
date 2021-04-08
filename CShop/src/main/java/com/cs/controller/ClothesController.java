@@ -100,7 +100,7 @@ public class ClothesController {
 		log.info("Criteria : " + cri);
 		
 		String uri = getUri(request);
-		log.info(uri);
+		
 		model.addAttribute("clothes", service.modify(cno));
 		model.addAttribute("cri", cri);
 		model.addAttribute("requestUri", uri);
@@ -115,7 +115,6 @@ public class ClothesController {
 		boolean modifyResult = service.modify(vo);
 		
 		String uri = request.getParameter("requestUri");
-		log.info(uri);
 		
 		if(modifyResult) {
 			
@@ -144,7 +143,6 @@ public class ClothesController {
 		log.info("Cno have AttachList : " + attachList);
 		
 		String uri = request.getParameter("requestUri");
-		log.info(uri);
 		
 		boolean result = service.remove(cno);
 		
@@ -185,7 +183,6 @@ public class ClothesController {
 		}
 		
 		log.info("delete attach file List. ... ");
-		log.info(attachList);
 
 		attachList.forEach(attach -> {
 			try { 

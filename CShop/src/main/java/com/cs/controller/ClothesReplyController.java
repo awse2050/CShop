@@ -84,7 +84,6 @@ public class ClothesReplyController {
 		
 		if(result) {
 			ClothesReply modifyReply = service.getByRno(reply.getRno());
-			log.info(modifyReply);
 			return new ResponseEntity<>(modifyReply, HttpStatus.OK);
 		}
 		
