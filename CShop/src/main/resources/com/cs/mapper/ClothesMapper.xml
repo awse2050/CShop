@@ -22,14 +22,12 @@
 		</foreach>
 	</sql>
 
-	<!-- 추후 이미지도 같이 추가 -->
 	<insert id="insert"
 		parameterType="com.cs.domain.category.ClothesVO">
 		insert into tbl_clothes ( productName, description, category, writer, price, count )
 		values ( #{productName}, #{description}, #{category}, #{writer}, #{price} ,#{count} )
 	</insert>
 
-	<!-- 추후 이미지 테이블 -->
 	<select id="read" resultType="com.cs.domain.category.ClothesVO">
 		select * from tbl_clothes where cno = #{cno}
 	</select>
