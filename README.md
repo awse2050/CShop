@@ -110,4 +110,5 @@
 + Security-context.xml ( 로그인 유저의 권한에 따른 경로 지정  (O)
 + 회원정보 수정 설계 변경( model -> Ajax ) (O)
 + 로그아웃 핸들러 (O)
++ 기존 업로드 -> AWS S3로 
 + AWS 배포
