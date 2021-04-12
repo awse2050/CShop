@@ -20,8 +20,8 @@ public class AWSs3 {
 
 	private AmazonS3 s3Client;
 	
-	private final String accesskey = "AKIAY5B6DUXL72FGINSY";
-	private final String secretkey = "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";
+	private final String accesskey = "";
+	private final String secretkey = "";
 
 	public AWSs3() {
 		try{
