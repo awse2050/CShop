@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClothesAttachVO {
 	
-	private String uuid, uploadPath, fileName;
+	private String uuid, uploadPath, fileName, thumbnail;
 	
 	private boolean fileType;
 	

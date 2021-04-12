@@ -5,10 +5,19 @@
 
 <div class="uploadDiv">
 	<input type='file' name='uploadFile' multiple>
+	<div class='uploadResult'>
+	<ul class="uploadUL">
+	
+	</ul>
+	<ul class="guide">
+		<li>*이미지1 썸네일 자동등록</li>
+		<li>*업로드 가능한 이미지 최대 용량은 5MB 입니다.</li>
+		<li>*이미지 최적 사이즈: PC: 600 x 480 / Mobile: 680 x 400</li>
+	</ul>
 </div>
-<div>
-	<img src ="https://spring-cshop.s3.ap-northeast-2.amazonaws.com/2021-04-12/c5eeba9c-50e8-4b52-bbfa-974c9d7ac4c6_coke.png">
 </div>
+<button id="sub">click</button>
+
 
 <script>
 
@@ -20,7 +29,8 @@
 		$(document).ajaxSend(function(e, xhr, options) {
 			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 		});	
-		
+
+		var subBtn = $("#sub");
 		
 		$("input[type='file']").on("change", function(e) {
 			// 가상의 form태그와 같다.
@@ -46,11 +56,80 @@
 				type: 'post',
 				dataType: 'json',
 				success: function(result) {
-					console.log(result);
+					showUploadedFile(result);
 				}
 			}); // ajax
 		});
 		
+		subBtn.on("click", function(e) {
+			e.preventDefault();
+		
+			var str = "";
+			// 첨부파일 이미지 정보
+			$(".uploadUL li").each(function(i,obj) {
+				console.log($(obj));
+				// 각 li의 태그가 전송된다 따라서 그 값의 속성을 가져오기 위해서 $()을 써줘야함.
+				str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+$(obj).data("path")+"'>";
+				str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+$(obj).data("uuid")+"'>";
+				str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+$(obj).data("filename")+"'>";
+				str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+$(obj).data("type")+"'>";
+			});
+			
+			console.log(str);
+			
+		});
+		
+		// 이미지 추가시 이미지를 보여주는 기능
+		function showUploadedFile(uploadResultArr) {
+			// 프로젝트 적용시 추가된 부분.
+			console.log(uploadResultArr);
+			if(!uploadResultArr || uploadResultArr.length == 0) {
+				return;
+			}
+			
+			var uploadUL = $(".uploadUL");
+			
+			var str = "";
+			// 배열을 하나씩 뽑는다.
+			$(uploadResultArr).each(function(i, obj) {
+				console.log(obj);
+				// 한글이름 문제 방지를 위한 encodeURIComponent사용
+				
+				str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"' class='uploadLi'>";
+				str += "<button data-type='image'>X</button>"
+				str += "<img class='uploadImage' src='"+obj.thumbnail+"'>";
+				str += "<p>";
+				str +=  "</p></li>";
+			});
+			uploadUL.append(str);
+		}
+		
+		$(".uploadResult").on("click","button", function(e) {
+			e.preventDefault();
+			
+			// 태그 제거용 선언
+			var targetLi = $(this).closest("li");
+			console.log(targetLi);
+			var path = targetLi.data("path");
+			var uuid = targetLi.data("uuid");
+			var name = targetLi.data("filename");
+			console.log(path);
+			console.log(uuid);
+			console.log(name);
+			var callpath = path + "/" + uuid + "_" + name;
+			console.log(callpath);
+			
+			$.ajax({
+				type: 'post',
+				url: '/s3Remove',
+				data: {path: callpath},
+				dataType: 'text',
+				success: function(result) {
+					console.log(result);
+					targetLi.remove(); //  태그제거
+				}
+			})
+		});
 	})
 	
 
