@@ -30,6 +30,8 @@ public class LikeServiceImpl implements LikeService {
 
 	private final ClothesAttachMapper clothesAttachMapper;
 	
+	private final S3UploadService s3Service;
+	
 	@Override
 	public int register(LikeVO vo) {
 		// TODO Auto-generated method stub
@@ -56,8 +58,10 @@ public class LikeServiceImpl implements LikeService {
 				log.warn("No have Attach By Cno : " + i.getCno());
 			} else {
 				ClothesAttachVO attachVO = clothesAttachMapper.findByCno(i.getCno()).get(0);
-			
-				vo.setThumbnailUrl(makeThumbnailURL(attachVO));
+				
+				String path = attachVO.getUploadPath() + "/" + attachVO.getUuid() + "_" + attachVO.getFileName();
+				vo.setThumbnailUrl(s3Service.getThumbnailUrl(path));
+				
 				log.warn("make ThumbnailUrl");
 			}
 			
@@ -85,18 +89,5 @@ public class LikeServiceImpl implements LikeService {
 	public boolean isLike(LikeVO vo) {
 		return likeMapper.getByCnoWithUserid(vo) != null ;
 	}
-	
-	private String makeThumbnailURL(ClothesAttachVO attachVO) {
-		String url = null;
-		
-		try  {
-			url = URLEncoder.encode(attachVO.getUploadPath() + "/s_" 
-										+ attachVO.getUuid() + "_" + attachVO.getFileName(),"UTF-8");
-			
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		
-		return url;
-	}
+
 }

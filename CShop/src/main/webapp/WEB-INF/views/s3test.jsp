@@ -32,6 +32,8 @@
 
 		var subBtn = $("#sub");
 		
+		var index = 1;
+		
 		$("input[type='file']").on("change", function(e) {
 			// 가상의 form태그와 같다.
 			var formData = new FormData(); // 필수로 만들어줘야한다.
@@ -99,8 +101,12 @@
 				str += "<button data-type='image'>X</button>"
 				str += "<img class='uploadImage' src='"+obj.thumbnail+"'>";
 				str += "<p>";
+				str += "이미지" + index;
 				str +=  "</p></li>";
+				
+				index += 1;
 			});
+			
 			uploadUL.append(str);
 		}
 		

@@ -36,7 +36,7 @@ public class S3UploadController {
 		log.info("s3...");
 	}
 	
-	@PostMapping(value ="/s3upload")
+	@PostMapping(value ="/s3upload", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<AttachFileDTO>> s3upload(MultipartFile[] uploadFile) throws IOException {
 		log.info("S3 Upload In Controller to s3upload");

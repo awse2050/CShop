@@ -70,12 +70,15 @@
 				<div class="infoBox">
 					<div class="infoBoxHead">
 						<div class="detailsRow" >
-							<sec:authorize access="isAuthenticated()"> 
-								<c:if test="${like eq 'noLike'}">
-									<a id="like" href="#"><i class="far fa-heart"></i></a>
-								</c:if>
-								<c:if test="${like eq 'isLike'}">
-									<a id="like" href="#"><i class="fas fa-heart"></i></a>
+						<sec:authentication property="principal" var="pinfo" />
+							<sec:authorize access="isAuthenticated()">
+								<c:if test="${pinfo.username ne clothes.writer }">
+									<c:if test="${like eq 'noLike'}">
+										<a id="like" href="#"><i class="far fa-heart"></i></a>
+									</c:if>
+									<c:if test="${like eq 'isLike'}">
+										<a id="like" href="#"><i class="fas fa-heart"></i></a>
+									</c:if>
 								</c:if>
 							</sec:authorize>
 							<span style="padding-left: 5px;">조회수: ${clothes.viewCnt }</span>
@@ -217,18 +220,17 @@
 				
 				$.each(arr,function(i, obj) {
 					if (obj.fileType) {
-						var fileCallPath = encodeURIComponent(obj.uploadPath+ "/"+ obj.uuid+ "_"+ obj.fileName);
 						
 						if(i == 0) {
 							strUL += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>"
-							strUL += "<div><img src='/display?fileName="+ fileCallPath+ "' style='width: 100%; min-height: 400px; max-height: 400px' ></div></li>";
+							strUL += "<div><img src='"+obj.thumbnail+"' style='width: 100%; min-height: 400px; max-height: 400px' ></div></li>";
 						}
 						
 						strDiv += "<li style='margin-right: 5px;' data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>"
-						strDiv += "<div><img src='/display?fileName="+ fileCallPath+ "' style='width: 112px; height: 112px;' ></div></li>";
+						strDiv += "<div><img src='"+obj.thumbnail+"' style='width: 112px; height: 112px;' ></div></li>";
 						
 					} else {
-
+						// 이미지파일이 아닐 때
 						strDiv += "<li style='margin-right: 5px;' data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>"
 						strDiv += "<div><span>"+ obj.fileName+ "</span><br/>";
 						strDiv += "<img src='/resources/data/X.svg.png'></div></li>";
@@ -353,10 +355,10 @@
 			var filename = liTag.data("filename");
 			var type = liTag.data("type");
 			
-			var fileCallPath = encodeURIComponent(path + "/" + uuid + "_" + filename);
+			var thumbnail = $(this).attr('src');
 			
 			str += "<li data-path='"+path+"' data-uuid='"+uuid+"' data-filename='"+filename+"' data-type='"+type+"'>"
-			str += "<div><img src='/display?fileName="+ fileCallPath+ "' style='width: 100%; min-height: 400px  max-height: 400px' ></div></li>";
+			str += "<div><img src='"+thumbnail+ "' style='width: 100%; min-height: 400px  max-height: 400px' ></div></li>";
 			
 			mainImg.html(str);
 			

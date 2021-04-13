@@ -11,17 +11,11 @@ import com.cs.domain.ClothesAttachVO;
 
 public interface S3UploadService {
 
-	public String upload(MultipartFile multipartfile) throws IOException;
-	
-	public String upload(File uploadFile, String dirName);
-	
 	public String putS3(File uploadFile, String fileName);
 	
 	public void removeFile(String path);
 	
 	public Optional<File> convert(MultipartFile file) throws IOException;
-	
-	public List<ClothesAttachVO> test(MultipartFile multipartfile) throws IOException; 
 	
 	public String getThumbnailUrl(String path);
 	

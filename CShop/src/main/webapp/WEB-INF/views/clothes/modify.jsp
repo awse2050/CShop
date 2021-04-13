@@ -171,26 +171,18 @@
 				if(!attachArr) {
 					return false;
 				}
-				uploadUL.html(""); 
 				var str ="";
 				
 				$(attachArr).each(function(i, obj) {
 					if(obj.fileType) {
-						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 						
 						str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"' class='uploadLi'>";
-						str += "<button data-file='"+fileCallPath+"' data-type='image'>X</button>"
-						str += "<img class='uploadImage' src='/display?fileName="+fileCallPath+"'>";
+						str += "<button data-type='image'>X</button>"
+						str += "<img class='uploadImage' style='width: 150px' src='"+obj.thumbnail+"'>";
 						str += "<p>";
-						
-						if(i==0) {
-							str += "이미지"+(i+1)+"(대표이미지)";
-						} else {
-							str += "이미지"+(i+1);
-						}
+						str += "이미지"+(i+1);
 						str +=  "</p></li>";
 					} // is Image
-					
 					// not image 
 				}); 
 				uploadUL.append(str);
@@ -259,7 +251,7 @@
 
 			$.ajax({
 				type: 'post',
-				url: '/uploadAjaxAction',
+				url: '/s3upload',
 				processData: false,
 				contentType: false,
 				data: formData,
@@ -273,20 +265,22 @@
 		//삭제
 		uploadUL.on("click", "button", function(e) {
 			e.preventDefault();
-			// 해당 버튼이있는 li
-			var liTag = $(this).closest("li");
-			
-			var fileName = $(this).data("file");
-			var type = $(this).data("type");
+			// 태그 제거용 선언
+			var targetLi = $(this).closest("li");
+			console.log(targetLi);
+			var path = targetLi.data("path");
+			var uuid = targetLi.data("uuid");
+			var name = targetLi.data("filename");
+			var callpath = path + "/" + uuid + "_" + name;
 			
 			if(confirm("삭제합니까?")) {
 				$.ajax({
 					type: 'post',
-					url: '/deleteFile',
-					data: {fileName: fileName, type: type},
-					dataType: "text",
-					success: function(msg) {
-						liTag.remove();
+					url: '/s3Remove',
+					data: {path: callpath},
+					dataType: 'text',
+					success: function(result) {
+						targetLi.remove(); //  태그제거
 					}
 				})
 			}  
@@ -307,9 +301,6 @@
 			return true;
 		}
 		
-		// 업로드했을 시 이미지를 보여주기
-		// 만들어둔 태그로 수정.
-		// 기존에 있는 이미지 리스트에 추가하는것으로 변경.
 		function showUploadResult(uploadArr) {
 			if(!uploadArr || uploadArr.length == 0) {
 				return ;
@@ -320,14 +311,11 @@
 			
 			$.each(uploadArr, function(i, obj) {
 				if(obj.image) {
-					var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid+"_"+obj.fileName);
 					
 					str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-fileName='"+obj.fileName+"' data-type='"+obj.image+"' class='uploadLi'>";
-					str += "<button data-file='"+fileCallPath+"' data-type='image'>X</button>"
-					str += "<img class='uploadImage' src='/display?fileName="+fileCallPath+"'>";
-					str += "<p>추가이미지"+(i+1);
-					
-					str +=  "</p></li>";
+					str += "<button data-type='image'>X</button>"
+					str += "<img class='uploadImage' style='width: 150px' src='"+obj.thumbnail+"'>";
+					str += "<p>추가이미지"+(i+1)+"</p></li>";
 					
 				} else { // 이미지파일이 아닌경우
 					var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+ obj.uuid+"_"+obj.fileName);
@@ -343,8 +331,6 @@
 			 
 			uploadUL.append(str);
 		}
-		
-		
 	});
 	
 </script>

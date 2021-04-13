@@ -2,6 +2,7 @@ package com.cs.controller;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,6 +30,7 @@ import com.cs.domain.PageDTO;
 import com.cs.domain.category.ClothesVO;
 import com.cs.service.ClothesService;
 import com.cs.service.LikeService;
+import com.cs.service.S3UploadService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -40,6 +42,8 @@ import lombok.extern.log4j.Log4j;
 public class ClothesController {
 	
 	private final ClothesService service;
+	
+	private final S3UploadService s3Service;
 	
 	private final LikeService likeService;
 	
@@ -148,7 +152,7 @@ public class ClothesController {
 		
 		if(result) {
 			
-			deleteFile(attachList);
+			deleteS3File(attachList);
 			
 			if(uri != null && uri.length() != 0 && uri.contains("mypage")) {
 				return "redirect:"+uri;
@@ -169,36 +173,44 @@ public class ClothesController {
 	public ResponseEntity<List<ClothesAttachVO>> getAttachList(Long cno) {
 		
 		log.info("get Attach List Cno : " + cno );
-		return new ResponseEntity<>(service.getAttachList(cno), HttpStatus.OK);
+		List<ClothesAttachVO> list = service.getAttachList(cno);
+		
+		if(list == null || list.size() == 0) {
+			return new ResponseEntity<List<ClothesAttachVO>>(new ArrayList<>(), HttpStatus.OK);
+		}
+		
+		list = makeThumbnailUrl(list);
+		log.info("'getAttachList' .. : " + list);
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	//첨부파일 삭제
-	private void deleteFile(List<ClothesAttachVO> attachList) {
+	// 게시물 이미지 경로 설정
+	private List<ClothesAttachVO> makeThumbnailUrl(List<ClothesAttachVO> list) {
 		
-		log.info("Deleting File In deleteFile Method ....");
+		for(ClothesAttachVO attach : list) {
+			String path = attach.getUploadPath() + "/" + attach.getUuid() + "_" + attach.getFileName();
+			
+			attach.setThumbnail(s3Service.getThumbnailUrl(path));
+		}
+		log.info("make Thumbnail Url after : " + list);
 		
-		if(attachList == null || attachList.size() == 0) {
-			log.info("Attach List is Null");
+		return list;
+	}
+	
+	// S3 업로드 파일 삭제
+	private void deleteS3File(List<ClothesAttachVO> list) {
+		if(list == null || list.size() == 0) {
+			log.info("There isn't List");
 			return;
 		}
 		
-		log.info("delete attach file List. ... ");
-
-		attachList.forEach(attach -> {
-			try { 
-				File file = new File("c:\\upload\\"+attach.getUploadPath()+"\\"+attach.getUuid()+"_"+attach.getFileName());
-				// 파일이 있으면 지운다.
-				Files.deleteIfExists(file.toPath());
-				
-				if(Files.probeContentType(file.toPath()).startsWith("image")) {
-					file = new File("c:\\upload\\"+attach.getUploadPath()+"\\s_"+attach.getUuid()+"_"+attach.getFileName());
-				
-					Files.delete(file.toPath());
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
+		for(ClothesAttachVO attach : list) {
+			log.info("There is List");
+			String path = attach.getUploadPath() + "/" + attach.getUuid() + "_" + attach.getFileName();
+			s3Service.removeFile(path);
+			log.info("remove complete..");
+		}
 	}
 	
 	private String getUri(HttpServletRequest request) {

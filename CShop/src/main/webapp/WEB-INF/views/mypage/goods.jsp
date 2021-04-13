@@ -75,7 +75,7 @@
 				}
 				
 				$.each(list, function(i, obj) {
-					var fileCallPath = encodeURIComponent(obj.thumbnailUrl);
+					
 					str += "<tr data-cno='"+obj.cno+"' data-user='"+userid+"'>";
 					str += "<td>"+obj.cno+"</td>";
 					str += "<td style='text-align:left;'>"
@@ -83,7 +83,7 @@
 						str += "<a href='"+obj.cno+"'><img style='width:100px; height: 100px;' src='/resources/images/noimage.png'></a>"; 
 						str += "<span style='margin-left: 15px; font-weight: 700;'>상품명 : "+obj.productName+"</span></td>";
 					} else {
-						str += "<a href='"+obj.cno+"'><img src='/display?fileName="+obj.thumbnailUrl+"'></a>"; 
+						str += "<a href='"+obj.cno+"'><img style='width:100px; height: 100px;' src='"+obj.thumbnailUrl+"'></a>"; 
 						str += "<span style='margin-left: 15px; font-weight: 700;'>상품명 : "+obj.productName+"</span></td>";
 					}
 					str += "<td>"+obj.price+"원</td>";
@@ -135,12 +135,10 @@
 			
 			objForm.find("input[name='cno']").val(cno);
 			objForm.attr("action", "/clothes/get").submit();
-			
 		});
 	});
 	
 </script>
-		
 
 <%@ include file="../includes/footer.jsp"%>
 			

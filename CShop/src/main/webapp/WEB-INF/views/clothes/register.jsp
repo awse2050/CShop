@@ -245,16 +245,14 @@
 			}
 			
 			$.ajax({
-				url: "/uploadAjaxAction",
+				url: "/s3upload",
 				processData: false,
 				contentType: false,
 				data: formData,
 				type: 'post',
 				dataType: 'json',
 				success: function(result) {
-					
 					showUploadedFile(result); 
-//					$(".uploadDiv").html(cloneUpload.html()); // 업로드 후 내용 초기화
 				}
 			}); // ajax
 		});
@@ -303,38 +301,18 @@
 			}
 			
 			var uploadUL = $(".uploadUL");
-			
 			var str = "";
 			// 배열을 하나씩 뽑는다.
 			$(uploadResultArr).each(function(i, obj) {
-				if(!obj.image) {
-					
-					var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
-					
-					str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-fileName='"+obj.fileName+"' data-type='"+obj.image+"' class='uploadLi'>";
-					str += "<button data-file='"+fileCallPath+"' data-type='file'>X</button>"
-					str += "<ion-icon name='camera-outline' class='index-category-icon'></ion-icon>";
-					str += "<p>그 외 파일</p></li>";
-					
-				} else {
-					// 한글이름 문제 방지를 위한 encodeURIComponent사용
-					var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-					
-					str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-fileName='"+obj.fileName+"' data-type='"+obj.image+"' class='uploadLi'>";
-					str += "<button data-file='"+fileCallPath+"' data-type='image'>X</button>"
-					str += "<img class='uploadImage' src='/display?fileName="+fileCallPath+"'>";
-					str += "<p>";
-					
-					if(index==1) {
-						str += "이미지"+(index)+"(대표이미지)";
-						
-					} else {
-						str += "이미지"+(index);
-					}
-					str +=  "</p></li>";
-					index++;
-					
-				}
+				
+				str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"' class='uploadLi'>";
+				str += "<button data-type='image'>X</button>"
+				str += "<img class='uploadImage' style='width: 150px;' src='"+obj.thumbnail+"'>";
+				str += "<p>";
+				str += "이미지" + index;
+				str +=  "</p></li>";
+				
+				index += 1;
 			});
 			uploadUL.append(str);
 		}
@@ -343,22 +321,19 @@
 		$(".uploadResult").on("click","button", function(e) {
 			e.preventDefault();
 			
-			var targetFile = $(this).data('file');
-			var type = $(this).data('type');
-			
 			// 태그 제거용 선언
 			var targetLi = $(this).closest("li");
+			var path = targetLi.data("path");
+			var uuid = targetLi.data("uuid");
+			var name = targetLi.data("filename");
+			var callpath = path + "/" + uuid + "_" + name;
 			
 			$.ajax({
-				beforeSend: function(xhr) {
-					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-				},
 				type: 'post',
-				url: '/deleteFile',
-				data: {fileName: targetFile, type: type},
+				url: '/s3Remove',
+				data: {path: callpath},
 				dataType: 'text',
 				success: function(result) {
-					index--;
 					targetLi.remove(); //  태그제거
 				}
 			})

@@ -35,6 +35,8 @@ public class ClothesServiceImpl implements ClothesService {
 	
 	private final LikeMapper likeMapper;
 	
+	private final S3UploadService s3Service;
+	
 	// 두 테이블에서 작업을 하므로 동기화식으로 진행 ACID를 유지
 	@Transactional 
 	@Override
@@ -164,26 +166,14 @@ public class ClothesServiceImpl implements ClothesService {
 				attachVO = list.getAttachList().get(0);
 				log.info("attachVO : " + attachVO);
 				
-				list.setThumbnailUrl(makeThumbnailURL(attachVO));
+				String path = attachVO.getUploadPath() + "/" + attachVO.getUuid() + "_" + attachVO.getFileName();
+				
+				list.setThumbnailUrl(s3Service.getThumbnailUrl(path));
 			});
 			
 			return clothesList;
 		} else {
 			return null;
 		}
-	}
-	
-	private String makeThumbnailURL(ClothesAttachVO attachVO) {
-		String url = null;
-		
-		try  {
-			url = URLEncoder.encode(attachVO.getUploadPath() + "/s_" 
-										+ attachVO.getUuid() + "_" + attachVO.getFileName(),"UTF-8");
-			
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		
-		return url;
 	}
 }

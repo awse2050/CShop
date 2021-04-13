@@ -36,7 +36,7 @@
 							<a class="getBtn" href='<c:out value="${list.cno }" />'>
 								<!-- background-image : url(경로) -->
 								<c:if test="${!empty list.thumbnailUrl }">
-									<img src="/display?fileName=${list.thumbnailUrl}" class="listImg">
+									<img src="${list.thumbnailUrl}" class="listImg">
 								</c:if>
 								<c:if test="${empty list.thumbnailUrl }">
 									<img class="listImg" src='/resources/images/noimage.png'>
