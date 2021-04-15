@@ -103,4 +103,47 @@ public class MemberMapperTests {
 		
 		log.info( mapper.read("admin44"));
 	}
+	
+	@Test
+	public void successByUsernameWithEmailTest() {
+		MemberVO vo = new MemberVO();
+		vo.setUsername("윤환");
+		vo.setEmail("kyh3964@naver.com");
+		log.info(vo);
+		
+		log.info(mapper.verifyMember(vo));
+	}
+	
+	@Test
+	public void failByUsernameWithEmailTest() {
+		MemberVO vo = new MemberVO();
+		vo.setUsername("김윤환");
+		vo.setEmail("kyh3964@naver.com");
+		log.info(vo);
+		
+		log.info(mapper.verifyMember(vo));
+	}
+	
+	@Test
+	public void successByUsernameWithEmailAndUseridTest() {
+		MemberVO vo = new MemberVO();
+		vo.setUsername("윤환");
+		vo.setEmail("kyh3964@naver.com");
+		vo.setUserid("awse2050");
+		log.info(vo);
+		
+		log.info(mapper.verifyMember(vo));
+	}
+	
+	@Test
+	public void failByUsernameWithEmailAndUseridTest() {
+		MemberVO vo = new MemberVO();
+		vo.setUsername("윤환");
+		vo.setEmail("kyh3964@naver.com");
+		vo.setUserid("awse205");
+		log.info(vo);
+		
+		log.info(mapper.verifyMember(vo));
+	}
+
 }

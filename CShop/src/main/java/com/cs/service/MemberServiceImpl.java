@@ -73,4 +73,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.update(vo);
 	}
 	
+	@Override
+	public MemberVO verifyMember(MemberVO vo) {
+		log.warn("verify email :" + vo.getEmail() + "\n verify Username : " + vo.getUsername());
+		log.warn("verify Userid: " + vo.getUserid());
+		
+		return memberMapper.verifyMember(vo);
+	}
 }

@@ -48,4 +48,9 @@ public class IndexController {
 		
 		model.addAttribute("referer", saveUri );
 	}
+	
+	@GetMapping("/findID")
+	public void findIdPage() {
+		log.info("find Id Page...");
+	}
 }
