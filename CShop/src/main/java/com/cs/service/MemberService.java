@@ -13,6 +13,8 @@ public interface MemberService {
 	public MemberVO getByEmail(String email);
 	// 회원 정보 수정
 	public boolean modifyMyInfo(MemberVO vo);
-	// 아이디 찾기
+	// 아이디, 비밀번호 찾기
 	public MemberVO verifyMember(MemberVO vo);
+	// 비밀번호 수정
+	public String modifyPassword(MemberVO vo);
 }

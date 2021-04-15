@@ -707,7 +707,7 @@
 	padding: 0 15px;
 }
 
-.findId-btn {
+.find-btn {
 	border: 1px solid #000;
 	background: #000;
 	min-height: 45px;
@@ -718,7 +718,7 @@
 	width: 40%;
 }
 
-.findId-btn2 {
+.find-btn2 {
 	border: 1px solid #999;
 	background: #999;
 	min-height: 45px;
@@ -932,6 +932,7 @@
 	display: table; 
 	width: 100%; 
 	table-layout: fixed;
+	margin-bottom: 10px;
 }
 
 .findField > dl > dt {

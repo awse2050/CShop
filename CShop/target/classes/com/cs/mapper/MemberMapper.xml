@@ -65,4 +65,11 @@
 		    </otherwise>
 		 </choose>
 	</select>
+	
+	<update id="modifyPassword" parameterType="com.cs.domain.MemberVO">
+		update tbl_member
+		set password = #{password}, moddate = now()
+		where userid = #{userid}
+	</update>
+	
  </mapper>

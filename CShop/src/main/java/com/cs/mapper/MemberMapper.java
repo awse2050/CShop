@@ -13,7 +13,8 @@ public interface MemberMapper {
 	public MemberVO readByEmail(String email);
 	// 회원정보 수정
 	public boolean update(MemberVO vo);
-	// 아이디 찾기
+	// 아이디,비밀번호 찾기
 	public MemberVO verifyMember(MemberVO vo);
-
+	 
+	public void modifyPassword(MemberVO vo);
 }

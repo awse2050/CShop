@@ -21,7 +21,7 @@
 	 			</div>
 	 			<div class="form-group add-ons">
 	 				<span><a href="/findID">Forgot ID ?</a></span>
-	 				<span><a href="#">Forgot Password ?</a></span>
+	 				<span><a href="/findPW">Forgot Password ?</a></span>
 	 				<span>
 		 				<input type="checkbox" name="remember"> 아이디 저장</input>
 	 				</span>
