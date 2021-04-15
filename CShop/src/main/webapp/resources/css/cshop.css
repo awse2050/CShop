@@ -707,6 +707,28 @@
 	padding: 0 15px;
 }
 
+.findId-btn {
+	border: 1px solid #000;
+	background: #000;
+	min-height: 45px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 18px;
+	padding: 0 15px;
+	width: 40%;
+}
+
+.findId-btn2 {
+	border: 1px solid #999;
+	background: #999;
+	min-height: 45px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 18px;
+	padding: 0 15px;
+	width: 40%;
+}
+
 
 .existcheck-btn {
 	border: 1px solid #888;
@@ -878,6 +900,55 @@
 
 .detailsInfo > .countRow > .count {
 	font-weight: 700;
+}
+
+.findWrap {
+	margin: 50px 0; 
+	border: 1px solid #c8c8c8;
+}
+
+.findForm-title {
+	padding: 40px 0px; 
+	text-align: center;
+}
+
+.findForm-title > h2 {
+	font-size: 20px; 
+	font-weight: 700;
+}
+
+.findForm-title > span  {
+	color: #aaa; 
+	padding-top: 10px;
+}
+
+.findForm {
+	text-align: center; 
+	width: 300px; 
+	margin: 0 auto 0;
+}
+
+.findField > dl {
+	display: table; 
+	width: 100%; 
+	table-layout: fixed;
+}
+
+.findField > dl > dt {
+	display: table-cell; 
+	height: 100%;  
+	text-align: left; 
+	font-size: 12px;
+}
+
+.findField > dl > dd {
+	display: table-cell; 
+	height: 100%;
+	text-align: right;
+}
+
+.findWrap-button {
+	padding: 40px 0px;
 }
 
 .of-wrap {

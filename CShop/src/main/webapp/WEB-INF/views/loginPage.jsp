@@ -20,10 +20,10 @@
 					<input type="password" class="form-control loginInput" name="password" >
 	 			</div>
 	 			<div class="form-group add-ons">
-	 				<span>Forgot ID ?</span>
-	 				<span>Forgot Password ?</span>
+	 				<span><a href="#">Forgot ID ?</a></span>
+	 				<span><a href="#">Forgot Password ?</a></span>
 	 				<span>
-		 				<input type="checkbox" name="remember">아이디 저장</input>
+		 				<input type="checkbox" name="remember"> 아이디 저장</input>
 	 				</span>
 	 			</div>
 				<div class="form-group loginButton">
