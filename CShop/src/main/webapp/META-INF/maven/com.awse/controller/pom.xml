@@ -200,7 +200,7 @@
 			<artifactId>thumbnailator</artifactId>
 			<version>0.4.13</version>
 		</dependency>
-		
+		<!-- AWS S3 -->
 	    <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
@@ -211,6 +211,19 @@
 		  <groupId>com.amazonaws</groupId>
 		  <artifactId>aws-java-sdk-s3</artifactId>
 		  <version>1.11.699</version>
+		</dependency>
+		<!-- Java Mail API -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+	 		<version>${org.springframework-version}</version>
 		</dependency>
 	</dependencies>
 	<build>
