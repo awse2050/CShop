@@ -80,4 +80,30 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberMapper.verifyMember(vo);
 	}
+	
+	@Override
+	@Transactional
+	public String modifyPassword(MemberVO vo) {
+		log.warn("Modify Password By VO : " + vo);
+		
+		String modifyPw = getRandomPassword();
+		vo.setPassword(encoder.encode(modifyPw));
+		
+		memberMapper.modifyPassword(vo);
+		return modifyPw;
+	}
+	
+	private String getRandomPassword() {
+		log.warn("create Random Password...");
+		StringBuffer str = new StringBuffer(10);
+		
+		for(int i=0; i<str.capacity(); i++) {
+			int r = (int)(Math.random() * (str.capacity()-1));
+			str.append(r);
+		}
+		log.warn(str);
+		
+		return str.toString();
+	}
+	
 }

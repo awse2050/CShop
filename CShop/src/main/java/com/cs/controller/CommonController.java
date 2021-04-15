@@ -49,6 +49,11 @@ public class CommonController {
 		log.info("find Id Page...");
 	}
 	
+	@GetMapping("/findPW")
+	public void findPwPage() {
+		log.info("find PW Page...");
+	}
+	
 	@GetMapping("/accessError") 
 	public void aceessError(Authentication auth) {
 		log.info("error page ..");
@@ -119,7 +124,7 @@ public class CommonController {
 	
 	@GetMapping(value = "/verifyId/{username}/{email:.+}")
 	@ResponseBody
-	public ResponseEntity<String> verifyMember(@PathVariable("username")String username,
+	public ResponseEntity<String> verifyByUsernameWithEmail(@PathVariable("username")String username,
 												@PathVariable("email")String email) {
 		MemberVO member = memberService.verifyMember(new MemberVO(username, email));
 		log.info(member);
@@ -133,7 +138,24 @@ public class CommonController {
 		}
 		
 		return null;
+	}
+
+	@GetMapping(value = "/verifyPw/{userid}/{username}/{email:.+}")
+	@ResponseBody
+	public ResponseEntity<String> verifyMember(@PathVariable("userid")String userid, 
+												@PathVariable("username")String username,
+												@PathVariable("email")String email) {
+		log.info(userid + "," + username + "," + email);
 		
+		MemberVO member = memberService.verifyMember(new MemberVO(userid, username, email));
+		boolean verify = Objects.nonNull(member);
+		log.info(verify);
+		
+		if(verify) {
+			sendEmailWhenLookingForPw(member);
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		}
+		return null;
 	}
 	
 	private void sendEmailWhenLookingForId(MemberVO member) {
@@ -144,6 +166,18 @@ public class CommonController {
 		email.setText("귀하의 아이디는 \""+member.getUserid()+"\" 입니다.");
 		
 		emailSendService.sendEmailToUser(email);
+	}
+	
+	private void sendEmailWhenLookingForPw(MemberVO member) {
+		String modifyPw = memberService.modifyPassword(member);
+		
+		EmailForm email = new EmailForm();
+		email.setTo(member.getEmail());
+		email.setSubject("안녕하세요 CShop 입니다!");
+		email.setText(member.getUsername()+"님이 요청하신 아이디의 변경된 임시 비밀번호는  \""+modifyPw+"\" 입니다.");
+		
+		emailSendService.sendEmailToUser(email);
+		
 	}
 	
 }

@@ -7,15 +7,15 @@
 	<div class="container">
 		<div class="row">
 			<div class="bodyHeader">
-				<div class="header-title">아이디 찾기</div>
+				<div class="header-title">비밀번호 찾기</div>
 				<div class="header-location" >
-						HOME > 아이디 찾기
+						HOME > 비밀번호 찾기
 				</div>
 			</div>
  			<div class="findWrap">
 				<div class="findForm-title">
-					<h2>아이디 찾기</h2>
-					<span >아이디를 찾으시려면 아래 내용을 제출하여 주세요.</span>
+					<h2>비밀번호 찾기</h2>
+					<span >비밀번호를 찾으시려면 아래 내용을 제출하여 주세요.</span>
 				</div>
 				<form class="findForm" >
 					<fieldset class="findField">
@@ -23,6 +23,12 @@
 							<dt>사용자 이름</dt>
 							<dd>
 								<input type="text" name="username" style="border: 1px solid #c8c8c8; height: 25px;">
+							</dd>
+						</dl>
+						<dl>
+							<dt>아이디</dt>
+							<dd>
+								<input type="text" name="userid" style="border: 1px solid #c8c8c8; height: 25px;">
 							</dd>
 						</dl>
 						<dl>
@@ -61,23 +67,22 @@
 		confirm.on("click", function(e) {
 			e.preventDefault();
 			
+			var userid = findForm.find("input[name='userid']").val();
 			var username = findForm.find("input[name='username']").val();
 			var email = findForm.find("input[name='email']").val();
 			
-			$.get("/verifyId/"+username+"/"+email, function(result) {
+			$.get("/verifyPw/"+userid+"/"+username+"/"+email, function(result) {
 				if(result) {
-					alert("입력하신 이메일로 아이디를 발송했습니다.");
+					alert("등록하신 이메일로 변경된 비밀번호를 발송했습니다.");
 					self.location = "/index";
 				} else {
-					alert("가입되지 않은 회원입니다.");
+					alert("잘못 입력하였습니다. 정확하게 입력하세요.");
 				}
-			})
-			
+			});
 		});
 		
 		cancel.on("click", function(e) {
 			e.preventDefault();
-			
 			self.location = "/index";
 		});
 	});

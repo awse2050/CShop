@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cs.domain.AuthVO;
 import com.cs.domain.MemberVO;
+import com.ctc.wstx.sw.SimpleNsStreamWriter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -145,5 +146,27 @@ public class MemberMapperTests {
 		
 		log.info(mapper.verifyMember(vo));
 	}
-
+	
+	@Test
+	public void modifyPasswordTest() {
+		MemberVO vo = new MemberVO();
+		StringBuffer str = new StringBuffer(10);
+		
+		for(int i=0; i<str.capacity(); i++) {
+			int r = (int)(Math.random() * (str.capacity()-1));
+			str.append(r);
+		}
+		log.info(str);
+		
+		vo.setPassword(encoder.encode(str.toString()));
+		vo.setUserid("hide");
+		
+		mapper.modifyPassword(vo);
+	}
+	
+	@Test
+	public void getTest() {
+		MemberVO vo = mapper.read("hide");
+		log.info(encoder.matches("5613851168", vo.getPassword()));
+	}
 }
