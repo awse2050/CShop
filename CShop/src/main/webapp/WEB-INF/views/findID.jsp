@@ -32,7 +32,7 @@
 							</dd>
 						</dl>
 					</fieldset>
-					<div class="findWrap-button" >
+					<div class="findWrap-button">
 						<button class="findId-btn" id="confirm">확인</button>
 						<button class="findId-btn2" id="cancel">취소</button>
 					</div>
@@ -46,6 +46,43 @@
 
 	$(document).ready(function() {
 		
+		var csrfHeaderName = "${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}";
+		
+		// Security 적용시 ajax 통신에 추가설정필요
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		});	
+		
+		var findForm = $(".findForm");
+		var confirm = $("#confirm");
+		var cancel = $("#cancel");
+		
+		confirm.on("click", function(e) {
+			e.preventDefault();
+			
+			console.log("confirm click");
+			var username = findForm.find("input[name='username']").val();
+			var email = findForm.find("input[name='email']").val();
+			
+			$.get("/verifyId/"+username+"/"+email, function(result) {
+				if(result) {
+					alert("입력하신 이메일로 아이디를 발송했습니다.");
+					self.location = "/index";
+				} else {
+					alert("가입되지 않은 회원입니다.");
+				}
+			})
+			
+		});
+		
+		cancel.on("click", function(e) {
+			e.preventDefault();
+			
+			console.log("cancel click");
+			
+			self.location = "/index";
+		});
 	});
 
 </script>

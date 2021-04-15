@@ -23,4 +23,15 @@ public class MemberVO {
 	private String nickname, email, phone;
 	// 주소
 	private String postcode, roadAddress, detailsAddress;
+	
+	public MemberVO(String username, String email) {
+		this.username = username;
+		this.email = email;
+	}
+	
+	public MemberVO(String userid, String username, String email) {
+		this.userid = userid;
+		this.username = username;
+		this.email = email;
+	}
 }
