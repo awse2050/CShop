@@ -26,7 +26,7 @@ public class EmailSendServiceTests {
 		emailForm.setSubject("안녕하세요?");
 		emailForm.setText("반가워요!!");
 		
-		log.info(service.sendEmailToUser(emailForm));
+		service.sendEmailToUser(emailForm);
 	}
 
 }

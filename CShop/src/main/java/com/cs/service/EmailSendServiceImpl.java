@@ -20,7 +20,7 @@ public class EmailSendServiceImpl implements EmailSendService {
 	private final JavaMailSender mailSender;
 	
 	@Override
-	public boolean sendEmailToUser(EmailForm emailForm) {
+	public void sendEmailToUser(EmailForm emailForm) {
 		log.warn("Send To Email is : " + emailForm.getTo());
 		
 		MimeMessage message = mailSender.createMimeMessage();
@@ -35,10 +35,8 @@ public class EmailSendServiceImpl implements EmailSendService {
 	        
 	        log.warn("Email Send Complete..");
 	        
-	        return true;
 		} catch (MessagingException e) {
 			e.printStackTrace();
-			return false;
 		}
 	}
 	
