@@ -73,7 +73,6 @@ public class S3UploadServiceImpl implements S3UploadService {
 		log.warn("path... : " + path);
 		 DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucketName, path);
          //Delete
-		 log.warn(deleteObjectRequest);
          awsS3.getS3Client().deleteObject(deleteObjectRequest);
 	}
 

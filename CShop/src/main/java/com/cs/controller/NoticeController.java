@@ -103,7 +103,6 @@ public class NoticeController {
 		boolean result = service.remove(nno);
 		
 		if(result) {
-			deleteFiles(service.getAttachList(nno));
 			
 			rttr.addAttribute("pageNum", cri.getPageNum());
 			rttr.addAttribute("amount", cri.getAmount());
@@ -123,34 +122,5 @@ public class NoticeController {
 		log.info("nno : " + nno);
 		
 		return new ResponseEntity<List<NoticeAttachVO>> ( service.getAttachList(nno), HttpStatus.OK );
-	}
-	
-	// 첨부파일 삭제
-	private void deleteFiles(List<NoticeAttachVO> attachList) {
-	
-		if(attachList == null || attachList.size() == 0) {
-			return;
-		}
-		
-		log.info("delete Files...");
-		log.info(attachList);
-		
-		attachList.forEach( attach -> {
-				
-			try {
-				File file = new File("c:\\upload\\"+attach.getUploadPath()+ "\\"+ attach.getUuid()+"_"+attach.getFileName());
-				
-				file.delete();
-				
-				if(Files.probeContentType(file.toPath()).startsWith("image")) {
-					file = new File("c:\\upload\\"+attach.getUploadPath()+ "\\s_"+ attach.getUuid()+"_"+attach.getFileName());
-					
-					file.delete();
-				}
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
 	}
 }
