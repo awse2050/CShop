@@ -229,21 +229,24 @@
 	padding: 6px 25px;
 }
 
-.admin_cat::after {
-	content: "";
-	display: block;
-	width: 75px;
-	height: 100%;
-	position: absolute;
-	right: 50px;
-	top: 0px;
+.admin_cat {
+	position: relative; 
+	display: inline-block; 
+	line-height: 104px; 
+	width: 48%; 
+	padding-left: 50px; 
+	font-size: 15px; 
+	font-weight: 700;
+	border-left: 1px solid #e8e8e8;
 }
 
-.admin_cat 01::after {
-	background: url("https://search.pstatic.net/sunny/?src=https%3A%2F%2Fmedia.istockphoto.com%2Fvectors%2Fflat-vector-golden-icon-of-american-dollar-coin-vector-id1064319426%3Fk%3D6%26m%3D1064319426%26s%3D170667a%26w%3D0%26h%3DP6vGOkpvv2bEjmPfYMRaoS8pez7Ag8gNuYD076_mL2A%3D&type=sc960_832") no-repeat center center;
-}
-.admin_cat 02::after {
-	background: url("https://search.pstatic.net/sunny/?src=https%3A%2F%2Fmedia.istockphoto.com%2Fvectors%2Fflat-vector-golden-icon-of-american-dollar-coin-vector-id1064319426%3Fk%3D6%26m%3D1064319426%26s%3D170667a%26w%3D0%26h%3DP6vGOkpvv2bEjmPfYMRaoS8pez7Ag8gNuYD076_mL2A%3D&type=sc960_832") no-repeat center center;
+.admin_cat > img {
+	display: block;
+	width: 75px;
+	height: 80%;
+	position: absolute;
+	right: 50px;
+	top: 10px;">
 }
 
 .add-ons, .idForm, .passwordForm>div {

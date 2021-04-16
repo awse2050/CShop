@@ -10,8 +10,8 @@
 			<div class="bodyRow">
 				<header style="width:100%; border:1px solid #ccc; height:135px;">
 					<div class="profile">
-						<div class="profile_img" style="width: 75px; height: 75px; float: left;">
-							<!-- img -->
+						<div class="profile_img" style="width: 75px; height: 75px; margin: 30px 30px 0; float: left;">
+							<img src='/resources/images/noimage.png' style="width: 100%;">
 						</div>
 						<div class="profile_text" style="margin-top:30px; float: left;">
 							<p style="font-size:18px; color: #000; magrin-bottom: 10px;">
@@ -33,11 +33,13 @@
 				<h2><i class="fas fa-user-check"></i>판매</h2>
 				<section style="border: 3px solid #e8e8e8; width: 100%;">
 					<!-- css에서 배경이미지 추후 넣을 것. -->
-					<a href="/mypage/goods" class="admin_cat 01" style="position: relative; display: inline-block; line-height: 104px; width:48%; padding-left: 50px; font-size: 15px; font-weight: 700;">
+					<a href="/mypage/goods" class="admin_cat 01">
 						판매관리
+						<img src="/resources/images/sale.png">
 					</a>
-					<a href="/message/receive/list" class="admin_cat 02" style="position: relative; display: inline-block; line-height: 104px; width:48%; padding-left: 50px; font-size: 15px; font-weight: 700;">
+					<a href="/message/receive/list" class="admin_cat 02">
 						메세지 관리
+						<img src="/resources/images/message.png">
 					</a>
 				</section>
 			</div>

@@ -116,4 +116,10 @@ public class MemberServiceTests {
 		
 		log.info(service.verifyMember(vo));
 	}
+	
+	@Test
+	public void test() {
+		MemberVO vo = service.getByUserId("hide");
+		log.info(vo.getPassword().length());
+	}
 }
