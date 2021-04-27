@@ -39,9 +39,10 @@ public class CommonController {
 	
 	private final EmailSendService emailSendService;
 	
-	@GetMapping("/index")
-	public void index() {
+	@GetMapping({"/","/index"})
+	public String index() {
 		log.info("index page...");
+		return "index";
 	}
 	
 	@GetMapping("/findID")
@@ -65,18 +66,23 @@ public class CommonController {
 	public void loginPage(String error, String logout, HttpServletRequest request, Model model) {
 
 		String saveUri = null;
-		
 		log.info("login page...");
 		
-		if(error != null || logout != null) {
+		if(error != null) {
 			log.info("login error ... : " + error);
-			log.info("logout.... : "  + logout);
+			if(Objects.isNull(memberService.getByUserId(request.getParameter("username")))) {
+				
+			}
 			saveUri = "http://localhost:8080/index";
+			model.addAttribute("error", error);
+		} else if(logout != null) {
+			log.info("logout.... : "  + logout);
 		} else {
 			saveUri = request.getHeader("referer");
 		}
 		
 		log.info("save Uri : " + saveUri);
+		log.info(request.getAttribute("errorMsg"));
 		
 		model.addAttribute("referer", saveUri );
 	}

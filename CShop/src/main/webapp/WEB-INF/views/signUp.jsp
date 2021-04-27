@@ -92,7 +92,6 @@
 			</div>
 			</form>
 		</div>
-		<button id="but">테스트</button>	
 	</div>
 </section>	
 		

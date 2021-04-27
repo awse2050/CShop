@@ -43,6 +43,9 @@
 	
 		var signUpBtn = $("#joinUs");
 		
+		var errormsg = ${errorMsg}
+		
+				
 		signUpBtn.on("click", function(e) {
 			e.preventDefault();
 		
