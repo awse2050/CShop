@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,8 @@ public class CommonController {
 	private final MemberService memberService;
 	
 	private final EmailSendService emailSendService;
+	
+	private final PasswordEncoder encoder;
 	
 	@GetMapping({"/","/index"})
 	public String index() {
@@ -66,24 +69,20 @@ public class CommonController {
 	public void loginPage(String error, String logout, HttpServletRequest request, Model model) {
 
 		String saveUri = null;
+		String errorMsg = null;
 		log.info("login page...");
 		
 		if(error != null) {
 			log.info("login error ... : " + error);
-			if(Objects.isNull(memberService.getByUserId(request.getParameter("username")))) {
-				
-			}
+			errorMsg = "로그인 정보를 다시 입력해 주세요.";
+			
 			saveUri = "http://localhost:8080/index";
-			model.addAttribute("error", error);
-		} else if(logout != null) {
-			log.info("logout.... : "  + logout);
 		} else {
 			saveUri = request.getHeader("referer");
 		}
 		
 		log.info("save Uri : " + saveUri);
-		log.info(request.getAttribute("errorMsg"));
-		
+		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("referer", saveUri );
 	}
 	
